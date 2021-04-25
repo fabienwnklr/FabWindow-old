@@ -31,22 +31,25 @@ export class FabModal {
 
     // Binding
     this._removeClassEffect = this._removeClassEffect.bind(this);
-    this.buildStyle = this.buildStyle.bind(this);
+    this._buildStyle = this._buildStyle.bind(this);
     this.close = this.close.bind(this);
     this.hide = this.hide.bind(this);
     this.setContent = this.setContent.bind(this);
     this.show = this.show.bind(this);
-    this.initHandlers = this.initHandlers.bind(this);
+    this._initHandlers = this._initHandlers.bind(this);
     this.destroy = this.destroy.bind(this);
+    this.safeDestroy = this.safeDestroy.bind(this);
 
     // Creating modal
     this.createModal();
     // Then insert modal into DOM
     this.$bodyElement?.appendChild(this.$el);
-    this.buildStyle();
-    this.initHandlers();
+    this._buildStyle();
+    this._initHandlers();
     this.show();
   }
+
+  // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
 
   /**
    * @function
@@ -64,6 +67,7 @@ export class FabModal {
       height: "auto",
       maximizable: false,
       minimizable: false,
+      destroyOnClose: false,
       title: "",
       // Custom | default content
       loader: '<div class="loader"></div>',
@@ -80,57 +84,34 @@ export class FabModal {
     };
   }
 
-  /**
-   * Create all node elements of modal
-   * @function
-   * @returns {FabModal} Modal node element
-   * @note Useless to call this function without calling instance new FabModal()
-   */
-  createModal() {
-    const fullScreen = this.isFullScreen ? " fullScreen" : "";
-
-    this.$el = document.createElement("div");
-    this.$el.className = `fab-modal ${this.options.effects.in} ${fullScreen}`;
-    this.$el.id = this.options.id;
-
-    this.$header = document.createElement("div");
-    this.$header.className = "fab-header";
-    this.$el.appendChild(this.$header);
-
-    this.$title = document.createElement("h1");
-    this.$title.className = "fab-title";
-    this.$title.innerHTML = this.options.title;
-    this.$header.appendChild(this.$title);
-
-    this.$icons = document.createElement("div");
-    this.$icons.className = "fab-icons";
-    this.$header.appendChild(this.$icons);
-
-    if (this.options.maximizable) {
-      this.$maximize = document.createElement("button");
-      this.$maximize.className = "maximize";
-      this.$maximize.title = "Agrandir";
-      this.$icons.appendChild(this.$maximize);
-    }
-
-    this.$close = document.createElement("button");
-    this.$close.className = "close";
-    this.$close.title = "Fermer";
-    this.$close.textContent = "Fermer";
-    this.$icons.appendChild(this.$close);
-
-    this.$body = document.createElement("div");
-    this.$body.className = "fab-content fade-in";
-
-    this.$el.appendChild(this.$body);
+  get title() {
+    return this.$title.textContent;
   }
+
+  set title(title: string | null) {
+    this.$title.textContent = title;
+  }
+
+  get content() {
+    return this.$body.textContent;
+  }
+
+  set content(content: string | null) {
+    this.$body.textContent = content;
+  }
+
+  // ## ----------------------------END GETTERS / SETTERS ---------------------------- ## \\
+
+  // ______________________________________________________________________________________ \\
+
+  // ## ----------------------------START PRIVATE FUNCTION---------------------------- ## \\
 
   /**
    * Build FabModal CSS
    * @function
    * @ignore
    */
-  buildStyle() {
+  private _buildStyle() {
     if (document.querySelector("#fab-style") !== null) return;
 
     const width =
@@ -705,8 +686,77 @@ export class FabModal {
     document.querySelector("head")?.append(this.$style);
   }
 
+  private _removeClassEffect() {
+    this.$el.classList.remove(this.options.effects.in);
+    this.$el.classList.remove(this.options.effects.out);
+    this.$el.removeEventListener("animationend", this._removeClassEffect);
+  }
+
   /**
-   * show curernt modal
+   * Init handler events
+   * @function
+   * @ignore
+   */
+  private _initHandlers() {
+    this.$el.removeEventListener("animationend", this._removeClassEffect);
+    this.$el.addEventListener("animationend", this._removeClassEffect);
+
+    this.$close.removeEventListener("click", this.close);
+    this.$close.addEventListener("click", this.close);
+  }
+
+  // ## ----------------------------END OF PRIVATE FUNCTION---------------------------- ## \\
+
+  // ______________________________________________________________________________________ \\
+
+  // ## ----------------------------START PUBLIC FUNCTION---------------------------- ## \\
+  /**
+   * Create all node elements of modal
+   * @function
+   * @returns {FabModal} Modal node element
+   * @note Useless to call this function without calling instance new FabModal()
+   */
+  createModal() {
+    const fullScreen = this.isFullScreen ? " fullScreen" : "";
+
+    this.$el = document.createElement("div");
+    this.$el.className = `fab-modal ${this.options.effects.in} ${fullScreen}`;
+    this.$el.id = this.options.id;
+
+    this.$header = document.createElement("div");
+    this.$header.className = "fab-header";
+    this.$el.appendChild(this.$header);
+
+    this.$title = document.createElement("h1");
+    this.$title.className = "fab-title";
+    this.$title.innerHTML = this.options.title;
+    this.$header.appendChild(this.$title);
+
+    this.$icons = document.createElement("div");
+    this.$icons.className = "fab-icons";
+    this.$header.appendChild(this.$icons);
+
+    if (this.options.maximizable) {
+      this.$maximize = document.createElement("button");
+      this.$maximize.className = "maximize";
+      this.$maximize.title = "Agrandir";
+      this.$icons.appendChild(this.$maximize);
+    }
+
+    this.$close = document.createElement("button");
+    this.$close.className = "close";
+    this.$close.title = "Fermer";
+    this.$close.textContent = "Fermer";
+    this.$icons.appendChild(this.$close);
+
+    this.$body = document.createElement("div");
+    this.$body.className = "fab-content fade-in";
+
+    this.$el.appendChild(this.$body);
+  }
+
+  /**
+   * show current modal
    * @function
    */
   show() {
@@ -735,30 +785,41 @@ export class FabModal {
   /**
    * set body content of modal
    * @function
-   * @param {string | null} content
+   * @param {string} content
    */
   setContent(content: string) {
     this.$body.innerHTML = content;
   }
 
-  initHandlers() {
-    this.$el.addEventListener("animationend", this._removeClassEffect);
-
-    this.$close.addEventListener("click", this.close);
-  }
-
+  /**
+   * Closing modal
+   * @function
+   */
   close() {
-    this.$el.addEventListener("animationend", this.destroy);
+    if (this.options.destroyOnClose === true) {
+      this.$el.addEventListener("animationend", this.destroy);
+    } else {
+      this.$el.addEventListener("animationend", this.safeDestroy);
+    }
     this.$el.style.opacity = "";
     this.$el.classList.add("fade-out");
   }
 
+  /**
+   * Removing modal from DOM, you cannot retrieve modal after this
+   * @function
+   */
   destroy() {
     this.$el.remove();
   }
 
-  _removeClassEffect() {
-    this.$el.classList.remove(this.options.effects.in);
-    this.$el.removeEventListener("animationend", this._removeClassEffect);
+  /**
+   * Only hidding modal in the DOM you can re-display modal after with function show
+   * @function
+   */
+  safeDestroy() {
+    this.$el.style.display = "none";
+    this.$el.classList.remove(this.options.effects.out);
+    this.$el.removeEventListener("animationend", this.safeDestroy);
   }
 }

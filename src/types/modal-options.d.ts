@@ -9,6 +9,7 @@ export interface ModalOptions {
   height: string | number;
   maximizable: boolean;
   minimizable: boolean;
+  destroyOnClose: boolean;
   title: string;
   loader: string;
   content: string;
