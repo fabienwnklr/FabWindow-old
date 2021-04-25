@@ -31,13 +31,16 @@ const myModal = new FabModal(options);
 
 - Using es5
 
-```javascript
+```html
+<!-- Insert js -->
 <script src="path/to/FabModalManager.js">
-// or
+<!-- or -->
 <script src="path/to/FabModal.js">
+```
 
-const myModalManager = new FabModalManager(options)
-const myModal = myModalManager.createModal(options)
+```javascript
+const myModalManager = new FabModalManager(options);
+const myModal = myModalManager.createModal(options);
 // or
-const myModal = new FabModal(options)
+const myModal = new FabModal(options);
 ```
