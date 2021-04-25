@@ -1,3 +1,4 @@
+// Types
 import { ModalOptions } from "../types/modal-options";
 
 export class FabModal {
