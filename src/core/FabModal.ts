@@ -35,7 +35,6 @@ export class FabModal {
     this._buildStyle = this._buildStyle.bind(this);
     this.close = this.close.bind(this);
     this.hide = this.hide.bind(this);
-    this.setContent = this.setContent.bind(this);
     this.show = this.show.bind(this);
     this._initHandlers = this._initHandlers.bind(this);
     this.destroy = this.destroy.bind(this);
@@ -53,8 +52,8 @@ export class FabModal {
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
 
   /**
-   * @function
-   * @returns {object} Returns default object of options;
+   * @getter
+   * @returns {ModalOptions} Returns default object of options;
    */
   get defaultOptions() {
     return {
@@ -85,18 +84,30 @@ export class FabModal {
     };
   }
 
+  /**
+   * @getter get title of modal
+   */
   get title() {
     return this.$title.textContent;
   }
 
+  /**
+   * @setter Set title of modal
+   */
   set title(title: string | null) {
     this.$title.textContent = title;
   }
 
+  /**
+   * @getter Get body content of modal
+   */
   get content() {
     return this.$body.textContent;
   }
 
+  /**
+   * @setter Get body content of modal
+   */
   set content(content: string | null) {
     this.$body.textContent = content;
   }
@@ -781,15 +792,6 @@ export class FabModal {
     if (typeof this.options.onHide === "function") {
       this.options.onHide(this);
     }
-  }
-
-  /**
-   * set body content of modal
-   * @function
-   * @param {string} content
-   */
-  setContent(content: string) {
-    this.$body.innerHTML = content;
   }
 
   /**
