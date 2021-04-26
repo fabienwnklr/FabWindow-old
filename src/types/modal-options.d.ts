@@ -11,9 +11,8 @@ export interface ModalOptions {
   minimizable: boolean;
   destroyOnClose: boolean;
   title: string;
-  loader: string;
   content: string;
-  onFullscreen: Function | null;
+  onFullScreen: Function | null;
   onRestore: Function | null;
   onResize: Function | null;
   onShow: Function | null;
