@@ -4,8 +4,9 @@ import { ModalOptions } from "../types/modal-options";
 export class FabModal {
   public options: ModalOptions;
   public isFullScreen: boolean;
+  public oldContent: string;
   // Html elements
-  public $bodyElement: HTMLBodyElement | null = null;
+  public $bodyElement: HTMLElement;
   // Modal html elements
   public $el: HTMLDivElement;
   public $header: HTMLDivElement;
@@ -14,6 +15,7 @@ export class FabModal {
   public $maximize: HTMLButtonElement;
   public $close: HTMLButtonElement;
   public $body: HTMLDivElement;
+  public $loader: HTMLDivElement;
 
   private $style: HTMLStyleElement;
 
@@ -28,7 +30,8 @@ export class FabModal {
       this.options = { ...this.defaultOptions, ...options };
     }
     this.isFullScreen = false;
-    this.$bodyElement = document.querySelector("body");
+    this.oldContent = "";
+    this.$bodyElement = document.body;
 
     // Binding
     this._removeClassEffect = this._removeClassEffect.bind(this);
@@ -70,10 +73,9 @@ export class FabModal {
       destroyOnClose: false,
       title: "",
       // Custom | default content
-      loader: '<div class="loader"></div>',
-      content: '<div class="loader"></div>',
+      content: "",
       // function
-      onFullscreen: null,
+      onFullScreen: null,
       onRestore: null,
       onResize: null,
       onShow: null,
@@ -109,7 +111,12 @@ export class FabModal {
    * @setter Get body content of modal
    */
   set content(content: string | null) {
-    this.$body.textContent = content;
+    if (content !== "" && typeof content === "string") {
+      const isLoader =
+        this.$body.outerHTML !== this.$loader.outerHTML ? false : true;
+      this.oldContent = !isLoader ? this.$body.innerHTML : "";
+      this.$body.innerHTML = content;
+    }
   }
 
   // ## ----------------------------END GETTERS / SETTERS ---------------------------- ## \\
@@ -543,26 +550,30 @@ export class FabModal {
       z-index: 1;
       }
       .fab-modal .fab-modal-progress-bar div {
-      height: 4px;
-      background-color: #fff;
+        height: 4px;
+        background-color: #fff;
       }
       .fab-modal.fullScreen {
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100% !important;
-      max-width: 100% !important;
-      max-height: 100% !important;
-      border-radius: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        border-radius: 0;
+        transform: unset;
       }
       .fab-modal.fullScreen .fab-header {
       border-radius: 0;
       }
       .fab-modal.fullScreen .fab-header.fab-icons.maximize {
-      background: url(../icon/minus.svg);
+        background: url(../icon/minus.svg);
       }
       .fab-modal.fullScreen .fab-content {
-      max-width: 100% !important;
+        height: 100%!important;
+        max-width: 100% !important;
       }
       .fab-modal .active {
       z-index: 1000;
@@ -764,7 +775,32 @@ export class FabModal {
     this.$body = document.createElement("div");
     this.$body.className = "fab-content fade-in";
 
+    this.$loader = document.createElement("div");
+    this.$loader.classList.add("loader");
+
+    if (
+      this.options.content === "" ||
+      typeof this.options.content !== "string"
+    ) {
+      this.$body.appendChild(this.$loader);
+    } else {
+      this.$body.innerHTML = this.options.content;
+    }
+
     this.$el.appendChild(this.$body);
+  }
+
+  startLoader() {
+    if (this.content === this.$loader.outerHTML) return;
+    this.content = this.$loader.outerHTML;
+  }
+
+  stopLoader() {
+    this.$loader.remove();
+  }
+
+  restoreOldContent() {
+    if (this.oldContent !== "") this.$body.innerHTML = this.oldContent;
   }
 
   /**
@@ -794,6 +830,30 @@ export class FabModal {
     }
   }
 
+  toggleFullScreen() {
+    if (this.isFullScreen) {
+      this.isFullScreen = false;
+      this.$bodyElement!.style.overflow = "auto";
+      this.$el.classList.remove("fullScreen");
+      // this.$maximize.title = "Agrandir";
+
+      this.$el.dispatchEvent(new CustomEvent("restore"));
+      if (typeof this.options.onRestore === "function") {
+        this.options.onRestore(this);
+      }
+    } else {
+      this.isFullScreen = true;
+      this.$bodyElement.style.overflow = "hidden";
+      this.$el.classList.add("fullScreen");
+      // this.$maximize.title = "Réstaurer";
+
+      this.$el.dispatchEvent(new CustomEvent("fullScreen"));
+      if (typeof this.options.onFullScreen === "function") {
+        this.options.onFullScreen(this);
+      }
+    }
+  }
+
   /**
    * Closing modal
    * @function
@@ -813,6 +873,7 @@ export class FabModal {
    * @function
    */
   destroy() {
+    this.$el.dispatchEvent(new CustomEvent("close"));
     this.$el.remove();
   }
 
@@ -821,6 +882,7 @@ export class FabModal {
    * @function
    */
   safeDestroy() {
+    this.$el.dispatchEvent(new CustomEvent("safeClose"));
     this.$el.style.display = "none";
     this.$el.classList.remove(this.options.effects.out);
     this.$el.removeEventListener("animationend", this.safeDestroy);
