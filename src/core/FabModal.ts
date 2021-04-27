@@ -1,5 +1,6 @@
 // Types
 import { ModalOptions } from "../types/modal-options";
+import { Utils } from "../utils";
 
 export class FabModal {
   public options: ModalOptions;
@@ -19,6 +20,9 @@ export class FabModal {
 
   private $style: HTMLStyleElement;
 
+  private disX: number;
+  private disY: number;
+
   /**
    *
    * @param {object} options object of options (see defaultOptions function)
@@ -29,6 +33,8 @@ export class FabModal {
     } else {
       this.options = { ...this.defaultOptions, ...options };
     }
+    this.disX = 0;
+    this.disY = 0;
     this.isFullScreen = false;
     this.oldContent = "";
     this.$bodyElement = document.body;
@@ -68,6 +74,7 @@ export class FabModal {
       zIndex: 9999,
       width: "800px",
       height: "auto",
+      draggable: true,
       maximizable: false,
       minimizable: false,
       destroyOnClose: true,
@@ -562,7 +569,10 @@ export class FabModal {
         border-bottom: 3px solid #415f8b;
         font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
           "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-        transition: all 0.2s ease;
+        transition: width, height 0.2s ease;
+      }
+      .fab-modal.draggable .fab-header  {
+        cursor: grabbing
       }
       .fab-modal .fab-modal-progress-bar {
         position: absolute;
@@ -732,6 +742,11 @@ export class FabModal {
     document.querySelector("head")?.append(this.$style);
   }
 
+  /**
+   * Removing class effect
+   * @function
+   * @ignore
+   */
   private _removeClassEffect() {
     this.$el.classList.remove(this.options.effects.in);
     this.$el.classList.remove(this.options.effects.out);
@@ -744,11 +759,38 @@ export class FabModal {
    * @ignore
    */
   private _initHandlers() {
+    if (this.options.draggable && !Utils.isMobile()) {
+      this.$el.classList.add("draggable");
+      this._initDrag();
+    }
+
     this.$el.removeEventListener("animationend", this._removeClassEffect);
     this.$el.addEventListener("animationend", this._removeClassEffect);
 
     this.$close.removeEventListener("click", this.close);
     this.$close.addEventListener("click", this.close);
+  }
+
+  private _initDrag() {
+    this.$el.onmousedown = (ev) => {
+      this.disX = ev.clientX - this.$el.offsetLeft;
+      this.disY = ev.clientY - this.$el.offsetTop;
+
+      document.onmousemove = this._fnMove.bind(this);
+      document.onmouseup = this._fnUp.bind(this);
+
+      return false;
+    };
+  }
+
+  private _fnMove(ev: MouseEvent) {
+    this.$el.style.left = ev.clientX - this.disX + "px";
+    this.$el.style.top = ev.clientY - this.disY + "px";
+  }
+
+  private _fnUp() {
+    document.onmousemove = null;
+    document.onmouseup = null;
   }
 
   // ## ----------------------------END OF PRIVATE FUNCTION---------------------------- ## \\
