@@ -19,19 +19,19 @@ export class FabModal {
   public $loader: HTMLElement;
 
   private $style: HTMLStyleElement;
-
   private disX: number;
   private disY: number;
 
   /**
    *
-   * @param {object} options object of options (see defaultOptions function)
+   * @param {ModalOptions} options object of options
+   *  See : {@link FabModal.getDefaultOptions}
    */
   constructor(options?: ModalOptions) {
     if (!options || typeof options !== "object") {
-      this.options = this.defaultOptions;
+      this.options = this.getDefaultOptions();
     } else {
-      this.options = { ...this.defaultOptions, ...options };
+      this.options = { ...this.getDefaultOptions(), ...options };
     }
     this.disX = 0;
     this.disY = 0;
@@ -61,10 +61,10 @@ export class FabModal {
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
 
   /**
-   * @getter
+   * @function
    * @returns {ModalOptions} Returns default object of options;
    */
-  get defaultOptions() {
+  getDefaultOptions() {
     return {
       id: `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}`,
       effects: {
@@ -155,14 +155,14 @@ export class FabModal {
   private _buildStyle() {
     if (document.querySelector("#fab-style") !== null) return;
 
-    const width =
-      typeof this.options.width === "number"
-        ? `${this.options.width}px`
-        : this.options.width;
-    const height =
-      typeof this.options.height === "number"
-        ? `${this.options.height}px`
-        : this.options.height;
+    // const width =
+    //   typeof this.options.width === "number"
+    //     ? `${this.options.width}px`
+    //     : this.options.width;
+    // const height =
+    //   typeof this.options.height === "number"
+    //     ? `${this.options.height}px`
+    //     : this.options.height;
 
     // Building style
     this.$style = document.createElement("style");
@@ -856,15 +856,28 @@ export class FabModal {
     this.$el.appendChild(this.$body);
   }
 
+  /**
+   * Starting loader into modal
+   * @function
+   * @returns
+   */
   startLoader() {
     if (this.content === this.$loader.outerHTML) return;
     this.content = this.$loader.outerHTML;
   }
 
+  /**
+   * Stop loader into modal
+   * @function
+   * @returns
+   */
   stopLoader() {
     this.$loader.remove();
   }
 
+  /**
+   * Restore old content into modal (the one to save before set new content)
+   */
   restoreOldContent() {
     if (this.oldContent !== "") this.$body.innerHTML = this.oldContent;
   }
@@ -896,6 +909,10 @@ export class FabModal {
     }
   }
 
+  /**
+   * Toggle fullScreen
+   * @function
+   */
   toggleFullScreen() {
     if (this.isFullScreen) {
       this.isFullScreen = false;

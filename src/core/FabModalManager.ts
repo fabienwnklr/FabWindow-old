@@ -92,6 +92,7 @@ export class FabModalManager {
       }
     });
 
+    fabModalFocused.index = focusedModalIndex.toString();
     fabModalFocused.active = true;
     this.resortModal();
   }
