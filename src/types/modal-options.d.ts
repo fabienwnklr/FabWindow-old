@@ -1,5 +1,7 @@
 export interface ModalOptions {
   id: string;
+  title: string;
+  content: string;
   effects: {
     in: string;
     out: string;
@@ -11,8 +13,6 @@ export interface ModalOptions {
   minimizable: boolean;
   draggable: boolean;
   destroyOnClose: boolean;
-  title: string;
-  content: string;
   onFullScreen: Function | null;
   onRestore: Function | null;
   onResize: Function | null;

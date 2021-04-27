@@ -7,7 +7,7 @@ export class FabModal {
   public isFullScreen: boolean;
   public oldContent: string;
   // Html global elements
-  public $bodyElement: HTMLElement;
+  protected $bodyElement: HTMLElement;
   // Modal html elements
   public $el: HTMLElement;
   public $header: HTMLElement;
@@ -18,20 +18,42 @@ export class FabModal {
   public $body: HTMLElement;
   public $loader: HTMLElement;
 
+  /**@ignore */
   private $style: HTMLStyleElement;
+  /**@ignore */
   private disX: number;
+  /**@ignore */
   private disY: number;
 
   /**
-   *
-   * @param {ModalOptions} options object of options
-   *  See : {@link FabModal.getDefaultOptions}
+   * @param {ModalOptions} options
+   * @param {string} options.id Modal id
+   * @param {string} options.title Title of modal
+   * @param {boolean} options.content Content of modal
+   * @param {object} options.effect Object for in and out effect
+   * @param {string} options.effect.in Effect inside
+   * @param {string} options.effect.out Effet outside
+   * @param {number} options.zIndex Modal index
+   * @param {string | number} options.width Modal width
+   * @param {string | number} options.height Modal height
+   * @param {boolean} options.maximizable Add maximizable button
+   * @param {boolean} options.minimizable add minimizable button
+   * @param {boolean} options.draggable Set drag event to modal
+   * @param {boolean} options.destroyOnClose Destroying modal in DOM on close
+   * @param {Function} options.onFullScreen
+   * @param {Function} options.onRestore
+   * @param {Function} options.onResize
+   * @param {Function} options.onShow
+   * @param {Function} options.onHide
+   * @param {Function} options.beforeClose
+   * @param {Function} options.onClosing
+   * @param {Function} options.onClosed
    */
   constructor(options?: ModalOptions) {
     if (!options || typeof options !== "object") {
-      this.options = this.getDefaultOptions();
+      this.options = this.defaultOptions;
     } else {
-      this.options = { ...this.getDefaultOptions(), ...options };
+      this.options = { ...this.defaultOptions, ...options };
     }
     this.disX = 0;
     this.disY = 0;
@@ -64,7 +86,7 @@ export class FabModal {
    * @function
    * @returns {ModalOptions} Returns default object of options;
    */
-  getDefaultOptions() {
+  get defaultOptions() {
     return {
       id: `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}`,
       effects: {
@@ -771,6 +793,9 @@ export class FabModal {
     this.$close.addEventListener("click", this.close);
   }
 
+  /**
+   * @ignore
+   */
   private _initDrag() {
     this.$el.onmousedown = (ev) => {
       this.disX = ev.clientX - this.$el.offsetLeft;
@@ -783,11 +808,17 @@ export class FabModal {
     };
   }
 
+  /**
+   * @ignore
+   */
   private _fnMove(ev: MouseEvent) {
     this.$el.style.left = ev.clientX - this.disX + "px";
     this.$el.style.top = ev.clientY - this.disY + "px";
   }
 
+  /**
+   * @ignore
+   */
   private _fnUp() {
     document.onmousemove = null;
     document.onmouseup = null;
