@@ -2,6 +2,8 @@
 
 FabModal is a modal and modal management solution. FabModal provides the ability to create event driven modal based on light and modern styles.
 
+[Documentation](https://fabienwnklr.github.io/FabModal-2.0/)
+
 ## Installation
 
 Install FabModal with npm or yarn
