@@ -5,17 +5,17 @@ export class FabModal {
   public options: ModalOptions;
   public isFullScreen: boolean;
   public oldContent: string;
-  // Html elements
+  // Html global elements
   public $bodyElement: HTMLElement;
   // Modal html elements
-  public $el: HTMLDivElement;
-  public $header: HTMLDivElement;
-  public $title: HTMLDivElement;
-  public $icons: HTMLDivElement;
+  public $el: HTMLElement;
+  public $header: HTMLElement;
+  public $title: HTMLElement;
+  public $icons: HTMLElement;
   public $maximize: HTMLButtonElement;
   public $close: HTMLButtonElement;
-  public $body: HTMLDivElement;
-  public $loader: HTMLDivElement;
+  public $body: HTMLElement;
+  public $loader: HTMLElement;
 
   private $style: HTMLStyleElement;
 
@@ -70,7 +70,7 @@ export class FabModal {
       height: "auto",
       maximizable: false,
       minimizable: false,
-      destroyOnClose: false,
+      destroyOnClose: true,
       title: "",
       // Custom | default content
       content: "",
@@ -105,6 +105,21 @@ export class FabModal {
    */
   get content() {
     return this.$body.textContent;
+  }
+
+  set index(index: string) {
+    this.$el.style.zIndex = index + "px";
+  }
+
+  set active(active: boolean) {
+    if (active) {
+      this.$el.classList.add("active");
+
+      this.$el.dispatchEvent(new CustomEvent("active"));
+    } else {
+      this.$el.classList.remove("active");
+      this.$el.dispatchEvent(new CustomEvent("inactive"));
+    }
   }
 
   /**
@@ -528,6 +543,7 @@ export class FabModal {
         }
       }
       .fab-modal {
+        outline: none;
         opacity: 0;
         z-index: 9999;
         position: absolute;
@@ -750,6 +766,7 @@ export class FabModal {
     const fullScreen = this.isFullScreen ? " fullScreen" : "";
 
     this.$el = document.createElement("div");
+    this.$el.setAttribute("tabindex", "-1");
     this.$el.className = `fab-modal ${this.options.effects.in} ${fullScreen}`;
     this.$el.id = this.options.id;
 
@@ -866,6 +883,8 @@ export class FabModal {
    * @function
    */
   close() {
+    this.$el.dispatchEvent(new CustomEvent("close"));
+
     if (this.options.destroyOnClose === true) {
       this.$el.addEventListener("animationend", this.destroy);
     } else {

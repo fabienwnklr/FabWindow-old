@@ -1,4 +1,3 @@
-import "./style.css";
 import { FabModal } from "./core/FabModal";
 import { FabModalManager } from "./core/FabModalManager";
 
