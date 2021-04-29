@@ -1,0 +1,3 @@
+- FabModal add overlay for single modal and event with him
+- FabModal add ModalOptions.modalManager
+- FabModal can minimize only if have options modalManager
