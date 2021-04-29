@@ -10,4 +10,4 @@ declare global {
 }
 
 window.modalManager = new FabModalManager();
-// window.modal = new FabModal();
+window.modal = new FabModal({});
