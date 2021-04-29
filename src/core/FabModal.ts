@@ -26,29 +26,8 @@ export class FabModal {
   private disY: number;
 
   /**
-   * @param {ModalOptions} options
+   * Instance of FabModal
    * See : {@link FabModal.defaultOptions}
-   * @param {string} options.id Modal id
-   * @param {string} options.title Title of modal
-   * @param {boolean} options.content Content of modal
-   * @param {object} options.effect Object for in and out effect
-   * @param {string} options.effect.in Effect inside
-   * @param {string} options.effect.out Effet outside
-   * @param {number} options.zIndex Modal index
-   * @param {string | number} options.width Modal width
-   * @param {string | number} options.height Modal height
-   * @param {boolean} options.maximizable Add maximizable button
-   * @param {boolean} options.minimizable add minimizable button
-   * @param {boolean} options.draggable Set drag event to modal
-   * @param {boolean} options.destroyOnClose Destroying modal in DOM on close
-   * @param {Function} options.onFullScreen
-   * @param {Function} options.onRestore
-   * @param {Function} options.onResize
-   * @param {Function} options.onShow
-   * @param {Function} options.onHide
-   * @param {Function} options.beforeClose
-   * @param {Function} options.onClosing
-   * @param {Function} options.onClosed
    */
   constructor(options?: ModalOptions) {
     if (!options || typeof options !== "object") {
@@ -84,8 +63,8 @@ export class FabModal {
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
 
   /**
-   * @function
-   * @returns {ModalOptions} Returns default object of options;
+   * @getter of default options for FabModal
+   * @returns {ModalOptions}
    */
   get defaultOptions() {
     return {
@@ -119,7 +98,7 @@ export class FabModal {
   /**
    * @getter get title of modal
    */
-  get title() {
+  get title(): string | null {
     return this.$title.textContent;
   }
 
@@ -133,14 +112,39 @@ export class FabModal {
   /**
    * @getter Get body content of modal
    */
-  get content() {
+  get content(): string | null {
     return this.$body.textContent;
   }
 
+  /**
+   * @setter Set body content of modal
+   */
+  set content(content: string | null) {
+    if (content !== "" && typeof content === "string") {
+      const isLoader =
+        this.$body.outerHTML !== this.$loader.outerHTML ? false : true;
+      this.oldContent = !isLoader ? this.$body.innerHTML : "";
+      this.$body.innerHTML = content;
+    }
+  }
+
+  /**
+   * @setter Set z-index of modal
+   */
+  get index(): string {
+    return this.$el.style.zIndex;
+  }
+
+  /**
+   * @setter Set z-index of modal
+   */
   set index(index: string) {
     this.$el.style.zIndex = index + "px";
   }
 
+  /**
+   * @setter Set active class to modal
+   */
   set active(active: boolean) {
     if (active) {
       this.$el.classList.add("active");
@@ -153,15 +157,10 @@ export class FabModal {
   }
 
   /**
-   * @setter Get body content of modal
+   * @getter Get if modal is active or not
    */
-  set content(content: string | null) {
-    if (content !== "" && typeof content === "string") {
-      const isLoader =
-        this.$body.outerHTML !== this.$loader.outerHTML ? false : true;
-      this.oldContent = !isLoader ? this.$body.innerHTML : "";
-      this.$body.innerHTML = content;
-    }
+  get active(): boolean {
+    return this.$el.classList.contains("active");
   }
 
   // ## ----------------------------END GETTERS / SETTERS ---------------------------- ## \\
@@ -831,9 +830,8 @@ export class FabModal {
 
   // ## ----------------------------START PUBLIC FUNCTION---------------------------- ## \\
   /**
-   * Create all node elements of modal
    * @function
-   * @returns {FabModal} Modal node element
+   * Create all node elements of modal
    * @note Useless to call this function without calling instance new FabModal()
    */
   createModal() {
@@ -889,9 +887,8 @@ export class FabModal {
   }
 
   /**
-   * Starting loader into modal
    * @function
-   * @returns
+   * Starting loader into modal
    */
   startLoader() {
     if (this.content === this.$loader.outerHTML) return;
@@ -899,15 +896,15 @@ export class FabModal {
   }
 
   /**
-   * Stop loader into modal
    * @function
-   * @returns
+   * Stop loader into modal
    */
   stopLoader() {
     this.$loader.remove();
   }
 
   /**
+   * @function
    * Restore old content into modal (the one to save before set new content)
    */
   restoreOldContent() {
@@ -915,8 +912,8 @@ export class FabModal {
   }
 
   /**
-   * show current modal
    * @function
+   * show current modal
    */
   show() {
     this.$el.style.display = "block";
@@ -930,8 +927,8 @@ export class FabModal {
   }
 
   /**
-   * Hide current modal
    * @function
+   * Hide current modal
    */
   hide() {
     this.$el.style.display = "none";
@@ -942,10 +939,10 @@ export class FabModal {
   }
 
   /**
-   * Toggle fullScreen
    * @function
+   * Toggle fullScreen
    */
-  toggleFullScreen() {
+  toggleFullScreen(): boolean {
     if (this.isFullScreen) {
       this.isFullScreen = false;
       this.$bodyElement!.style.overflow = "auto";
@@ -967,11 +964,12 @@ export class FabModal {
         this.options.onFullScreen(this);
       }
     }
+    return this.isFullScreen;
   }
 
   /**
-   * Closing modal
    * @function
+   * Closing current modal
    */
   close() {
     this.$el.dispatchEvent(new CustomEvent("close"));
@@ -986,8 +984,8 @@ export class FabModal {
   }
 
   /**
-   * Removing modal from DOM, you cannot retrieve modal after this
    * @function
+   * Removing modal from DOM, you cannot retrieve modal after this
    */
   destroy() {
     this.$el.dispatchEvent(new CustomEvent("close"));
@@ -995,8 +993,8 @@ export class FabModal {
   }
 
   /**
-   * Only hidding modal in the DOM you can re-display modal after with function show
    * @function
+   * Only hidding modal in the DOM you can re-display modal after with function show
    */
   safeDestroy() {
     this.$el.dispatchEvent(new CustomEvent("safeClose"));

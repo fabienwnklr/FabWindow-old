@@ -10,8 +10,7 @@ export class FabModalManager {
   public $bodyElement: HTMLElement;
 
   /**
-   *
-   * @param {ModalManagerOptions} options
+   * Instance of FabModalManager
    * See : {@link FabModalManager.defaultOptions}
    */
   constructor(options?: ModalManagerOptions) {
@@ -38,7 +37,8 @@ export class FabModalManager {
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
 
   /**
-   * @return {ModalManagerOptions}
+   * @getter of default options for FabModalManager
+   * @returns {ModalManagerOptions}
    */
   get defaultOptions() {
     return {
@@ -52,7 +52,10 @@ export class FabModalManager {
 
   // ## ----------------------------START PRIVATE FUNCTION---------------------------- ## \\
 
-  _initHandlers(fabModal: FabModal) {
+  /**
+   * @ignore
+   */
+  private _initHandlers(fabModal: FabModal) {
     fabModal.$el.addEventListener("focusin", (e: FocusEvent) => {
       e.stopImmediatePropagation();
       e.stopPropagation();
@@ -79,18 +82,23 @@ export class FabModalManager {
   // ______________________________________________________________________________________ \\
 
   /**
-   *
-   * @param {object} options
-   * @returns {FabModal}
+   * @function
+   * creating new instance of FabModal
    */
-  createModal(options: ModalOptions) {
+  createModal(options: ModalOptions): FabModal {
     const fabModal = new FabModal(options);
 
     this.modals.push(fabModal);
 
     this._initHandlers(fabModal);
+
+    return fabModal;
   }
 
+  /**
+   * @function
+   * Set the focus to modal
+   */
   setFocused(fabModalFocused: FabModal) {
     let focusedModalIndex = 0;
 
@@ -107,6 +115,10 @@ export class FabModalManager {
     this.resortModal();
   }
 
+  /**
+   * @function
+   * Destroy the modal
+   */
   destroyModal(fabModal: FabModal) {
     this.modals.forEach((modal: FabModal, index: number) => {
       if (fabModal === modal) {
@@ -119,6 +131,10 @@ export class FabModalManager {
     });
   }
 
+  /**
+   * @function
+   * Resort all dialog
+   */
   resortModal() {
     const startZIndex = "900";
     this.modals.forEach((modal: FabModal, index: number) => {
