@@ -27,6 +27,7 @@ export class FabModal {
 
   /**
    * @param {ModalOptions} options
+   * See : {@link FabModal.defaultOptions}
    * @param {string} options.id Modal id
    * @param {string} options.title Title of modal
    * @param {boolean} options.content Content of modal

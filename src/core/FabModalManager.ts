@@ -9,6 +9,11 @@ export class FabModalManager {
   public $modalContainer: HTMLDivElement;
   public $bodyElement: HTMLElement;
 
+  /**
+   *
+   * @param {ModalManagerOptions} options
+   * See : {@link FabModalManager.defaultOptions}
+   */
   constructor(options?: ModalManagerOptions) {
     if (!options || typeof options !== "object") {
       this.options = this.defaultOptions;
@@ -32,8 +37,13 @@ export class FabModalManager {
 
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
 
+  /**
+   * @return {ModalManagerOptions}
+   */
   get defaultOptions() {
-    return {};
+    return {
+      limitModal: 5,
+    };
   }
 
   // ## ----------------------------END GETTERS / SETTERS ---------------------------- ## \\

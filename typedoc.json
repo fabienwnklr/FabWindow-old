@@ -1,0 +1,3 @@
+{
+  "entryPoints": ["./src/core/FabModalManager.ts", "./src/core/FabModal.ts"]
+}

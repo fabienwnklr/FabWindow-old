@@ -1,3 +1,5 @@
 import { FabModal } from "../core/FabModal";
 
-export interface ModalManagerOptions {}
+export interface ModalManagerOptions {
+  limitModal: number;
+}
