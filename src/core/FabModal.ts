@@ -13,6 +13,7 @@ export class FabModal {
   public $header: HTMLElement;
   public $title: HTMLElement;
   public $icons: HTMLElement;
+  public $minimize: HTMLButtonElement;
   public $maximize: HTMLButtonElement;
   public $close: HTMLButtonElement;
   public $body: HTMLElement;
@@ -44,6 +45,7 @@ export class FabModal {
     // Binding
     this._removeClassEffect = this._removeClassEffect.bind(this);
     this._buildStyle = this._buildStyle.bind(this);
+    this.toggleFullScreen = this.toggleFullScreen.bind(this);
     this.close = this.close.bind(this);
     this.hide = this.hide.bind(this);
     this.show = this.show.bind(this);
@@ -77,8 +79,8 @@ export class FabModal {
       width: "800px",
       height: "auto",
       draggable: true,
-      maximizable: false,
-      minimizable: false,
+      maximizable: true,
+      minimizable: true,
       destroyOnClose: true,
       title: "",
       // Custom | default content
@@ -594,7 +596,7 @@ export class FabModal {
         transition: width, height 0.2s ease;
       }
       .fab-modal.draggable .fab-header  {
-        cursor: grabbing
+        cursor: move;
       }
       .fab-modal .fab-modal-progress-bar {
         position: absolute;
@@ -608,11 +610,11 @@ export class FabModal {
         background-color: #fff;
       }
       .fab-modal.fullScreen {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
+        top: 0!important;
+        left: 0!important;
+        right: 0!important;
+        bottom: 0!important;
+        width: 100%!important;
         height: 100% !important;
         max-width: 100% !important;
         max-height: 100% !important;
@@ -621,9 +623,7 @@ export class FabModal {
       }
       .fab-modal.fullScreen .fab-header {
         border-radius: 0;
-      }
-      .fab-modal.fullScreen .fab-header.fab-icons.maximize {
-        background: url(../icon/minus.svg);
+        cursor: default!important;
       }
       .fab-modal.fullScreen .fab-content {
         height: 100% !important;
@@ -691,57 +691,66 @@ export class FabModal {
         outline: none;
         background: transparent;
         border: transparent;
+        display: flex;
+        align-items: center;
       }
       .fab-modal .fab-header .fab-icons button:nth-child(1n) {
-        margin-right: 1rem;
+        margin-right: 0.3rem;
       }
       .fab-modal .fab-header .fab-icons button:last-child {
         margin-right: 0;
       }
-      .fab-modal .fab-header .fab-icons .reduce {
+      .fab-modal .fab-header .fab-icons .minimize {
         background-image: url(../icon/minus.svg);
-        width: 16px;
-        height: 16px;
+        width: 25px;
+        height: 25px;
         opacity: 0.3;
         cursor: pointer;
         transition: opacity 0.2s ease-in;
       }
-      .fab-modal .fab-header .fab-icons .reduce:hover {
+      .fab-modal .fab-header .fab-icons .minimize:hover {
         opacity: 1;
       }
+      .fab-modal .fab-header .fab-icons .minimize:before {
+        content: "\\2012";
+        color: #fff;
+        font-weight: 300;
+        font-size: 1.5rem;
+        font-family: Arial, sans-serif;
+      }
       .fab-modal .fab-header .fab-icons .maximize {
-        background: url(../icon/expand.svg) no-repeat center
-          rgba(255, 255, 255, 0.8);
         width: 25px;
         height: 25px;
         opacity: 0.3;
         cursor: pointer;
         border-radius: 50%;
         transition: opacity 0.2s ease-in;
-        margin-right: 0.5rem;
-        background-size: 16px;
-        background-origin: content-box;
+      }
+      .fab-modal .fab-header .fab-icons .maximize:before {
+        content: "\\26F6";
+        // transform: rotate(45deg);
+        color: #fff;
+        font-weight: 300;
+        font-size: 1.5rem;
+        font-family: Arial, sans-serif;
       }
       .fab-modal .fab-header .fab-icons .maximize:hover {
         opacity: 1;
       }
       .fab-modal .fab-header .fab-icons .close {
-        border-radius: 50%;
         width: 25px;
         height: 25px;
         cursor: pointer;
-        opacity: 0.3;
-        transition: transform 0.2s ease-in, opacity 0.2s ease-in;
-        text-indent: -9999px;
-        border: none;
-        background: rgba(255, 255, 255, 0.8);
-        opacity: 0.3;
-        background-size: 16px;
-        background-origin: content-box;
       }
       .fab-modal .fab-header .fab-icons .close:hover {
         opacity: 1;
-        transform: rotate(180deg);
+      }
+      .fab-modal .fab-header .fab-icons .close:before {
+        content: "\\00d7";
+        color: #fff;
+        font-weight: 300;
+        font-size: 1.5rem;
+        font-family: Arial, sans-serif;
       }
       .fab-modal .fab-content {
         scroll-behavior: smooth;
@@ -770,8 +779,14 @@ export class FabModal {
    * @ignore
    */
   private _removeClassEffect() {
-    this.$el.classList.remove(this.options.effects.in);
-    this.$el.classList.remove(this.options.effects.out);
+    if (
+      typeof this.options.effects !== "undefined" &&
+      typeof this.options.effects.in !== "undefined" &&
+      typeof this.options.effects.out !== "undefined"
+    ) {
+      this.$el.classList.remove(this.options.effects.in);
+      this.$el.classList.remove(this.options.effects.out);
+    }
     this.$el.removeEventListener("animationend", this._removeClassEffect);
   }
 
@@ -784,6 +799,14 @@ export class FabModal {
     if (this.options.draggable && !Utils.isMobile()) {
       this.$el.classList.add("draggable");
       this._initDrag();
+    }
+
+    if (this.options.minimizable) {
+      // this.$minimize.addEventListener("click", this.minimize);
+    }
+
+    if (this.options.maximizable) {
+      this.$maximize.addEventListener("click", this.toggleFullScreen);
     }
 
     this.$el.removeEventListener("animationend", this._removeClassEffect);
@@ -839,8 +862,10 @@ export class FabModal {
 
     this.$el = document.createElement("div");
     this.$el.setAttribute("tabindex", "-1");
-    this.$el.className = `fab-modal ${this.options.effects.in} ${fullScreen}`;
-    this.$el.id = this.options.id;
+    this.$el.className = `fab-modal ${this.options.effects?.in} ${fullScreen}`;
+    if (typeof this.options.id !== "undefined") {
+      this.$el.id = this.options.id;
+    }
 
     this.$header = document.createElement("div");
     this.$header.className = "fab-header";
@@ -848,12 +873,21 @@ export class FabModal {
 
     this.$title = document.createElement("h1");
     this.$title.className = "fab-title";
-    this.$title.innerHTML = this.options.title;
+    if (typeof this.options.title !== "undefined") {
+      this.$title.innerHTML = this.options.title;
+    }
     this.$header.appendChild(this.$title);
 
     this.$icons = document.createElement("div");
     this.$icons.className = "fab-icons";
     this.$header.appendChild(this.$icons);
+
+    if (this.options.minimizable) {
+      this.$minimize = document.createElement("button");
+      this.$minimize.className = "minimize";
+      this.$minimize.title = "Réduire";
+      this.$icons.appendChild(this.$minimize);
+    }
 
     if (this.options.maximizable) {
       this.$maximize = document.createElement("button");
@@ -864,8 +898,7 @@ export class FabModal {
 
     this.$close = document.createElement("button");
     this.$close.className = "close";
-    this.$close.title = "Fermer";
-    this.$close.textContent = "Fermer";
+    this.$close.title = "Close";
     this.$icons.appendChild(this.$close);
 
     this.$body = document.createElement("div");
@@ -944,6 +977,7 @@ export class FabModal {
    */
   toggleFullScreen(): boolean {
     if (this.isFullScreen) {
+      this._initDrag();
       this.isFullScreen = false;
       this.$bodyElement!.style.overflow = "auto";
       this.$el.classList.remove("fullScreen");
@@ -954,6 +988,7 @@ export class FabModal {
         this.options.onRestore(this);
       }
     } else {
+      this.$el.onmousedown = null;
       this.isFullScreen = true;
       this.$bodyElement.style.overflow = "hidden";
       this.$el.classList.add("fullScreen");
@@ -999,7 +1034,12 @@ export class FabModal {
   safeDestroy() {
     this.$el.dispatchEvent(new CustomEvent("safeClose"));
     this.$el.style.display = "none";
-    this.$el.classList.remove(this.options.effects.out);
+    if (
+      typeof this.options.effects !== "undefined" &&
+      typeof this.options.effects.out !== "undefined"
+    ) {
+      this.$el.classList.remove(this.options.effects.out);
+    }
     this.$el.removeEventListener("animationend", this.safeDestroy);
   }
 }
