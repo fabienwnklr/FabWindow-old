@@ -1,7 +1,10 @@
+import { FabModalManager } from "../core/FabModalManager";
+
 export interface ModalOptions {
   id?: string;
   title?: string;
   content?: string;
+  modal_manager?: FabModalManager;
   effects?: {
     in?: string;
     out?: string;

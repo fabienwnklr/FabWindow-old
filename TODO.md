@@ -1,3 +1,4 @@
 - FabModal add overlay for single modal and event with him
 - FabModal add ModalOptions.modalManager
 - FabModal can minimize only if have options modalManager
+- Review of focus and resort function (check functional and upgrade)

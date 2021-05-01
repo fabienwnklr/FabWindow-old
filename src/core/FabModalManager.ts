@@ -86,10 +86,14 @@ export class FabModalManager {
    * creating new instance of FabModal
    */
   createModal(options: ModalOptions): FabModal {
+    if (typeof options === "undefined") {
+      options = {};
+    }
+
     const fabModal = new FabModal(options);
+    fabModal.modal_manager = this;
 
     this.modals.push(fabModal);
-
     this._initHandlers(fabModal);
 
     return fabModal;

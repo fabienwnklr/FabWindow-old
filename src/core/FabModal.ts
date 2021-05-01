@@ -1,6 +1,7 @@
 // Types
 import { ModalOptions } from "../types/modal-options";
 import { Utils } from "../utils";
+import { FabModalManager } from "./FabModalManager";
 
 export class FabModal {
   public options: ModalOptions;
@@ -71,6 +72,9 @@ export class FabModal {
   get defaultOptions() {
     return {
       id: `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}`,
+      title: "",
+      content: "",
+      modal_manager: undefined,
       effects: {
         in: "fade-in",
         out: "fade-out",
@@ -82,9 +86,6 @@ export class FabModal {
       maximizable: true,
       minimizable: true,
       destroyOnClose: true,
-      title: "",
-      // Custom | default content
-      content: "",
       // function
       onFullScreen: null,
       onRestore: null,
@@ -142,6 +143,20 @@ export class FabModal {
    */
   set index(index: string) {
     this.$el.style.zIndex = index + "px";
+  }
+
+  /**
+   * @getter get modal manager object
+   */
+  get modal_manager(): FabModalManager | undefined {
+    return this.options?.modal_manager;
+  }
+
+  /**
+   * @setter Set modal manager object
+   */
+  set modal_manager(obj: FabModalManager | undefined) {
+    this.options.modal_manager = obj;
   }
 
   /**
