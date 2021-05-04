@@ -29,7 +29,37 @@ export class FabModal {
 
   /**
    * Instance of FabModal
+   * @param {ModalOptions} options Object contains options for modal
    * See : {@link FabModal.defaultOptions}
+   * @defaultValue
+   * ```javascript
+   * const options = {
+   *  id: `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}`,
+   *   title: "",
+   *   content: "",
+   *   modal_manager: undefined,
+   *   effects: {
+   *     in: "fade-in",
+   *     out: "fade-out",
+   *   },
+   *   zIndex: 9999,
+   *   width: "800px",
+   *   height: "auto",
+   *   draggable: true,
+   *   maximizable: true,
+   *   minimizable: true,
+   *   destroyOnClose: true,
+   *
+   *   onFullScreen: null,
+   *   onRestore: null,
+   *   onResize: null,
+   *   onShow: null,
+   *   onHide: null,
+   *   beforeClose: null,
+   *   onClosing: null,
+   *   onClosed: null,
+   * }
+   * ```
    */
   constructor(options?: ModalOptions) {
     if (!options || typeof options !== "object") {
@@ -37,6 +67,7 @@ export class FabModal {
     } else {
       this.options = { ...this.defaultOptions, ...options };
     }
+
     this.disX = 0;
     this.disY = 0;
     this.isFullScreen = false;
@@ -66,8 +97,7 @@ export class FabModal {
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
 
   /**
-   * @getter of default options for FabModal
-   * @returns {ModalOptions}
+   * @getter Return object with default value for modal
    */
   get defaultOptions() {
     return {
@@ -86,7 +116,7 @@ export class FabModal {
       maximizable: true,
       minimizable: true,
       destroyOnClose: true,
-      // function
+
       onFullScreen: null,
       onRestore: null,
       onResize: null,

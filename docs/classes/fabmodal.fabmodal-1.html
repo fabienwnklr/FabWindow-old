@@ -97,6 +97,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#_icons" class="tsd-kind-icon">$icons</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#_loader" class="tsd-kind-icon">$loader</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#_maximize" class="tsd-kind-icon">$maximize</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#_minimize" class="tsd-kind-icon">$minimize</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#_title" class="tsd-kind-icon">$title</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#isfullscreen" class="tsd-kind-icon">is<wbr>Full<wbr>Screen</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#oldcontent" class="tsd-kind-icon">old<wbr>Content</a></li>
@@ -110,6 +111,7 @@
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#content" class="tsd-kind-icon">content</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#defaultoptions" class="tsd-kind-icon">default<wbr>Options</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#index" class="tsd-kind-icon">index</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#modal_manager" class="tsd-kind-icon">modal_<wbr>manager</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="fabmodal.fabmodal-1.html#title" class="tsd-kind-icon">title</a></li>
 							</ul>
 						</section>
@@ -143,19 +145,53 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L26">FabModal.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L28">FabModal.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Instance of FabModal
-									See : <a href="fabmodal.fabmodal-1.html#defaultoptions">FabModal.defaultOptions</a></p>
+									<p>Instance of FabModal</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>defaultvalue</dt>
+									<dd><pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">options</span><span style="color: #000000"> = {</span>
+<span style="color: #000000"> </span><span style="color: #001080">id:</span><span style="color: #000000"> </span><span style="color: #A31515">`fab-modal-</span><span style="color: #0000FF">${</span><span style="color: #267F99">Math</span><span style="color: #000000FF">.</span><span style="color: #795E26">round</span><span style="color: #000000FF">(</span><span style="color: #0000FF">new</span><span style="color: #000000FF"> </span><span style="color: #267F99">Date</span><span style="color: #000000FF">().</span><span style="color: #795E26">getTime</span><span style="color: #000000FF">() </span><span style="color: #000000">+</span><span style="color: #000000FF"> </span><span style="color: #267F99">Math</span><span style="color: #000000FF">.</span><span style="color: #795E26">random</span><span style="color: #000000FF">() </span><span style="color: #000000">*</span><span style="color: #000000FF"> </span><span style="color: #098658">100</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">title:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">content:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">modal_manager:</span><span style="color: #000000"> </span><span style="color: #0000FF">undefined</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">effects:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">in:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;fade-in&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">out:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;fade-out&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #001080">zIndex:</span><span style="color: #000000"> </span><span style="color: #098658">9999</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">width:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;800px&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">height:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;auto&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">draggable:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">maximizable:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">minimizable:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">destroyOnClose:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+
+<span style="color: #000000">  </span><span style="color: #001080">onFullScreen:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">onRestore:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">onResize:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">onShow:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">onHide:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">beforeClose:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">onClosing:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">onClosed:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">,</span>
+<span style="color: #000000">}</span>
+</code></pre>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">ModalOptions</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Object contains options for modal
+										See : <a href="fabmodal.fabmodal-1.html#defaultoptions">FabModal.defaultOptions</a></p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="fabmodal.fabmodal-1.html" class="tsd-signature-type" data-tsd-kind="Class">FabModal</a></h4>
@@ -171,7 +207,7 @@
 					<div class="tsd-signature tsd-kind-icon">$body<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L18">FabModal.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L20">FabModal.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">$body<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L10">FabModal.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L11">FabModal.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -191,7 +227,7 @@
 					<div class="tsd-signature tsd-kind-icon">$close<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLButtonElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L17">FabModal.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L19">FabModal.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -201,7 +237,7 @@
 					<div class="tsd-signature tsd-kind-icon">$el<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L12">FabModal.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L13">FabModal.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -211,7 +247,7 @@
 					<div class="tsd-signature tsd-kind-icon">$header<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L13">FabModal.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L14">FabModal.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -221,7 +257,7 @@
 					<div class="tsd-signature tsd-kind-icon">$icons<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L15">FabModal.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L16">FabModal.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -231,7 +267,7 @@
 					<div class="tsd-signature tsd-kind-icon">$loader<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L19">FabModal.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L21">FabModal.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -241,7 +277,17 @@
 					<div class="tsd-signature tsd-kind-icon">$maximize<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLButtonElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L16">FabModal.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L18">FabModal.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="_minimize" class="tsd-anchor"></a>
+					<h3>$minimize</h3>
+					<div class="tsd-signature tsd-kind-icon">$minimize<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLButtonElement</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L17">FabModal.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -251,7 +297,7 @@
 					<div class="tsd-signature tsd-kind-icon">$title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L14">FabModal.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L15">FabModal.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -261,7 +307,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Full<wbr>Screen<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L7">FabModal.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L8">FabModal.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -271,7 +317,7 @@
 					<div class="tsd-signature tsd-kind-icon">old<wbr>Content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L8">FabModal.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L9">FabModal.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -281,7 +327,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ModalOptions</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L6">FabModal.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L7">FabModal.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -299,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L162">FabModal.ts:162</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L209">FabModal.ts:209</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -314,7 +360,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L148">FabModal.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L195">FabModal.ts:195</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -345,7 +391,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L115">FabModal.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L148">FabModal.ts:148</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -360,7 +406,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L122">FabModal.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L155">FabModal.ts:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -384,23 +430,23 @@
 					<a name="defaultoptions" class="tsd-anchor"></a>
 					<h3>default<wbr>Options</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> defaultOptions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>beforeClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>destroyOnClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>draggable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>effects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>in<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>out<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>maximizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>minimizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>onClosed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onClosing<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onFullScreen<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onHide<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onResize<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onRestore<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onShow<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>zIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> defaultOptions<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>beforeClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>destroyOnClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>draggable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>effects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>in<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>out<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>maximizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>minimizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>modal_manager<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">; </span>onClosed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onClosing<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onFullScreen<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onHide<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onResize<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onRestore<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onShow<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>zIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L69">FabModal.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L102">FabModal.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>getter</dt>
-									<dd><p>of default options for FabModal</p>
+									<dd><p>Return object with default value for modal</p>
 									</dd>
 								</dl>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>beforeClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>destroyOnClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>draggable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>effects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>in<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>out<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>maximizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>minimizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>onClosed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onClosing<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onFullScreen<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onHide<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onResize<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onRestore<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onShow<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>zIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>beforeClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>destroyOnClose<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>draggable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>effects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>in<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>out<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">; </span>height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>maximizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>minimizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>modal_manager<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">; </span>onClosed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onClosing<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onFullScreen<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onHide<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onResize<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onRestore<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>onShow<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>zIndex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter">
 									<h5>before<wbr>Close<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span></h5>
@@ -436,6 +482,9 @@
 								</li>
 								<li class="tsd-parameter">
 									<h5>minimizable<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>modal_<wbr>manager<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span></h5>
 								</li>
 								<li class="tsd-parameter">
 									<h5>on<wbr>Closed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span></h5>
@@ -482,7 +531,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L134">FabModal.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L167">FabModal.ts:167</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -497,7 +546,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L141">FabModal.ts:141</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L174">FabModal.ts:174</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -518,6 +567,52 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="modal_manager" class="tsd-anchor"></a>
+					<h3>modal_<wbr>manager</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> modal_manager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="fabmodalmanager.fabmodalmanager-1.html" class="tsd-signature-type" data-tsd-kind="Class">FabModalManager</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> modal_manager<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="fabmodalmanager.fabmodalmanager-1.html" class="tsd-signature-type" data-tsd-kind="Class">FabModalManager</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L181">FabModal.ts:181</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>getter</dt>
+									<dd><p>get modal manager object</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="fabmodalmanager.fabmodalmanager-1.html" class="tsd-signature-type" data-tsd-kind="Class">FabModalManager</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L188">FabModal.ts:188</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>setter</dt>
+									<dd><p>Set modal manager object</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>obj: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="fabmodalmanager.fabmodalmanager-1.html" class="tsd-signature-type" data-tsd-kind="Class">FabModalManager</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
 					<a name="title" class="tsd-anchor"></a>
 					<h3>title</h3>
 					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
@@ -528,7 +623,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L101">FabModal.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L134">FabModal.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -543,7 +638,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L108">FabModal.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L141">FabModal.ts:141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -576,7 +671,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L974">FabModal.ts:974</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L1054">FabModal.ts:1054</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -600,7 +695,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L837">FabModal.ts:837</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L905">FabModal.ts:905</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -627,7 +722,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L990">FabModal.ts:990</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L1070">FabModal.ts:1070</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -651,7 +746,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L933">FabModal.ts:933</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L1011">FabModal.ts:1011</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -675,7 +770,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L910">FabModal.ts:910</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L988">FabModal.ts:988</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -699,7 +794,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L999">FabModal.ts:999</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L1079">FabModal.ts:1079</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -723,7 +818,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L918">FabModal.ts:918</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L996">FabModal.ts:996</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -747,7 +842,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L893">FabModal.ts:893</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L971">FabModal.ts:971</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -771,7 +866,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L902">FabModal.ts:902</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L980">FabModal.ts:980</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -795,7 +890,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/5662338/src/core/FabModal.ts#L945">FabModal.ts:945</a></li>
+									<li>Defined in <a href="https://github.com/fabienwnklr/FabModal-2.0/blob/68bade1/src/core/FabModal.ts#L1023">FabModal.ts:1023</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -860,6 +955,9 @@
 								<a href="fabmodal.fabmodal-1.html#_maximize" class="tsd-kind-icon">$maximize</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="fabmodal.fabmodal-1.html#_minimize" class="tsd-kind-icon">$minimize</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="fabmodal.fabmodal-1.html#_title" class="tsd-kind-icon">$title</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -882,6 +980,9 @@
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="fabmodal.fabmodal-1.html#index" class="tsd-kind-icon">index</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="fabmodal.fabmodal-1.html#modal_manager" class="tsd-kind-icon">modal_<wbr>manager</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="fabmodal.fabmodal-1.html#title" class="tsd-kind-icon">title</a>
