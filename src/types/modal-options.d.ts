@@ -12,8 +12,9 @@ export interface ModalOptions {
   zIndex?: number;
   width?: string | number;
   height?: string | number;
-  maximizable?: boolean;
-  minimizable?: boolean;
+  expandable?: boolean;
+  reducible?: boolean;
+  resizable?: boolean;
   draggable?: boolean;
   destroyOnClose?: boolean;
   onFullScreen?: Function | null;

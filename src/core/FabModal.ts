@@ -14,8 +14,8 @@ export class FabModal {
   public $header: HTMLElement;
   public $title: HTMLElement;
   public $icons: HTMLElement;
-  public $minimize: HTMLButtonElement;
-  public $maximize: HTMLButtonElement;
+  public $reduce: HTMLButtonElement;
+  public $expand: HTMLButtonElement;
   public $close: HTMLButtonElement;
   public $body: HTMLElement;
   public $loader: HTMLElement;
@@ -46,8 +46,8 @@ export class FabModal {
    *   width: "800px",
    *   height: "auto",
    *   draggable: true,
-   *   maximizable: true,
-   *   minimizable: true,
+   *   expandable: true,
+   *   reducible: true,
    *   destroyOnClose: true,
    *
    *   onFullScreen: null,
@@ -113,8 +113,8 @@ export class FabModal {
       width: "800px",
       height: "auto",
       draggable: true,
-      maximizable: true,
-      minimizable: true,
+      expandable: true,
+      reducible: true,
       destroyOnClose: true,
 
       onFullScreen: null,
@@ -713,7 +713,6 @@ export class FabModal {
         align-items: center;
         position: relative;
         box-shadow: inset 0 -10px 15px -12px rgba(0, 0, 0, 0.3), 0 0 0px #555;
-        padding: 1rem;
         cursor: default;
         background-color: #415f8b;
       }
@@ -721,6 +720,7 @@ export class FabModal {
         cursor: move;
       }
       .fab-modal .fab-header .fab-title {
+        padding: 1rem;
         margin: 0;
         font-size: 1.3rem;
         color: rgba(255, 255, 255, 0.8);
@@ -734,53 +734,40 @@ export class FabModal {
         -moz-animation: revealIn 1s cubic-bezier(0.16, 0.81, 0.32, 1) both;
         animation: revealIn 1s cubic-bezier(0.16, 0.81, 0.32, 1) both;
       }
+
       .fab-modal .fab-header .fab-icons button {
         outline: none;
         background: transparent;
         border: transparent;
-        display: flex;
-        align-items: center;
-      }
-      .fab-modal .fab-header .fab-icons button:nth-child(1n) {
-        margin-right: 0.3rem;
-      }
-      .fab-modal .fab-header .fab-icons button:last-child {
-        margin-right: 0;
-      }
-      .fab-modal .fab-header .fab-icons button {
         width: 25px;
         height: 25px;
-        opacity: 0.3;
         cursor: pointer;
+        padding: 0;
+        opacity: 0.3;
         transition: opacity 0.2s ease-in;
+      }
+
+      .fab-modal .fab-header .fab-icons button:before {
+        color: #fff;
+        font-weight: 300;
+        font-size: 1.2rem;
+        font-family: Arial, sans-serif;
       }
 
       .fab-modal .fab-header .fab-icons button:hover {
         opacity: 1;
       }
 
-      .fab-modal .fab-header .fab-icons .minimize:before {
+      .fab-modal .fab-header .fab-icons .reduce:before {
         content: "\\2012";
-        color: #fff;
-        font-weight: 300;
-        font-size: 1.5rem;
-        font-family: Arial, sans-serif;
       }
 
-      .fab-modal .fab-header .fab-icons .maximize:before {
+      .fab-modal .fab-header .fab-icons .expand:before {
         content: "\\26F6";
-        color: #fff;
-        font-weight: 300;
-        font-size: 1.5rem;
-        font-family: Arial, sans-serif;
       }
 
       .fab-modal .fab-header .fab-icons .close:before {
-        content: "\\00d7";
-        color: #fff;
-        font-weight: 300;
-        font-size: 1.5rem;
-        font-family: Arial, sans-serif;
+        content: "\\2715";
       }
       .fab-modal .fab-content {
         scroll-behavior: smooth;
@@ -831,12 +818,12 @@ export class FabModal {
       this._initDrag();
     }
 
-    if (this.options.minimizable) {
-      // this.$minimize.addEventListener("click", this.minimize);
+    if (this.options.reducible) {
+      // this.$reduce.addEventListener("click", this.reduce);
     }
 
-    if (this.options.maximizable) {
-      this.$maximize.addEventListener("click", this.toggleFullScreen);
+    if (this.options.expandable) {
+      this.$expand.addEventListener("click", this.toggleFullScreen);
     }
 
     this.$el.removeEventListener("animationend", this._removeClassEffect);
@@ -912,18 +899,18 @@ export class FabModal {
     this.$icons.className = "fab-icons";
     this.$header.appendChild(this.$icons);
 
-    if (this.options.minimizable) {
-      this.$minimize = document.createElement("button");
-      this.$minimize.className = "minimize";
-      this.$minimize.title = "Réduire";
-      this.$icons.appendChild(this.$minimize);
+    if (this.options.reducible) {
+      this.$reduce = document.createElement("button");
+      this.$reduce.className = "reduce";
+      this.$reduce.title = "Reduce";
+      this.$icons.appendChild(this.$reduce);
     }
 
-    if (this.options.maximizable) {
-      this.$maximize = document.createElement("button");
-      this.$maximize.className = "maximize";
-      this.$maximize.title = "Agrandir";
-      this.$icons.appendChild(this.$maximize);
+    if (this.options.expandable) {
+      this.$expand = document.createElement("button");
+      this.$expand.className = "expand";
+      this.$expand.title = "Expand";
+      this.$icons.appendChild(this.$expand);
     }
 
     this.$close = document.createElement("button");
@@ -1016,7 +1003,7 @@ export class FabModal {
         this.$el.classList.remove("transition-all");
         clearTimeout(rmTransition);
       }, 300);
-      // this.$maximize.title = "Agrandir";
+      // this.$expand.title = "Agrandir";
 
       this.$el.dispatchEvent(new CustomEvent("restore"));
       if (typeof this.options.onRestore === "function") {
@@ -1028,7 +1015,7 @@ export class FabModal {
       this.$bodyElement.style.overflow = "hidden";
       this.$el.classList.add("transition-all");
       this.$el.classList.add("fullScreen");
-      // this.$maximize.title = "Réstaurer";
+      // this.$expand.title = "Réstaurer";
 
       this.$el.dispatchEvent(new CustomEvent("fullScreen"));
       if (typeof this.options.onFullScreen === "function") {
