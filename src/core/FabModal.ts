@@ -582,6 +582,10 @@ export class FabModal {
         box-sizing: border-box;
       }
 
+      .transition-all {
+        transition: all .3s ease;
+      }
+
       .fade-in {
         -webkit-animation: fadeIn 1s ease;
         -moz-animation: fadeIn 1s ease;
@@ -628,7 +632,6 @@ export class FabModal {
         transform: translate(-50%, -50%);
         background: #fff;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-        transition: margin-top 0.3s ease, height 0.3s ease;
         box-sizing: border-box;
         max-width: 80%;
         max-height: 80%;
@@ -638,7 +641,6 @@ export class FabModal {
         border-bottom: 3px solid #415f8b;
         font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
           "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-        transition: width, height 0.2s ease;
       }
       .fab-modal.draggable .fab-header  {
         cursor: move;
@@ -745,17 +747,18 @@ export class FabModal {
       .fab-modal .fab-header .fab-icons button:last-child {
         margin-right: 0;
       }
-      .fab-modal .fab-header .fab-icons .minimize {
-        background-image: url(../icon/minus.svg);
+      .fab-modal .fab-header .fab-icons button {
         width: 25px;
         height: 25px;
         opacity: 0.3;
         cursor: pointer;
         transition: opacity 0.2s ease-in;
       }
-      .fab-modal .fab-header .fab-icons .minimize:hover {
+
+      .fab-modal .fab-header .fab-icons button:hover {
         opacity: 1;
       }
+
       .fab-modal .fab-header .fab-icons .minimize:before {
         content: "\\2012";
         color: #fff;
@@ -763,33 +766,15 @@ export class FabModal {
         font-size: 1.5rem;
         font-family: Arial, sans-serif;
       }
-      .fab-modal .fab-header .fab-icons .maximize {
-        width: 25px;
-        height: 25px;
-        opacity: 0.3;
-        cursor: pointer;
-        border-radius: 50%;
-        transition: opacity 0.2s ease-in;
-      }
+
       .fab-modal .fab-header .fab-icons .maximize:before {
         content: "\\26F6";
-        // transform: rotate(45deg);
         color: #fff;
         font-weight: 300;
         font-size: 1.5rem;
         font-family: Arial, sans-serif;
       }
-      .fab-modal .fab-header .fab-icons .maximize:hover {
-        opacity: 1;
-      }
-      .fab-modal .fab-header .fab-icons .close {
-        width: 25px;
-        height: 25px;
-        cursor: pointer;
-      }
-      .fab-modal .fab-header .fab-icons .close:hover {
-        opacity: 1;
-      }
+
       .fab-modal .fab-header .fab-icons .close:before {
         content: "\\00d7";
         color: #fff;
@@ -1024,8 +1009,13 @@ export class FabModal {
     if (this.isFullScreen) {
       this._initDrag();
       this.isFullScreen = false;
-      this.$bodyElement!.style.overflow = "auto";
+      this.$bodyElement.style.overflow = "auto";
       this.$el.classList.remove("fullScreen");
+      
+      const rmTransition = setTimeout(() => {
+        this.$el.classList.remove("transition-all");
+        clearTimeout(rmTransition);
+      }, 300);
       // this.$maximize.title = "Agrandir";
 
       this.$el.dispatchEvent(new CustomEvent("restore"));
@@ -1036,6 +1026,7 @@ export class FabModal {
       this.$el.onmousedown = null;
       this.isFullScreen = true;
       this.$bodyElement.style.overflow = "hidden";
+      this.$el.classList.add("transition-all");
       this.$el.classList.add("fullScreen");
       // this.$maximize.title = "Réstaurer";
 
