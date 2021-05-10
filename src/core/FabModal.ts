@@ -5,7 +5,9 @@ import { FabModalManager } from "./FabModalManager";
 
 export class FabModal {
   public options: ModalOptions;
+  /** @property Boolean called if modal is fullScreen or not */
   public isFullScreen: boolean;
+  /** @property For stock content before set new content to modal */
   public oldContent: string;
   // Html global elements
   protected $bodyElement: HTMLElement;
@@ -53,9 +55,12 @@ export class FabModal {
    *     in: "fade-in",
    *     out: "fade-out",
    *   },
+   *   overlay: true,
    *   zIndex: 9999,
    *   width: "auto",
    *   height: "auto",
+   *   maxWidth: "100%",
+   *   maxHeight: "100%",
    *   draggable: true,
    *   expandable: true,
    *   reducible: true,
@@ -875,8 +880,17 @@ export class FabModal {
    * @ignore
    */
   private _fnMove(ev: MouseEvent) {
-    this.$el.style.left = ev.clientX - this._disX + "px";
-    this.$el.style.top = ev.clientY - this._disY + "px";
+    const left = ev.clientX - this._disX;
+    const top = ev.clientY - this._disY;
+
+    const limitRight = window.outerWidth - (this.$el.clientWidth / 2);
+    const limitLeft = this.$el.clientWidth / 2;
+    console.log(left, limitLeft)
+    if (left > limitLeft && left < limitRight) {
+      this.$el.style.left = `${left}px`;
+    }
+
+    this.$el.style.top = `${top}px`;
   }
 
   /**
@@ -1029,7 +1043,7 @@ export class FabModal {
       this.isFullScreen = false;
       this.$bodyElement.style.overflow = "auto";
       this.$el.classList.remove("fullScreen");
-      
+
       const rmTransition = setTimeout(() => {
         this.$el.classList.remove("transition-all");
         clearTimeout(rmTransition);
