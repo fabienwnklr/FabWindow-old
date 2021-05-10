@@ -3,3 +3,4 @@
 - FabModal can minimize only if have options modalManager
 - Review of focus and resort function (check functional and upgrade)
 - comment property of class ($body, $bodyElement, etc.)
+- Upgrade icon

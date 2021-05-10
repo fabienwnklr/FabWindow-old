@@ -10,6 +10,7 @@ export class FabModal {
   // Html global elements
   protected $bodyElement: HTMLElement;
   // Modal html elements
+  public $overlay: HTMLElement;
   public $el: HTMLElement;
   public $header: HTMLElement;
   public $title: HTMLElement;
@@ -43,7 +44,7 @@ export class FabModal {
    *     out: "fade-out",
    *   },
    *   zIndex: 9999,
-   *   width: "800px",
+   *   width: "auto",
    *   height: "auto",
    *   draggable: true,
    *   expandable: true,
@@ -109,9 +110,12 @@ export class FabModal {
         in: "fade-in",
         out: "fade-out",
       },
+      overlay: true,
       zIndex: 9999,
-      width: "800px",
+      width: "auto",
       height: "auto",
+      maxWidth: "100%",
+      maxHeight: "100%",
       draggable: true,
       expandable: true,
       reducible: true,
@@ -223,15 +227,6 @@ export class FabModal {
    */
   private _buildStyle() {
     if (document.querySelector("#fab-style") !== null) return;
-
-    // const width =
-    //   typeof this.options.width === "number"
-    //     ? `${this.options.width}px`
-    //     : this.options.width;
-    // const height =
-    //   typeof this.options.height === "number"
-    //     ? `${this.options.height}px`
-    //     : this.options.height;
 
     // Building style
     this.$style = document.createElement("style");
@@ -617,6 +612,17 @@ export class FabModal {
         animation: spin 0.6s linear 0s infinite normal;
       }
 
+      .fab-overlay {
+        opacity: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 997;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
       @media (max-width: 600px) {
         .fab-modal {
           max-height: 100% !important;
@@ -625,7 +631,7 @@ export class FabModal {
       .fab-modal {
         outline: none;
         opacity: 0;
-        z-index: 9999;
+        z-index: ${this.options.zIndex};
         position: absolute;
         top: 50%;
         left: 50%;
@@ -633,8 +639,10 @@ export class FabModal {
         background: #fff;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         box-sizing: border-box;
-        max-width: 80%;
-        max-height: 80%;
+        width: ${this.options.width};
+        height: ${this.options.height}
+        max-width: ${this.options.maxWidth};
+        max-height: ${this.options.maxHeight};
         border-radius: 5px;
         display: none;
         overflow: hidden;
@@ -877,6 +885,12 @@ export class FabModal {
   createModal() {
     const fullScreen = this.isFullScreen ? " fullScreen" : "";
 
+    if (this.options.overlay === true && this.options.modal_manager == undefined) {
+      this.$overlay = document.createElement('div');
+      this.$overlay.classList.add('fab-overlay');
+      this.$bodyElement.appendChild(this.$overlay);
+    }
+
     this.$el = document.createElement("div");
     this.$el.setAttribute("tabindex", "-1");
     this.$el.className = `fab-modal ${this.options.effects?.in} ${fullScreen}`;
@@ -971,6 +985,8 @@ export class FabModal {
     this.$el.style.display = "block";
     this.$el.style.opacity = "1";
 
+    if (typeof this.$overlay !== 'undefined') this.$overlay.style.opacity = "1";
+
     if (typeof this.options.onShow === "function") {
       this.options.onShow(this);
     }
@@ -1037,8 +1053,11 @@ export class FabModal {
     } else {
       this.$el.addEventListener("animationend", this.safeDestroy);
     }
+
     this.$el.style.opacity = "";
     this.$el.classList.add("fade-out");
+    this.$overlay.style.opacity = "";
+    this.$overlay.classList.add("fade-out");
   }
 
   /**
@@ -1046,7 +1065,8 @@ export class FabModal {
    * Removing modal from DOM, you cannot retrieve modal after this
    */
   destroy() {
-    this.$el.dispatchEvent(new CustomEvent("close"));
+    this.$el.dispatchEvent(new CustomEvent("destroyed"));
+    this.$overlay.remove();
     this.$el.remove();
   }
 
@@ -1055,13 +1075,16 @@ export class FabModal {
    * Only hidding modal in the DOM you can re-display modal after with function show
    */
   safeDestroy() {
-    this.$el.dispatchEvent(new CustomEvent("safeClose"));
+    this.$el.dispatchEvent(new CustomEvent("safeDestroyed"));
+    this.$overlay.style.display = "none";
     this.$el.style.display = "none";
+
     if (
       typeof this.options.effects !== "undefined" &&
       typeof this.options.effects.out !== "undefined"
     ) {
       this.$el.classList.remove(this.options.effects.out);
+      this.$overlay.classList.remove(this.options.effects.out);
     }
     this.$el.removeEventListener("animationend", this.safeDestroy);
   }

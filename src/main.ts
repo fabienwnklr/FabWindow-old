@@ -9,5 +9,6 @@ declare global {
   }
 }
 
-window.modalManager = new FabModalManager();
-window.modal = new FabModal({});
+// window.modalManager = new FabModalManager();
+window.modal = new FabModal({title: 'titre', content: `contenu`, draggable: false, expandable: false, reducible: false});
+

@@ -9,9 +9,12 @@ export interface ModalOptions {
     in?: string;
     out?: string;
   };
+  overlay?: boolean;
   zIndex?: number;
-  width?: string | number;
-  height?: string | number;
+  width?: string;
+  height?: string;
+  maxWidth?: string;
+  maxHeight?: string;
   expandable?: boolean;
   reducible?: boolean;
   resizable?: boolean;
