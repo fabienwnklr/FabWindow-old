@@ -6,6 +6,8 @@ import { ModalOptions } from "../types/modal-options";
 export class FabModalManager {
   public modals: FabModal[];
   public options: ModalManagerOptions;
+
+  // HTML Elements
   public $modalContainer: HTMLDivElement;
   public $bodyElement: HTMLElement;
 
@@ -29,9 +31,8 @@ export class FabModalManager {
     this.$bodyElement.appendChild(this.$modalContainer);
 
     // Binding functions
-    this._initHandlers.bind(this);
     this.createModal.bind(this);
-    this.setFocused.bind(this);
+    this._initHandlers.bind(this);
   }
 
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
@@ -43,6 +44,7 @@ export class FabModalManager {
   get defaultOptions() {
     return {
       limitModal: 5,
+      container: true
     };
   }
 
@@ -56,13 +58,7 @@ export class FabModalManager {
    * @ignore
    */
   private _initHandlers(fabModal: FabModal) {
-    fabModal.$el.addEventListener("focusin", (e: FocusEvent) => {
-      e.stopImmediatePropagation();
-      e.stopPropagation();
-      e.preventDefault();
-
-      this.setFocused(fabModal);
-    });
+    fabModal.$el.addEventListener("mousedown", this.setFocused.bind(this));
 
     fabModal.$el.addEventListener(
       "close",
@@ -87,32 +83,43 @@ export class FabModalManager {
    */
   createModal(options: ModalOptions = {}): FabModal {
     options.modal_manager = this;
-    const fabModal = new FabModal(options);
 
-    this.modals.push(fabModal);
-    this._initHandlers(fabModal);
+    const newModal = new FabModal(options);
 
-    return fabModal;
+    return this.addModal(newModal);
+  }
+
+  addModal(modal: FabModal) {
+    this.modals.push(modal);
+    this._initHandlers(modal);
+
+    if (this.options.container) {
+      modal.$modalTab = document.createElement('div');
+      modal.$modalTab.classList.add('fab-modal-tab');
+      modal.$modalTab.innerHTML = modal.options.title || '';
+      this.$modalContainer.appendChild(modal.$modalTab);
+    }
+
+    return modal;
   }
 
   /**
    * @function
    * Set the focus to modal
    */
-  setFocused(fabModalFocused: FabModal) {
-    let focusedModalIndex = 0;
+  setFocused(ev: MouseEvent) {
+    const fabModalFocused = ev.currentTarget as HTMLElement;
+    const focusedModal = this.modals.find(modal => modal.options.id === fabModalFocused?.id || null)
 
-    this.modals.forEach((modal: FabModal, index: number) => {
-      modal.active = false;
+    if (focusedModal?.active === true) return;
 
-      if (modal === fabModalFocused) {
-        focusedModalIndex = index;
+    this.modals.forEach((modal: FabModal) => {
+      if (modal === focusedModal) {
+        focusedModal.$el.classList.add('active');
+      } else {
+        modal.$el.classList.remove('active');
       }
     });
-
-    fabModalFocused.index = focusedModalIndex.toString();
-    fabModalFocused.active = true;
-    this.resortModal();
   }
 
   /**
@@ -122,23 +129,11 @@ export class FabModalManager {
   destroyModal(fabModal: FabModal) {
     this.modals.forEach((modal: FabModal, index: number) => {
       if (fabModal === modal) {
-        modal.$el.removeEventListener("close", () => {}, { capture: false });
+        modal.$el.removeEventListener("close", () => { }, { capture: false });
         fabModal.close();
         this.modals.splice(index, 1);
-        this.resortModal();
         return;
       }
-    });
-  }
-
-  /**
-   * @function
-   * Resort all dialog
-   */
-  resortModal() {
-    const startZIndex = "900";
-    this.modals.forEach((modal: FabModal, index: number) => {
-      modal.index = startZIndex + index;
     });
   }
 }

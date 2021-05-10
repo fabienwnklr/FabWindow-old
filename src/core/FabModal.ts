@@ -32,7 +32,8 @@ export class FabModal {
   public $body: HTMLElement;
   /** @property loader modal html element */
   public $loader: HTMLElement;
-
+  /** @property Modal tab element (only if using with FabModalManager) */
+  public $modalTab: HTMLElement;
   /**@ignore */
   private _$style: HTMLStyleElement;
   /**@ignore */
@@ -56,7 +57,7 @@ export class FabModal {
    *     out: "fade-out",
    *   },
    *   overlay: true,
-   *   zIndex: 9999,
+   *   zIndex: 999,
    *   width: "auto",
    *   height: "auto",
    *   maxWidth: "100%",
@@ -92,14 +93,18 @@ export class FabModal {
 
     // Binding
     this._removeClassEffect = this._removeClassEffect.bind(this);
-    this._buildStyle = this._buildStyle.bind(this);
     this.toggleFullScreen = this.toggleFullScreen.bind(this);
     this.close = this.close.bind(this);
     this.hide = this.hide.bind(this);
     this.show = this.show.bind(this);
-    this._initHandlers = this._initHandlers.bind(this);
     this.destroy = this.destroy.bind(this);
     this.safeDestroy = this.safeDestroy.bind(this);
+    // Private
+    this._buildStyle = this._buildStyle.bind(this);
+    this._initHandlers = this._initHandlers.bind(this);
+    this._fnDown = this._fnDown.bind(this);
+    this._fnMove = this._fnMove.bind(this);
+    this._fnUp = this._fnUp.bind(this);
 
     // Creating modal
     this.createModal();
@@ -126,7 +131,7 @@ export class FabModal {
         out: "fade-out",
       },
       overlay: true,
-      zIndex: 9999,
+      zIndex: 999,
       width: "auto",
       height: "auto",
       maxWidth: "100%",
@@ -227,6 +232,15 @@ export class FabModal {
    */
   get active(): boolean {
     return this.$el.classList.contains("active");
+  }
+
+
+  set modalTab(modalTab: HTMLElement) {
+    this.$modalTab = modalTab;
+  }
+
+  get modalTab() {
+    return this.$modalTab;
   }
 
   // ## ----------------------------END GETTERS / SETTERS ---------------------------- ## \\
@@ -643,6 +657,24 @@ export class FabModal {
           max-height: 100% !important;
         }
       }
+      ${typeof this.options.modal_manager !== 'undefined' ? `
+        .fab-modal-container {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 1.5rem;
+          display: flex;
+          align-items: center;
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .fab-modal-container .fab-modal-tab {
+          height: 100%;
+          background-color: grey;
+          margin-right: 0.5rem;
+        }
+      ` : ``}
       .fab-modal {
         outline: none;
         opacity: 0;
@@ -655,7 +687,7 @@ export class FabModal {
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         box-sizing: border-box;
         width: ${this.options.width};
-        height: ${this.options.height}
+        height: ${this.options.height};
         max-width: ${this.options.maxWidth};
         max-height: ${this.options.maxHeight};
         border-radius: 5px;
@@ -700,8 +732,8 @@ export class FabModal {
         height: 100% !important;
         max-width: 100% !important;
       }
-      .fab-modal .active {
-        z-index: 1000;
+      .fab-modal.active {
+        z-index: 1000!important;
       }
       .fab-modal ::-webkit-scrollbar {
         width: 5px;
@@ -861,21 +893,22 @@ export class FabModal {
    * @ignore
    */
   private _initDrag() {
-    this.$el.onmousedown = (ev) => {
-      const target = ev.target as HTMLElement;
-
-      if (!target?.classList.contains('fab-header')) return;
-
-      this._disX = ev.clientX - this.$el.offsetLeft;
-      this._disY = ev.clientY - this.$el.offsetTop;
-
-      document.onmousemove = this._fnMove.bind(this);
-      document.onmouseup = this._fnUp.bind(this);
-
-      return false;
-    };
+    this.$el.addEventListener('mousedown', this._fnDown);
   }
 
+  private _fnDown(ev: MouseEvent) {
+    const target = ev.target as HTMLElement;
+
+    if (!target?.classList.contains('fab-header') && !target?.classList.contains('fab-title')) return;
+
+    this._disX = ev.clientX - this.$el.offsetLeft;
+    this._disY = ev.clientY - this.$el.offsetTop;
+
+    document.onmousemove = this._fnMove.bind(this);
+    document.onmouseup = this._fnUp.bind(this);
+
+    return false;
+  }
   /**
    * @ignore
    */
@@ -885,7 +918,7 @@ export class FabModal {
 
     const limitRight = window.outerWidth - (this.$el.clientWidth / 2);
     const limitLeft = this.$el.clientWidth / 2;
-    console.log(left, limitLeft)
+
     if (left > limitLeft && left < limitRight) {
       this.$el.style.left = `${left}px`;
     }
@@ -921,7 +954,6 @@ export class FabModal {
     }
 
     this.$el = document.createElement("div");
-    this.$el.setAttribute("tabindex", "-1");
     this.$el.className = `fab-modal ${this.options.effects?.in} ${fullScreen}`;
     if (typeof this.options.id !== "undefined") {
       this.$el.id = this.options.id;
@@ -1048,14 +1080,14 @@ export class FabModal {
         this.$el.classList.remove("transition-all");
         clearTimeout(rmTransition);
       }, 300);
-      // this.$expand.title = "Agrandir";
+      this.$expand.title = "Restore";
 
       this.$el.dispatchEvent(new CustomEvent("restore"));
       if (typeof this.options.onRestore === "function") {
         this.options.onRestore(this);
       }
     } else {
-      this.$el.onmousedown = null;
+      this.$el.removeEventListener('mousedown', this._fnDown);
       this.isFullScreen = true;
       this.$bodyElement.style.overflow = "hidden";
       this.$el.classList.add("transition-all");
