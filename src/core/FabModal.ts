@@ -10,15 +10,25 @@ export class FabModal {
   // Html global elements
   protected $bodyElement: HTMLElement;
   // Modal html elements
+  /** @property overlay html element of simple modal */
   public $overlay: HTMLElement;
+  /** @property modal html element */
   public $el: HTMLElement;
+  /** @property header modal html element */
   public $header: HTMLElement;
+  /** @property title modal html element */
   public $title: HTMLElement;
+  /** @property all buttons modal html element */
   public $icons: HTMLElement;
+  /** @property recude button modal html element */
   public $reduce: HTMLButtonElement;
+  /** @property expand button html element */
   public $expand: HTMLButtonElement;
+  /** @property close button html element */
   public $close: HTMLButtonElement;
+  /** @property body content modal html element */
   public $body: HTMLElement;
+  /** @property loader modal html element */
   public $loader: HTMLElement;
 
   /**@ignore */
@@ -827,7 +837,7 @@ export class FabModal {
       this._initDrag();
     }
 
-    if (this.options.reducible) {
+    if (this.options.reducible && typeof this.options.modal_manager !== 'undefined') {
       // this.$reduce.addEventListener("click", this.reduce);
     }
 
