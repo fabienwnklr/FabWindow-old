@@ -22,11 +22,11 @@ export class FabModal {
   public $loader: HTMLElement;
 
   /**@ignore */
-  private $style: HTMLStyleElement;
+  private _$style: HTMLStyleElement;
   /**@ignore */
-  private disX: number;
+  private _disX: number;
   /**@ignore */
-  private disY: number;
+  private _disY: number;
 
   /**
    * Instance of FabModal
@@ -69,8 +69,8 @@ export class FabModal {
       this.options = { ...this.defaultOptions, ...options };
     }
 
-    this.disX = 0;
-    this.disY = 0;
+    this._disX = 0;
+    this._disY = 0;
     this.isFullScreen = false;
     this.oldContent = "";
     this.$bodyElement = document.body;
@@ -229,10 +229,10 @@ export class FabModal {
     if (document.querySelector("#fab-style") !== null) return;
 
     // Building style
-    this.$style = document.createElement("style");
-    this.$style.id = `fab-style`;
+    this._$style = document.createElement("style");
+    this._$style.id = `fab-style`;
     // CSS
-    this.$style.innerHTML = `
+    this._$style.innerHTML = `
       @-webkit-keyframes fadeIn {
         0% {
           opacity: 0;
@@ -795,7 +795,7 @@ export class FabModal {
     `;
 
     // insert style in DOM
-    document.querySelector("head")?.append(this.$style);
+    document.querySelector("head")?.append(this._$style);
   }
 
   /**
@@ -846,8 +846,8 @@ export class FabModal {
    */
   private _initDrag() {
     this.$el.onmousedown = (ev) => {
-      this.disX = ev.clientX - this.$el.offsetLeft;
-      this.disY = ev.clientY - this.$el.offsetTop;
+      this._disX = ev.clientX - this.$el.offsetLeft;
+      this._disY = ev.clientY - this.$el.offsetTop;
 
       document.onmousemove = this._fnMove.bind(this);
       document.onmouseup = this._fnUp.bind(this);
@@ -860,8 +860,8 @@ export class FabModal {
    * @ignore
    */
   private _fnMove(ev: MouseEvent) {
-    this.$el.style.left = ev.clientX - this.disX + "px";
-    this.$el.style.top = ev.clientY - this.disY + "px";
+    this.$el.style.left = ev.clientX - this._disX + "px";
+    this.$el.style.top = ev.clientY - this._disY + "px";
   }
 
   /**
@@ -1056,8 +1056,10 @@ export class FabModal {
 
     this.$el.style.opacity = "";
     this.$el.classList.add("fade-out");
-    this.$overlay.style.opacity = "";
-    this.$overlay.classList.add("fade-out");
+    if (typeof this.$overlay !== 'undefined') {
+      this.$overlay.style.opacity = "";
+      this.$overlay.classList.add("fade-out");
+    }
   }
 
   /**
@@ -1066,7 +1068,7 @@ export class FabModal {
    */
   destroy() {
     this.$el.dispatchEvent(new CustomEvent("destroyed"));
-    this.$overlay.remove();
+    if (typeof this.$overlay !== 'undefined') this.$overlay.remove();
     this.$el.remove();
   }
 
@@ -1076,7 +1078,7 @@ export class FabModal {
    */
   safeDestroy() {
     this.$el.dispatchEvent(new CustomEvent("safeDestroyed"));
-    this.$overlay.style.display = "none";
+    if (typeof this.$overlay !== 'undefined') this.$overlay.style.display = "none";
     this.$el.style.display = "none";
 
     if (
