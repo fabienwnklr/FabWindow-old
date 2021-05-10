@@ -646,6 +646,7 @@ export class FabModal {
         border-radius: 5px;
         display: none;
         overflow: hidden;
+        resize: both;
         border-bottom: 3px solid #415f8b;
         font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
           "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -846,6 +847,10 @@ export class FabModal {
    */
   private _initDrag() {
     this.$el.onmousedown = (ev) => {
+      const target = ev.target as HTMLElement;
+
+      if (!target?.classList.contains('fab-header')) return;
+
       this._disX = ev.clientX - this.$el.offsetLeft;
       this._disY = ev.clientY - this.$el.offsetTop;
 
