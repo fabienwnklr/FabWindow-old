@@ -60,12 +60,13 @@ export class FabModal {
    *   zIndex: 999,
    *   width: "auto",
    *   height: "auto",
+   *   minWidth: "200px",
+   *   minHeight: "150px",
    *   maxWidth: "100%",
    *   maxHeight: "100%",
    *   draggable: true,
    *   expandable: true,
    *   reducible: true,
-   *   destroyOnClose: true,
    *
    *   onFullScreen: null,
    *   onRestore: null,
@@ -98,7 +99,6 @@ export class FabModal {
     this.hide = this.hide.bind(this);
     this.show = this.show.bind(this);
     this.destroy = this.destroy.bind(this);
-    this.safeDestroy = this.safeDestroy.bind(this);
     // Private
     this._buildStyle = this._buildStyle.bind(this);
     this._initHandlers = this._initHandlers.bind(this);
@@ -134,12 +134,13 @@ export class FabModal {
       zIndex: 999,
       width: "auto",
       height: "auto",
+      minWidth: "200px",
+      minHeight: "150px",
       maxWidth: "100%",
       maxHeight: "100%",
       draggable: true,
       expandable: true,
       reducible: true,
-      destroyOnClose: true,
 
       onFullScreen: null,
       onRestore: null,
@@ -667,12 +668,24 @@ export class FabModal {
           display: flex;
           align-items: center;
           background-color: rgba(0, 0, 0, 0.2);
+          z-index: 997;
         }
 
         .fab-modal-container .fab-modal-tab {
+          opacity: 0;
           height: 100%;
           background-color: grey;
           margin-right: 0.5rem;
+          z-index: 998;
+        }
+
+        #${this.options.id} {
+          width: ${this.options.width};
+          height: ${this.options.height};
+          min-width: ${this.options.minWidth};
+          min-height: ${this.options.minHeight};
+          max-width: ${this.options.maxWidth};
+          max-height: ${this.options.maxHeight};
         }
       ` : ``}
       .fab-modal {
@@ -686,10 +699,12 @@ export class FabModal {
         background: #fff;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
         box-sizing: border-box;
-        width: ${this.options.width};
-        height: ${this.options.height};
-        max-width: ${this.options.maxWidth};
-        max-height: ${this.options.maxHeight};
+        ${typeof this.options.modal_manager === 'undefined' ? `
+         width: ${this.options.width};
+          height: ${this.options.height};
+          max-width: ${this.options.maxWidth};
+          max-height: ${this.options.maxHeight};
+        ` : ''}
         border-radius: 5px;
         display: none;
         overflow: hidden;
@@ -835,10 +850,7 @@ export class FabModal {
         height: auto;
         line-height: 1.8;
         color: #0a0a0a;
-      }
-      .fab-modal .fab-content.hasScroll {
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: auto;
       }
     `;
 
@@ -1047,6 +1059,7 @@ export class FabModal {
     this.$el.style.opacity = "1";
 
     if (typeof this.$overlay !== 'undefined') this.$overlay.style.opacity = "1";
+    if (typeof this.$modalTab !== 'undefined') this.$modalTab.style.opacity = "1";
 
     if (typeof this.options.onShow === "function") {
       this.options.onShow(this);
@@ -1109,17 +1122,16 @@ export class FabModal {
   close() {
     this.$el.dispatchEvent(new CustomEvent("close"));
 
-    if (this.options.destroyOnClose === true) {
-      this.$el.addEventListener("animationend", this.destroy);
-    } else {
-      this.$el.addEventListener("animationend", this.safeDestroy);
-    }
-
+    this.$el.addEventListener("animationend", this.destroy);
     this.$el.style.opacity = "";
     this.$el.classList.add("fade-out");
     if (typeof this.$overlay !== 'undefined') {
       this.$overlay.style.opacity = "";
       this.$overlay.classList.add("fade-out");
+    }
+    if (typeof this.$modalTab !== 'undefined') {
+      this.$modalTab.style.opacity = "";
+      this.$modalTab.classList.add("fade-out");
     }
   }
 
@@ -1130,25 +1142,7 @@ export class FabModal {
   destroy() {
     this.$el.dispatchEvent(new CustomEvent("destroyed"));
     if (typeof this.$overlay !== 'undefined') this.$overlay.remove();
+    if (typeof this.$modalTab !== 'undefined') this.$modalTab.remove();
     this.$el.remove();
-  }
-
-  /**
-   * @function
-   * Only hidding modal in the DOM you can re-display modal after with function show
-   */
-  safeDestroy() {
-    this.$el.dispatchEvent(new CustomEvent("safeDestroyed"));
-    if (typeof this.$overlay !== 'undefined') this.$overlay.style.display = "none";
-    this.$el.style.display = "none";
-
-    if (
-      typeof this.options.effects !== "undefined" &&
-      typeof this.options.effects.out !== "undefined"
-    ) {
-      this.$el.classList.remove(this.options.effects.out);
-      this.$overlay.classList.remove(this.options.effects.out);
-    }
-    this.$el.removeEventListener("animationend", this.safeDestroy);
   }
 }
