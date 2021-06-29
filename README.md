@@ -8,41 +8,54 @@ FabModal is a modal and modal management solution. FabModal provides the ability
 
 Install FabModal with npm or yarn
 
+- Using npm
+
 ```bash
   npm install FabModal
+```
 
-  // or
+- or using yarn
 
-  yarn add FabModal
+```bash
+ yarn add FabModal
 ```
 
 ## Usage/Examples
 
-- Using module
+### Using module
+
+- With modal manager
 
 ```javascript
 import FabModalManager from "FabModalManager";
-// or
-import FabModal from "FabModale";
 
 const myModalManager = new FabModalManager(options);
 const myModal = myModalManager.createModal(options);
-// or
+```
+
+- With simple modal
+
+```javascript
+import FabModal from "FabModale";
+
 const myModal = new FabModal(options);
 ```
 
-- Using es5
+### Using es5
+
+- With modal manager
 
 ```html
-<!-- Insert js -->
 <script src="path/to/FabModalManager.js">
-<!-- or -->
-<script src="path/to/FabModal.js">
-```
 
-```javascript
 const myModalManager = new FabModalManager(options);
 const myModal = myModalManager.createModal(options);
-// or
+```
+
+- With simple modal
+
+```html
+<script src="path/to/FabModal.js">
+
 const myModal = new FabModal(options);
 ```
