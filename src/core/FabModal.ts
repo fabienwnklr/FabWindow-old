@@ -112,7 +112,10 @@ export class FabModal {
     this.$bodyElement?.appendChild(this.$el);
     this._buildStyle();
     this._initHandlers();
-    this.show();
+
+    if (!this.options.modal_manager) {
+      this.show();
+    }
   }
 
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
@@ -234,7 +237,6 @@ export class FabModal {
   get active(): boolean {
     return this.$el.classList.contains("active");
   }
-
 
   set modalTab(modalTab: HTMLElement) {
     this.$modalTab = modalTab;
@@ -660,6 +662,7 @@ export class FabModal {
       }
       ${typeof this.options.modal_manager !== 'undefined' ? `
         .fab-modal-container {
+          font-family: monospace;
           position: fixed;
           bottom: 0;
           left: 0;
@@ -674,9 +677,11 @@ export class FabModal {
         .fab-modal-container .fab-modal-tab {
           opacity: 0;
           height: 100%;
-          background-color: grey;
+          padding: 0.2rem 0.5rem;
+          background-color: #3ae3ae;
           margin-right: 0.5rem;
           z-index: 998;
+          color: currentColor;
         }
 
         #${this.options.id} {
@@ -712,6 +717,9 @@ export class FabModal {
         border-bottom: 3px solid #415f8b;
         font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
           "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      }
+      .fab-modal.show, .fab-overlay.show, .fab-modal-tab.show {
+        opacity: 1
       }
       .fab-modal.draggable .fab-header  {
         cursor: move;
@@ -1056,10 +1064,12 @@ export class FabModal {
     this.$el.style.display = "block";
     this.$bodyElement!.style.overflow = "hidden";
     this.$el.style.display = "block";
-    this.$el.style.opacity = "1";
+    this.$el.style.opacity = "";
 
-    if (typeof this.$overlay !== 'undefined') this.$overlay.style.opacity = "1";
-    if (typeof this.$modalTab !== 'undefined') this.$modalTab.style.opacity = "1";
+    this.$el.classList.add('show');
+
+    if (typeof this.$overlay !== 'undefined') this.$overlay.classList.add('show');
+    if (typeof this.$modalTab !== 'undefined') this.$modalTab.classList.add('show');
 
     if (typeof this.options.onShow === "function") {
       this.options.onShow(this);
@@ -1123,14 +1133,14 @@ export class FabModal {
     this.$el.dispatchEvent(new CustomEvent("close"));
 
     this.$el.addEventListener("animationend", this.destroy);
-    this.$el.style.opacity = "";
+    this.$el.classList.remove("show");
     this.$el.classList.add("fade-out");
     if (typeof this.$overlay !== 'undefined') {
-      this.$overlay.style.opacity = "";
+      this.$overlay.classList.remove("show");
       this.$overlay.classList.add("fade-out");
     }
     if (typeof this.$modalTab !== 'undefined') {
-      this.$modalTab.style.opacity = "";
+      this.$modalTab.classList.remove("show");
       this.$modalTab.classList.add("fade-out");
     }
   }

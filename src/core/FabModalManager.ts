@@ -86,7 +86,11 @@ export class FabModalManager {
 
     const newModal = new FabModal(options);
 
-    return this.addModal(newModal);
+    this.addModal(newModal);
+
+    newModal.show();
+
+    return newModal;
   }
 
   addModal(modal: FabModal) {
@@ -94,8 +98,9 @@ export class FabModalManager {
     this._initHandlers(modal);
 
     if (this.options.container) {
-      modal.$modalTab = document.createElement('div');
+      modal.modalTab = document.createElement('div');
       modal.$modalTab.classList.add('fab-modal-tab');
+      modal.$modalTab.innerHTML = `${modal.options.title || ''} <button class="fab-tab-close">x</button>`;
       modal.$modalTab.innerHTML = modal.options.title || '';
       this.$modalContainer.appendChild(modal.$modalTab);
     }
