@@ -1,7 +1,16 @@
 import { FabModal } from "./FabModal";
 // Types
-import { ModalManagerOptions } from "../types/modal-manager-options";
-import { ModalOptions } from "../types/modal-options";
+import type { ModalManagerOptions } from "../types/modal-manager-options";
+import type { ModalOptions } from "../types/modal-options";
+
+export { };
+
+declare global {
+  interface HTMLDivElement {
+    fabModal: FabModal;
+    FabModalManager: FabModalManager;
+  }
+}
 
 export class FabModalManager {
   public modals: FabModal[];
@@ -41,7 +50,7 @@ export class FabModalManager {
    * @getter of default options for FabModalManager
    * @returns {ModalManagerOptions}
    */
-  get defaultOptions() {
+  get defaultOptions(): ModalManagerOptions {
     return {
       limitModal: 5,
       container: true
@@ -71,6 +80,16 @@ export class FabModalManager {
       },
       { once: true }
     );
+
+    fabModal.$modalTab.addEventListener("mousedown", this.setFocused.bind(this));
+
+    fabModal.$modalTab.querySelector('.fab-tab-close')?.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      e.stopPropagation();
+      e.preventDefault();
+
+      this.destroyModal(fabModal);
+    })
   }
 
   // ## ----------------------------START PRIVATE FUNCTION---------------------------- ## \\
@@ -95,15 +114,19 @@ export class FabModalManager {
 
   addModal(modal: FabModal) {
     this.modals.push(modal);
-    this._initHandlers(modal);
-
+    
     if (this.options.container) {
       modal.modalTab = document.createElement('div');
       modal.$modalTab.classList.add('fab-modal-tab');
       modal.$modalTab.innerHTML = `${modal.options.title || ''} <button class="fab-tab-close">x</button>`;
-      modal.$modalTab.innerHTML = modal.options.title || '';
+
+      if (this.$modalContainer.style.display === 'none') {
+        this.$modalContainer.style.display = '';
+      }
       this.$modalContainer.appendChild(modal.$modalTab);
     }
+    
+    this._initHandlers(modal);
 
     return modal;
   }
@@ -114,9 +137,9 @@ export class FabModalManager {
    */
   setFocused(ev: MouseEvent) {
     const fabModalFocused = ev.currentTarget as HTMLElement;
-    const focusedModal = this.modals.find(modal => modal.options.id === fabModalFocused?.id || null)
+    const focusedModal = this.modals.find(modal => modal.options.id === fabModalFocused.id)
 
-    if (focusedModal?.active === true) return;
+    if (typeof focusedModal !== 'undefined' && focusedModal.active === true && focusedModal.$el.classList.contains('active') === true) return;
 
     this.modals.forEach((modal: FabModal) => {
       if (modal === focusedModal) {
@@ -140,5 +163,9 @@ export class FabModalManager {
         return;
       }
     });
+
+    if (this.modals.length === 0) {
+      this.$modalContainer.style.display = 'none';
+    }
   }
 }

@@ -1,7 +1,15 @@
+// Basic import
+import { isMobile } from "../utils";
+import { defaultOptions } from "./default";
 // Types
-import { ModalOptions } from "../types/modal-options";
-import { Utils } from "../utils";
-import { FabModalManager } from "./FabModalManager";
+import type { ModalOptions } from "../types/modal-options";
+import type { FabModalManager } from "./FabModalManager";
+declare global {
+  interface HTMLDivElement {
+    fabModal: FabModal;
+    FabModalManager: FabModalManager;
+  }
+}
 
 export class FabModal {
   public options: ModalOptions;
@@ -15,7 +23,7 @@ export class FabModal {
   /** @property overlay html element of simple modal */
   public $overlay: HTMLElement;
   /** @property modal html element */
-  public $el: HTMLElement;
+  public $el: HTMLDivElement;
   /** @property header modal html element */
   public $header: HTMLElement;
   /** @property title modal html element */
@@ -44,7 +52,7 @@ export class FabModal {
   /**
    * Instance of FabModal
    * @param {ModalOptions} options Object contains options for modal
-   * See : {@link FabModal.defaultOptions}
+   * See : {@link defaultOptions}
    * @defaultValue
    * ```javascript
    * const options = {
@@ -81,9 +89,9 @@ export class FabModal {
    */
   constructor(options?: ModalOptions) {
     if (!options || typeof options !== "object") {
-      this.options = this.defaultOptions;
+      this.options = defaultOptions;
     } else {
-      this.options = { ...this.defaultOptions, ...options };
+      this.options = { ...defaultOptions, ...options };
     }
 
     this._disX = 0;
@@ -119,42 +127,6 @@ export class FabModal {
   }
 
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
-
-  /**
-   * @getter Return object with default value for modal
-   */
-  get defaultOptions() {
-    return {
-      id: `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}`,
-      title: "",
-      content: "",
-      modal_manager: undefined,
-      effects: {
-        in: "fade-in",
-        out: "fade-out",
-      },
-      overlay: true,
-      zIndex: 999,
-      width: "auto",
-      height: "auto",
-      minWidth: "200px",
-      minHeight: "150px",
-      maxWidth: "100%",
-      maxHeight: "100%",
-      draggable: true,
-      expandable: true,
-      reducible: true,
-
-      onFullScreen: null,
-      onRestore: null,
-      onResize: null,
-      onShow: null,
-      onHide: null,
-      beforeClose: null,
-      onClosing: null,
-      onClosed: null,
-    };
-  }
 
   /**
    * @getter get title of modal
@@ -265,6 +237,9 @@ export class FabModal {
     this._$style.id = `fab-style`;
     // CSS
     this._$style.innerHTML = `
+      :root {
+        --fab-modal-primary: #415f8b;
+      }
       @-webkit-keyframes fadeIn {
         0% {
           opacity: 0;
@@ -614,19 +589,19 @@ export class FabModal {
       }
 
       .fade-in {
-        -webkit-animation: fadeIn 1s ease;
-        -moz-animation: fadeIn 1s ease;
-        -ms-animation: fadeIn 1s ease;
-        -o-animation: fadeIn 1s ease;
-        animation: fadeIn 1s ease;
+        -webkit-animation: fadeIn .5s ease;
+        -moz-animation: fadeIn .5s ease;
+        -ms-animation: fadeIn .5s ease;
+        -o-animation: fadeIn .5s ease;
+        animation: fadeIn .5s ease;
       }
 
       .fade-out {
-        -webkit-animation: fadeOut 1s ease;
-        -moz-animation: fadeOut 1s ease;
-        -ms-animation: fadeOut 1s ease;
-        -o-animation: fadeOut 1s ease;
-        animation: fadeOut 1s ease;
+        -webkit-animation: fadeOut .5s ease;
+        -moz-animation: fadeOut .5s ease;
+        -ms-animation: fadeOut .5s ease;
+        -o-animation: fadeOut .5s ease;
+        animation: fadeOut .5s ease;
       }
 
       .loader {
@@ -667,7 +642,7 @@ export class FabModal {
           bottom: 0;
           left: 0;
           right: 0;
-          height: 1.5rem;
+          height: 2rem;
           display: flex;
           align-items: center;
           background-color: rgba(0, 0, 0, 0.2);
@@ -675,13 +650,14 @@ export class FabModal {
         }
 
         .fab-modal-container .fab-modal-tab {
+          font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;;
           opacity: 0;
           height: 100%;
           padding: 0.2rem 0.5rem;
-          background-color: #3ae3ae;
+          background-color: var(--fab-modal-primary);
+          color: white;
           margin-right: 0.5rem;
           z-index: 998;
-          color: currentColor;
         }
 
         #${this.options.id} {
@@ -714,13 +690,21 @@ export class FabModal {
         display: none;
         overflow: hidden;
         resize: both;
-        border-bottom: 3px solid #415f8b;
+        border-bottom: 3px solid var(--fab-modal-primary);
         font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
           "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
       }
       .fab-modal.show, .fab-overlay.show, .fab-modal-tab.show {
         opacity: 1
       }
+
+      .fab-tab-close {
+        border: 0;
+        background-color: transparent;
+        color: white;
+        cursor: pointer;
+      }
+
       .fab-modal.draggable .fab-header  {
         cursor: move;
       }
@@ -787,18 +771,20 @@ export class FabModal {
         -moz-animation: slideDown 0.7s cubic-bezier(0.7, 0, 0.3, 1);
         animation: slideDown 0.7s cubic-bezier(0.7, 0, 0.3, 1);
         display: flex;
-        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         position: relative;
         box-shadow: inset 0 -10px 15px -12px rgba(0, 0, 0, 0.3), 0 0 0px #555;
         cursor: default;
-        background-color: #415f8b;
+        background-color: var(--fab-modal-primary);
       }
       .fab-modal .fab-header.draggable {
         cursor: move;
       }
       .fab-modal .fab-header .fab-title {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
         padding: 1rem;
         margin: 0;
         font-size: 1.3rem;
@@ -809,6 +795,7 @@ export class FabModal {
       }
       .fab-modal .fab-header .fab-icons {
         display: flex;
+        margin-right: 0.5rem;
         -webkit-animation: revealIn 1s cubic-bezier(0.16, 0.81, 0.32, 1) both;
         -moz-animation: revealIn 1s cubic-bezier(0.16, 0.81, 0.32, 1) both;
         animation: revealIn 1s cubic-bezier(0.16, 0.81, 0.32, 1) both;
@@ -889,7 +876,7 @@ export class FabModal {
    * @ignore
    */
   private _initHandlers() {
-    if (this.options.draggable && !Utils.isMobile()) {
+    if (this.options.draggable && !isMobile()) {
       this.$el.classList.add("draggable");
       this._initDrag();
     }
@@ -958,7 +945,7 @@ export class FabModal {
 
   // ______________________________________________________________________________________ \\
 
-  // ## ----------------------------START PUBLIC FUNCTION---------------------------- ## \\
+  // ## ----------------------------START PUBLIC API FUNCTION---------------------------- ## \\
   /**
    * @function
    * Create all node elements of modal
@@ -975,8 +962,8 @@ export class FabModal {
 
     this.$el = document.createElement("div");
     this.$el.className = `fab-modal ${this.options.effects?.in} ${fullScreen}`;
-    if (typeof this.options.id !== "undefined") {
-      this.$el.id = this.options.id;
+    if (typeof this.options.id !== "undefined" && this.options.id !== '') {
+      this.$el.id = this.options.id = this.options.id === 'fab-modal' ? `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}` : this.options.id;
     }
 
     this.$header = document.createElement("div");
@@ -1028,6 +1015,9 @@ export class FabModal {
       this.$body.innerHTML = this.options.content;
     }
 
+
+
+    this.$el.fabModal = this;
     this.$el.appendChild(this.$body);
   }
 
