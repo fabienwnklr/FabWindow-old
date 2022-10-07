@@ -1,0 +1,19 @@
+{
+  "name": "fabmodal",
+  "version": "0.0.1",
+  "description": "Simple modal or multiple modal with modal manager",
+  "main": "index.js",
+  "authors": {
+    "name": "",
+    "email": ""
+  },
+  "repository": "/fabmodal",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
