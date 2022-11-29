@@ -466,7 +466,7 @@
 .fab-modal {
     outline: none;
     opacity: 0;
-    z-index: 1;
+    z-index: 998;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -650,10 +650,6 @@
 
 .fab-modal .fab-header .fab-icons .expand:before {
     content: "\\26F6";
-}
-
-.fab-modal .fab-header .fab-icons .close:before {
-    content: "\\2715";
 }
 
 .fab-modal .fab-content {

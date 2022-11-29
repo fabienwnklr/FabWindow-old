@@ -85,6 +85,11 @@ const config = {
             position: 'left',
             label: 'Get started',
           },
+          {
+            to: 'docs/demos/',
+            position: 'left',
+            label: 'Examples',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',
