@@ -13,7 +13,6 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Github', // Usually your GitHub org/user name.
@@ -54,6 +53,7 @@ const config = {
   ],
 
   plugins: [
+    '@docusaurus/theme-live-codeblock',
     async function loadTailwindCss() {
       return {
         name: "docusaurus-tailwindcss",

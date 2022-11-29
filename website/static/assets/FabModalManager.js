@@ -58,7 +58,7 @@
   // lib/default.ts
   var modalDefaultOptions = {
     id: "fab-modal",
-    title: "",
+    title: "Title",
     content: "",
     modal_manager: void 0,
     effects: {

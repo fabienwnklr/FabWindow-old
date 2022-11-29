@@ -3,7 +3,7 @@ import type { ModalManagerOptions } from "./types/modal-manager-options"
 
 export const modalDefaultOptions: ModalOptions = {
     id: 'fab-modal',
-    title: "",
+    title: "Title",
     content: "",
     modal_manager: undefined,
     effects: {
