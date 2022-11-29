@@ -5,9 +5,9 @@
     "main": "lib/",
     "type": "module",
     "scripts": {
-        "dev": "concurrently \"npm run build:dev\" \"npm run doc\"",
-        "build:dev": "esbuild lib/FabModalManager.ts lib/FabModal.ts --bundle --sourcemap --outdir=website/static/assets --watch",
-        "build": "npm run build:iife && npm run build:esm && npm run build:cjs",
+        "start": "concurrently \"npm run build\" \"npm run doc\"",
+        "build": "node esbuild",
+        "build:dist": "npm run build:iife && npm run build:esm && npm run build:cjs",
         "build:iife": "esbuild lib/FabModalManager.ts lib/FabModal.ts --bundle --minify --outdir=build/iife --format=iife",
         "build:esm": "esbuild lib/FabModalManager.ts lib/FabModal.ts --bundle --minify --outdir=build/esm --format=esm",
         "build:cjs": "esbuild lib/FabModalManager.ts lib/FabModal.ts --bundle  --outdir=build/cjs --format=cjs",
@@ -17,7 +17,7 @@
         "test": "jest --config=jest.config.mjs"
     },
     "author": "Fabien Winkler",
-    "license": "ISC",
+    "license": "",
     "devDependencies": {
         "concurrently": "^7.4.0",
         "esbuild": "^0.15.10",
