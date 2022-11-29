@@ -1,0 +1,23 @@
+.fab-modal-container {
+    font-family: monospace;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 997;
+}
+
+.fab-modal-container .fab-modal-tab {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    opacity: 0;
+    height: 100%;
+    padding: 0.2rem 0.5rem;
+    background-color: var(--fab-modal-primary);
+    color: white;
+    margin-right: 0.5rem;
+    z-index: 998;
+}
