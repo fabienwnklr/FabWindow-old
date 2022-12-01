@@ -34,7 +34,7 @@
 - [content](FabModal.FabModal.md#content)
 - [index](FabModal.FabModal.md#index)
 - [modalTab](FabModal.FabModal.md#modaltab)
-- [modal\_manager](FabModal.FabModal.md#modal_manager)
+- [modal_manager](FabModal.FabModal.md#modal_manager)
 - [title](FabModal.FabModal.md#title)
 
 ### Methods
@@ -62,7 +62,7 @@ Instance of FabModal
 
 ```javascript
 const options = {
- id: `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}`,
+  id: `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}`,
   title: "",
   content: "",
   modal_manager: undefined,
@@ -95,9 +95,9 @@ const options = {
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `options?` | `ModalOptions` | Object contains options for modal  See : modalDefaultOptions |
+| Name       | Type           | Description                                                 |
+| :--------- | :------------- | :---------------------------------------------------------- |
+| `options?` | `ModalOptions` | Object contains options for modal See : modalDefaultOptions |
 
 #### Defined in
 
@@ -117,7 +117,7 @@ content modal html element
 
 [FabModal.ts:55](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L55)
 
-___
+---
 
 ### $bodyElement
 
@@ -127,7 +127,7 @@ ___
 
 [FabModal.ts:36](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L36)
 
-___
+---
 
 ### $close
 
@@ -141,7 +141,7 @@ button html element
 
 [FabModal.ts:53](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L53)
 
-___
+---
 
 ### $el
 
@@ -155,7 +155,7 @@ html element
 
 [FabModal.ts:41](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L41)
 
-___
+---
 
 ### $expand
 
@@ -169,7 +169,7 @@ button html element
 
 [FabModal.ts:51](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L51)
 
-___
+---
 
 ### $header
 
@@ -183,7 +183,7 @@ modal html element
 
 [FabModal.ts:43](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L43)
 
-___
+---
 
 ### $icons
 
@@ -197,7 +197,7 @@ buttons modal html element
 
 [FabModal.ts:47](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L47)
 
-___
+---
 
 ### $loader
 
@@ -211,7 +211,7 @@ modal html element
 
 [FabModal.ts:57](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L57)
 
-___
+---
 
 ### $modalTab
 
@@ -225,7 +225,7 @@ tab element (only if using with FabModalManager)
 
 [FabModal.ts:59](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L59)
 
-___
+---
 
 ### $overlay
 
@@ -239,7 +239,7 @@ html element of simple modal
 
 [FabModal.ts:39](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L39)
 
-___
+---
 
 ### $reduce
 
@@ -253,7 +253,7 @@ button modal html element
 
 [FabModal.ts:49](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L49)
 
-___
+---
 
 ### $title
 
@@ -267,7 +267,7 @@ modal html element
 
 [FabModal.ts:45](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L45)
 
-___
+---
 
 ### isFullScreen
 
@@ -281,7 +281,7 @@ called if modal is fullScreen or not
 
 [FabModal.ts:32](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L32)
 
-___
+---
 
 ### oldContent
 
@@ -295,7 +295,7 @@ stock content before set new content to modal
 
 [FabModal.ts:34](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L34)
 
-___
+---
 
 ### options
 
@@ -331,8 +331,8 @@ Set active class to modal
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type      |
+| :------- | :-------- |
 | `active` | `boolean` |
 
 #### Returns
@@ -343,11 +343,11 @@ Set active class to modal
 
 [FabModal.ts:217](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L217)
 
-___
+---
 
 ### content
 
-• `get` **content**(): ``null`` \| `string`
+• `get` **content**(): `null` \| `string`
 
 **`Getter`**
 
@@ -355,7 +355,7 @@ Get body content of modal
 
 #### Returns
 
-``null`` \| `string`
+`null` \| `string`
 
 #### Defined in
 
@@ -369,9 +369,9 @@ Set body content of modal
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `content` | ``null`` \| `string` |
+| Name      | Type               |
+| :-------- | :----------------- |
+| `content` | `null` \| `string` |
 
 #### Returns
 
@@ -381,7 +381,7 @@ Set body content of modal
 
 [FabModal.ts:175](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L175)
 
-___
+---
 
 ### index
 
@@ -407,8 +407,8 @@ Set z-index of modal
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type     |
+| :------ | :------- |
 | `index` | `string` |
 
 #### Returns
@@ -419,7 +419,7 @@ Set z-index of modal
 
 [FabModal.ts:196](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L196)
 
-___
+---
 
 ### modalTab
 
@@ -437,8 +437,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name       | Type          |
+| :--------- | :------------ |
 | `modalTab` | `HTMLElement` |
 
 #### Returns
@@ -449,9 +449,9 @@ ___
 
 [FabModal.ts:235](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L235)
 
-___
+---
 
-### modal\_manager
+### modal_manager
 
 • `get` **modal_manager**(): `undefined` \| [`FabModalManager`](FabModalManager.FabModalManager.md)
 
@@ -475,8 +475,8 @@ Set modal manager object
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type                                                                   |
+| :---- | :--------------------------------------------------------------------- |
 | `obj` | `undefined` \| [`FabModalManager`](FabModalManager.FabModalManager.md) |
 
 #### Returns
@@ -487,11 +487,11 @@ Set modal manager object
 
 [FabModal.ts:210](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L210)
 
-___
+---
 
 ### title
 
-• `get` **title**(): ``null`` \| `string`
+• `get` **title**(): `null` \| `string`
 
 **`Getter`**
 
@@ -499,7 +499,7 @@ get title of modal
 
 #### Returns
 
-``null`` \| `string`
+`null` \| `string`
 
 #### Defined in
 
@@ -513,9 +513,9 @@ Set title of modal
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `title` | ``null`` \| `string` |
+| Name    | Type               |
+| :------ | :----------------- |
+| `title` | `null` \| `string` |
 
 #### Returns
 
@@ -529,23 +529,23 @@ Set title of modal
 
 ### \_fnDown
 
-▸ `Private` **_fnDown**(`ev`): `undefined` \| ``false``
+▸ `Private` **\_fnDown**(`ev`): `undefined` \| `false`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name | Type         |
+| :--- | :----------- |
 | `ev` | `MouseEvent` |
 
 #### Returns
 
-`undefined` \| ``false``
+`undefined` \| `false`
 
 #### Defined in
 
 [FabModal.ts:934](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L934)
 
-___
+---
 
 ### close
 
@@ -563,7 +563,7 @@ Closing current modal
 
 [FabModal.ts:1150](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L1150)
 
-___
+---
 
 ### createModal
 
@@ -585,7 +585,7 @@ Useless to call this function without calling instance new FabModal()
 
 [FabModal.ts:982](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L982)
 
-___
+---
 
 ### destroy
 
@@ -603,7 +603,7 @@ Removing modal from DOM, you cannot retrieve modal after this
 
 [FabModal.ts:1170](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L1170)
 
-___
+---
 
 ### hide
 
@@ -621,7 +621,7 @@ Hide current modal
 
 [FabModal.ts:1101](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L1101)
 
-___
+---
 
 ### restoreOldContent
 
@@ -639,7 +639,7 @@ Restore old content into modal (the one to save before set new content)
 
 [FabModal.ts:1073](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L1073)
 
-___
+---
 
 ### show
 
@@ -657,7 +657,7 @@ show current modal
 
 [FabModal.ts:1081](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L1081)
 
-___
+---
 
 ### startLoader
 
@@ -675,7 +675,7 @@ Starting loader into modal
 
 [FabModal.ts:1056](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L1056)
 
-___
+---
 
 ### stopLoader
 
@@ -693,7 +693,7 @@ Stop loader into modal
 
 [FabModal.ts:1065](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModal.ts#L1065)
 
-___
+---
 
 ### toggleFullScreen
 

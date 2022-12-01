@@ -27,18 +27,18 @@ Install FabWindow with npm or yarn
 - With modal manager
 
 ```javascript
-import FabWindowManager from "FabWindowManager";
+import FabWindowManager from "FabWindowManager"
 
-const myModalManager = new FabWindowManager(options);
-const myModal = myModalManager.createModal(options);
+const myModalManager = new FabWindowManager(options)
+const myModal = myModalManager.createModal(options)
 ```
 
 - With simple modal
 
 ```javascript
-import FabWindow from "FabWindowe";
+import FabWindow from "FabWindowe"
 
-const myModal = new FabWindow(options);
+const myModal = new FabWindow(options)
 ```
 
 ### Using es5

@@ -1,11 +1,8 @@
-
-import React, { useEffect } from "react";
-import CodeBlock from "@theme/CodeBlock";
+import React, { useEffect } from "react"
+import CodeBlock from "@theme/CodeBlock"
 
 export default function Basics() {
-  useEffect(() => {
-    
-  });
+  useEffect(() => {})
 
   return (
     <>
@@ -43,5 +40,5 @@ export default function Basics() {
         {"$('#normalize').selectize();"}
       </CodeBlock>
     </>
-  );
+  )
 }

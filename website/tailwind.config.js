@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -6,16 +6,11 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      sans: ['Anek Devanagari', ...defaultTheme.fontFamily.sans],
-      display: ['Anek Devanagari', ...defaultTheme.fontFamily.sans],
+      sans: ["Anek Devanagari", ...defaultTheme.fontFamily.sans],
+      display: ["Anek Devanagari", ...defaultTheme.fontFamily.sans],
     },
   },
   corePlugins: { preflight: false },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
-  darkMode: ['class', '[data-theme="dark"]']
+  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms"), require("@tailwindcss/line-clamp"), require("@tailwindcss/aspect-ratio")],
+  darkMode: ["class", '[data-theme="dark"]'],
 }

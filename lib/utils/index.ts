@@ -1,12 +1,12 @@
-import { WrongPropertyError } from '../core/FabModalError'
+import { WrongPropertyError } from "../core/FabModalError"
 /**
  * @function
  * @ignore
  * @returns {boolean}
  */
 export function isMobile(): boolean {
-  let check = false;
-  (function (a) {
+  let check = false
+  ;(function (a) {
     if (
       /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(
         a
@@ -15,24 +15,23 @@ export function isMobile(): boolean {
         a.substr(0, 4)
       )
     )
-      check = true;
-  })(navigator.userAgent || navigator.vendor);
-  return check;
+      check = true
+  })(navigator.userAgent || navigator.vendor)
+  return check
 }
-
 
 /**
  * @function validOptions Check if object has good value passed
  * @param {Object} reference Object to reference for check key is in
  * @param {Object} current Object to verify
  */
-export function validOptions(reference: object , current: object) {
-  const referenceKeys = Object.keys(reference);
-  const currentKeys = Object.keys(current);
+export function validOptions(reference: object, current: object) {
+  const referenceKeys = Object.keys(reference)
+  const currentKeys = Object.keys(current)
 
   for (let key in currentKeys) {
     if (!(key in referenceKeys)) {
-      throw new WrongPropertyError(key);
+      throw new WrongPropertyError(key)
     }
   }
 }

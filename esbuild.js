@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { build } from 'esbuild';
-import { generateDocumentation } from 'tsdoc-markdown';
+import { build } from "esbuild"
+import { generateDocumentation } from "tsdoc-markdown"
 
-const [node, _, method] = process.argv;
-const { npm_package_version } = process.env;
+const [node, _, method] = process.argv
+const { npm_package_version } = process.env
 const headerJS = `/**
  * FabWindow (v${npm_package_version})
  * https://netlify.fabwindow.dev
@@ -22,54 +22,54 @@ const headerJS = `/**
  *
  * @author Fabien Winkler <fabienwinkler@outlook.fr>
  */
-`;
+`
 
 const buildAPIDocs = () => {
-  generateDocumentation({ inputFiles: ['./lib/default.ts'], outputFile: './website/docs/api/default.md' });
-  generateDocumentation({ inputFiles: ['./lib/FabModal.ts'], outputFile: './website/docs/api/fabmodal.md' });
-  generateDocumentation({ inputFiles: ['./lib/FabModalManager.ts'], outputFile: './website/docs/api/fabmodal-manager.md' });
-};
+  generateDocumentation({ inputFiles: ["./lib/default.ts"], outputFile: "./website/docs/api/default.md" })
+  generateDocumentation({ inputFiles: ["./lib/FabModal.ts"], outputFile: "./website/docs/api/fabmodal.md" })
+  generateDocumentation({ inputFiles: ["./lib/FabModalManager.ts"], outputFile: "./website/docs/api/fabmodal-manager.md" })
+}
 
 const buildDist = () => {
-  const formats = ['iife', 'esm', 'cjs'];
+  const formats = ["iife", "esm", "cjs"]
 
-  formats.forEach((format) => {
+  formats.forEach(format => {
     build({
       banner: { js: headerJS },
       format,
       sourcemap: false,
-      logLevel: 'info',
-      entryPoints: ['lib/FabModalManager.ts', 'lib/FabModal.ts'],
+      logLevel: "info",
+      entryPoints: ["lib/FabModalManager.ts", "lib/FabModal.ts"],
       bundle: true,
       minify: true,
-      outdir: `build/${format}`
-    }).catch(() => process.exit(1));
-  });
-};
+      outdir: `build/${format}`,
+    }).catch(() => process.exit(1))
+  })
+}
 
 const buildDocs = () => {
   build({
     banner: { js: headerJS },
     sourcemap: false,
-    logLevel: 'info',
-    entryPoints: ['lib/FabModalManager.ts', 'lib/FabModal.ts'],
+    logLevel: "info",
+    entryPoints: ["lib/FabModalManager.ts", "lib/FabModal.ts"],
     bundle: true,
     minify: false,
-    outdir: 'website/static/assets/',
+    outdir: "website/static/assets/",
     watch: {
       onRebuild(error, result) {
-        if (error) console.error('watch build failed:', error);
-        else console.log('watch build succeeded:', result);
-      }
-    }
+        if (error) console.error("watch build failed:", error)
+        else console.log("watch build succeeded:", result)
+      },
+    },
   })
-    .then((result) => {
-      console.log(result);
-      console.log('watching...');
+    .then(result => {
+      console.log(result)
+      console.log("watching...")
     })
-    .catch(() => process.exit(1));
-};
+    .catch(() => process.exit(1))
+}
 
-// buildDist();
-// buildDocs();
-buildAPIDocs();
+buildDist()
+buildDocs()
+buildAPIDocs()

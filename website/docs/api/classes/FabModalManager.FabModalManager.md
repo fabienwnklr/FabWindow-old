@@ -35,8 +35,8 @@ See : FabModalManager.defaultOptions
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name       | Type                  |
+| :--------- | :-------------------- |
 | `options?` | `ModalManagerOptions` |
 
 #### Defined in
@@ -53,7 +53,7 @@ See : FabModalManager.defaultOptions
 
 [FabModalManager.ts:22](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModalManager.ts#L22)
 
-___
+---
 
 ### $modalContainer
 
@@ -63,7 +63,7 @@ ___
 
 [FabModalManager.ts:21](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModalManager.ts#L21)
 
-___
+---
 
 ### modals
 
@@ -73,7 +73,7 @@ ___
 
 [FabModalManager.ts:17](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModalManager.ts#L17)
 
-___
+---
 
 ### options
 
@@ -91,8 +91,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                               |
+| :------ | :--------------------------------- |
 | `modal` | [`FabModal`](FabModal.FabModal.md) |
 
 #### Returns
@@ -103,7 +103,7 @@ ___
 
 [FabModalManager.ts:106](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModalManager.ts#L106)
 
-___
+---
 
 ### createModal
 
@@ -115,8 +115,8 @@ creating new instance of FabModal
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type           |
+| :-------- | :------------- |
 | `options` | `ModalOptions` |
 
 #### Returns
@@ -127,7 +127,7 @@ creating new instance of FabModal
 
 [FabModalManager.ts:94](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModalManager.ts#L94)
 
-___
+---
 
 ### destroyModal
 
@@ -139,8 +139,8 @@ Destroy the modal
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name       | Type                               |
+| :--------- | :--------------------------------- |
 | `fabModal` | [`FabModal`](FabModal.FabModal.md) |
 
 #### Returns
@@ -151,7 +151,7 @@ Destroy the modal
 
 [FabModalManager.ts:148](https://github.com/fabienwnklr/FabModal-2.0/blob/6bc66c2/lib/FabModalManager.ts#L148)
 
-___
+---
 
 ### setFocused
 
@@ -163,8 +163,8 @@ Set the focus to modal
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name | Type         |
+| :--- | :----------- |
 | `ev` | `MouseEvent` |
 
 #### Returns
