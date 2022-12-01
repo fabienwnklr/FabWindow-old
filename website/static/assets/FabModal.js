@@ -1,5 +1,5 @@
 /**
- * FabWindow (v1.0.0)
+ * FabWindow (vundefined)
  * https://netlify.fabwindow.dev
  *
  * Copyright (c) 2021-2022 Fabien Winkler & contributors
@@ -58,7 +58,7 @@
   // lib/default.ts
   var modalDefaultOptions = {
     id: "fab-modal",
-    title: "Title",
+    title: "",
     content: "",
     modal_manager: void 0,
     effects: {

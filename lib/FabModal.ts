@@ -21,6 +21,11 @@ declare global {
   }
 }
 
+/**
+ * @constructor
+ * 
+ * Instance of FabModal
+ */
 export class FabModal {
   public options: ModalOptions;
   /** @property Boolean called if modal is fullScreen or not */

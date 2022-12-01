@@ -90,6 +90,11 @@ const config = {
             position: 'left',
             label: 'Examples',
           },
+          {
+            to: 'docs/api/',
+            position: 'left',
+            label: 'API Documentation',
+          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',

@@ -14,5 +14,9 @@
     "noImplicitReturns": true,
     "strictPropertyInitialization": false
   },
-  "include": ["./lib"]
+  "include": ["./lib"],
+  "typedocOptions": {
+    "entryPoints": ["lib/constant.ts", "lib/FabModal.ts", "lib/FabModalManager.ts"],
+    "out": "website/docs/api/"
+  }
 }
