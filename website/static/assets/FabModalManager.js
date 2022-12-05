@@ -1,5 +1,5 @@
 /**
- * FabWindow (vundefined)
+ * FabWindow (v1.0.0)
  * https://netlify.fabwindow.dev
  *
  * Copyright (c) 2021-2022 Fabien Winkler & contributors
@@ -16,44 +16,41 @@
  * @author Fabien Winkler <fabienwinkler@outlook.fr>
  */
 
-"use strict"
-;(() => {
+"use strict";
+(() => {
   // lib/core/FabModalError.ts
   var FabModalError = class extends Error {
     constructor(message) {
-      super(message)
-      this.name = "FabModal Error"
+      super(message);
+      this.name = "FabModal Error";
     }
-  }
+  };
   var WrongPropertyError = class extends FabModalError {
     constructor(property) {
-      super("Wrong property: " + property)
-      this.name = "WrongPropertyError"
+      super("Wrong property: " + property);
+      this.name = "WrongPropertyError";
     }
-  }
+  };
 
   // lib/utils/index.ts
   function isMobile() {
-    let check = false
-    ;(function (a) {
-      if (
-        /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(
-          a
-        ) ||
-        /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
-          a.substr(0, 4)
-        )
-      )
-        check = true
-    })(navigator.userAgent || navigator.vendor)
-    return check
+    let check = false;
+    (function(a) {
+      if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(
+        a
+      ) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
+        a.substr(0, 4)
+      ))
+        check = true;
+    })(navigator.userAgent || navigator.vendor);
+    return check;
   }
   function validOptions(reference, current) {
-    const referenceKeys = Object.keys(reference)
-    const currentKeys = Object.keys(current)
+    const referenceKeys = Object.keys(reference);
+    const currentKeys = Object.keys(current);
     for (let key in currentKeys) {
       if (!(key in referenceKeys)) {
-        throw new WrongPropertyError(key)
+        throw new WrongPropertyError(key);
       }
     }
   }
@@ -66,7 +63,7 @@
     modal_manager: void 0,
     effects: {
       in: "fade-in",
-      out: "fade-out",
+      out: "fade-out"
     },
     overlay: true,
     zIndex: 999,
@@ -87,382 +84,391 @@
     onHide: null,
     beforeClose: null,
     onClosing: null,
-    onClosed: null,
-  }
+    onClosed: null
+  };
   var modalManagerDefaultOptions = {
     limitModal: 5,
-    container: true,
-  }
+    container: true
+  };
 
   // lib/FabModal.ts
   var FabModal = class {
-    options
-    isFullScreen
-    oldContent
-    $bodyElement
-    $overlay
-    $el
-    $header
-    $title
-    $icons
-    $reduce
-    $expand
-    $close
-    $body
-    $loader
-    $modalTab
-    _disX
-    _disY
+    options;
+    isFullScreen;
+    oldContent;
+    $bodyElement;
+    $overlay;
+    $el;
+    $header;
+    $title;
+    $icons;
+    $reduce;
+    $expand;
+    $close;
+    $body;
+    $loader;
+    $modalTab;
+    _disX;
+    _disY;
     constructor(options) {
       if (!options || typeof options !== "object") {
-        this.options = modalDefaultOptions
+        this.options = modalDefaultOptions;
       } else {
-        validOptions(modalDefaultOptions, options)
-        this.options = { ...modalDefaultOptions, ...options }
+        validOptions(modalDefaultOptions, options);
+        this.options = { ...modalDefaultOptions, ...options };
       }
-      this._disX = 0
-      this._disY = 0
-      this.isFullScreen = false
-      this.oldContent = ""
-      this.$bodyElement = document.body
-      this._removeClassEffect = this._removeClassEffect.bind(this)
-      this.toggleFullScreen = this.toggleFullScreen.bind(this)
-      this.close = this.close.bind(this)
-      this.hide = this.hide.bind(this)
-      this.show = this.show.bind(this)
-      this.destroy = this.destroy.bind(this)
-      this._initHandlers = this._initHandlers.bind(this)
-      this._fnDown = this._fnDown.bind(this)
-      this._fnMove = this._fnMove.bind(this)
-      this._fnUp = this._fnUp.bind(this)
-      this.createModal()
-      this.$bodyElement?.appendChild(this.$el)
-      this._initHandlers()
+      this._disX = 0;
+      this._disY = 0;
+      this.isFullScreen = false;
+      this.oldContent = "";
+      this.$bodyElement = document.body;
+      this._removeClassEffect = this._removeClassEffect.bind(this);
+      this.toggleFullScreen = this.toggleFullScreen.bind(this);
+      this.close = this.close.bind(this);
+      this.hide = this.hide.bind(this);
+      this.show = this.show.bind(this);
+      this.destroy = this.destroy.bind(this);
+      this._initHandlers = this._initHandlers.bind(this);
+      this._fnDown = this._fnDown.bind(this);
+      this._fnMove = this._fnMove.bind(this);
+      this._fnUp = this._fnUp.bind(this);
+      this.createModal();
+      this.$bodyElement?.appendChild(this.$el);
+      this._initHandlers();
       if (!this.options.modal_manager) {
-        this.show()
+        this.show();
       }
     }
     get title() {
-      return this.$title.textContent
+      return this.$title.textContent;
     }
     set title(title) {
       if (!title || typeof title !== "string") {
-        throw new FabModalError("title must be a string")
+        throw new FabModalError("title must be a string");
       }
-      this.$title.textContent = title
+      this.$title.textContent = title;
     }
     get content() {
-      return this.$body.textContent
+      return this.$body.textContent;
     }
     set content(content) {
       if (!content || typeof content !== "string") {
-        throw new FabModalError("content must be a string")
+        throw new FabModalError("content must be a string");
       }
-      const isLoader = this.$body.outerHTML !== this.$loader.outerHTML ? false : true
-      this.oldContent = !isLoader ? this.$body.innerHTML : ""
-      this.$body.innerHTML = content
+      const isLoader = this.$body.outerHTML !== this.$loader.outerHTML ? false : true;
+      this.oldContent = !isLoader ? this.$body.innerHTML : "";
+      this.$body.innerHTML = content;
     }
     get index() {
-      return this.$el.style.zIndex
+      return this.$el.style.zIndex;
     }
     set index(index) {
-      this.$el.style.zIndex = index + "px"
+      this.$el.style.zIndex = index + "px";
     }
     get modal_manager() {
-      return this.options?.modal_manager
+      return this.options?.modal_manager;
     }
     set modal_manager(obj) {
-      this.options.modal_manager = obj
+      this.options.modal_manager = obj;
     }
     set active(active) {
       if (active) {
-        this.$el.classList.add("active")
-        this.$el.dispatchEvent(new CustomEvent("active"))
+        this.$el.classList.add("active");
+        this.$el.dispatchEvent(new CustomEvent("active"));
       } else {
-        this.$el.classList.remove("active")
-        this.$el.dispatchEvent(new CustomEvent("inactive"))
+        this.$el.classList.remove("active");
+        this.$el.dispatchEvent(new CustomEvent("inactive"));
       }
     }
     get active() {
-      return this.$el.classList.contains("active")
+      return this.$el.classList.contains("active");
     }
     set modalTab(modalTab) {
       if (!modalTab || modalTab instanceof HTMLElement === false) {
-        throw new FabModalError(`modalTab must be an HTMLElement, current type if ${typeof modalTab}`)
+        throw new FabModalError(`modalTab must be an HTMLElement, current type if ${typeof modalTab}`);
       }
-      this.$modalTab = modalTab
+      this.$modalTab = modalTab;
     }
     get modalTab() {
-      return this.$modalTab
+      return this.$modalTab;
     }
     _removeClassEffect() {
       if (typeof this.options.effects !== "undefined" && typeof this.options.effects.in !== "undefined" && typeof this.options.effects.out !== "undefined") {
-        this.$el.classList.remove(this.options.effects.in)
-        this.$el.classList.remove(this.options.effects.out)
+        this.$el.classList.remove(this.options.effects.in);
+        this.$el.classList.remove(this.options.effects.out);
       }
-      this.$el.removeEventListener("animationend", this._removeClassEffect)
+      this.$el.removeEventListener("animationend", this._removeClassEffect);
     }
     _initHandlers() {
       if (this.options.draggable && !isMobile()) {
-        this.$el.classList.add("draggable")
-        this._initDrag()
+        this.$el.classList.add("draggable");
+        this._initDrag();
       }
       if (this.options.reducible && typeof this.options.modal_manager !== "undefined") {
       }
       if (this.options.expandable) {
-        this.$expand.addEventListener("click", this.toggleFullScreen)
+        this.$expand.addEventListener("click", this.toggleFullScreen);
       }
-      this.$el.removeEventListener("animationend", this._removeClassEffect)
-      this.$el.addEventListener("animationend", this._removeClassEffect)
-      this.$close.removeEventListener("click", this.close)
-      this.$close.addEventListener("click", this.close)
+      this.$el.removeEventListener("animationend", this._removeClassEffect);
+      this.$el.addEventListener("animationend", this._removeClassEffect);
+      this.$close.removeEventListener("click", this.close);
+      this.$close.addEventListener("click", this.close);
     }
     _initDrag() {
-      this.$el.addEventListener("mousedown", this._fnDown)
+      this.$el.addEventListener("mousedown", this._fnDown);
     }
     _fnDown(ev) {
-      const target = ev.target
-      if (!target?.classList.contains("fab-header") && !target?.classList.contains("fab-title")) return
-      this._disX = ev.clientX - this.$el.offsetLeft
-      this._disY = ev.clientY - this.$el.offsetTop
-      document.onmousemove = this._fnMove.bind(this)
-      document.onmouseup = this._fnUp.bind(this)
-      return false
+      const target = ev.target;
+      if (!target?.classList.contains("fab-header") && !target?.classList.contains("fab-title"))
+        return;
+      this._disX = ev.clientX - this.$el.offsetLeft;
+      this._disY = ev.clientY - this.$el.offsetTop;
+      document.onmousemove = this._fnMove.bind(this);
+      document.onmouseup = this._fnUp.bind(this);
+      return false;
     }
     _fnMove(ev) {
-      const left = ev.clientX - this._disX
-      const top = ev.clientY - this._disY
-      const limitRight = window.outerWidth - this.$el.clientWidth / 2
-      const limitLeft = this.$el.clientWidth / 2
+      const left = ev.clientX - this._disX;
+      const top = ev.clientY - this._disY;
+      const limitRight = window.outerWidth - this.$el.clientWidth / 2;
+      const limitLeft = this.$el.clientWidth / 2;
       if (left > limitLeft && left < limitRight) {
-        this.$el.style.left = `${left}px`
+        this.$el.style.left = `${left}px`;
       }
-      this.$el.style.top = `${top}px`
+      this.$el.style.top = `${top}px`;
     }
     _fnUp() {
-      document.onmousemove = null
-      document.onmouseup = null
+      document.onmousemove = null;
+      document.onmouseup = null;
     }
     createModal() {
-      const fullScreen = this.isFullScreen ? " fullScreen" : ""
+      const fullScreen = this.isFullScreen ? " fullScreen" : "";
       if (this.options.overlay === true && this.options.modal_manager == void 0) {
-        this.$overlay = document.createElement("div")
-        this.$overlay.classList.add("fab-overlay")
-        this.$bodyElement.appendChild(this.$overlay)
+        this.$overlay = document.createElement("div");
+        this.$overlay.classList.add("fab-overlay");
+        this.$bodyElement.appendChild(this.$overlay);
       }
-      this.$el = document.createElement("div")
-      this.$el.className = `fab-modal ${this.options.effects?.in} ${fullScreen}`
+      this.$el = document.createElement("div");
+      this.$el.className = `fab-modal ${this.options.effects?.in} ${fullScreen}`;
       if (typeof this.options.id !== "undefined" && this.options.id !== "") {
-        this.$el.id = this.options.id =
-          this.options.id === "fab-modal" ? `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}` : this.options.id
+        this.$el.id = this.options.id = this.options.id === "fab-modal" ? `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}` : this.options.id;
       }
-      this.$header = document.createElement("div")
-      this.$header.className = "fab-header"
-      this.$el.appendChild(this.$header)
-      this.$title = document.createElement("h1")
-      this.$title.className = "fab-title"
+      this.$header = document.createElement("div");
+      this.$header.className = "fab-header";
+      this.$el.appendChild(this.$header);
+      this.$title = document.createElement("h1");
+      this.$title.className = "fab-title";
       if (typeof this.options.title !== "undefined") {
-        this.$title.innerHTML = this.options.title
+        this.$title.innerHTML = this.options.title;
       }
-      this.$header.appendChild(this.$title)
-      this.$icons = document.createElement("div")
-      this.$icons.className = "fab-icons"
-      this.$header.appendChild(this.$icons)
+      this.$header.appendChild(this.$title);
+      this.$icons = document.createElement("div");
+      this.$icons.className = "fab-icons";
+      this.$header.appendChild(this.$icons);
       if (this.options.reducible) {
-        this.$reduce = document.createElement("button")
-        this.$reduce.className = "reduce"
-        this.$reduce.title = "Reduce"
-        this.$icons.appendChild(this.$reduce)
+        this.$reduce = document.createElement("button");
+        this.$reduce.className = "reduce";
+        this.$reduce.title = "Reduce";
+        this.$icons.appendChild(this.$reduce);
       }
       if (this.options.expandable) {
-        this.$expand = document.createElement("button")
-        this.$expand.className = "expand"
-        this.$expand.title = "Expand"
-        this.$icons.appendChild(this.$expand)
+        this.$expand = document.createElement("button");
+        this.$expand.className = "expand";
+        this.$expand.title = "Expand";
+        this.$icons.appendChild(this.$expand);
       }
-      this.$close = document.createElement("button")
-      this.$close.className = "close"
-      this.$close.title = "Close"
-      this.$close.textContent = "\xD7"
-      this.$icons.appendChild(this.$close)
-      this.$body = document.createElement("div")
-      this.$body.className = "fab-content fade-in"
-      this.$loader = document.createElement("div")
-      this.$loader.classList.add("loader")
+      this.$close = document.createElement("button");
+      this.$close.className = "close";
+      this.$close.title = "Close";
+      this.$close.textContent = "\xD7";
+      this.$icons.appendChild(this.$close);
+      this.$body = document.createElement("div");
+      this.$body.className = "fab-content fade-in";
+      this.$loader = document.createElement("div");
+      this.$loader.classList.add("loader");
       if (this.options.content === "" || typeof this.options.content !== "string") {
-        this.$body.appendChild(this.$loader)
+        this.$body.appendChild(this.$loader);
       } else {
-        this.$body.innerHTML = this.options.content
+        this.$body.innerHTML = this.options.content;
       }
-      if (this.modal_manager) this.$el.FabModalManager = this.modal_manager
-      this.$el.FabModal = this
-      this.$el.appendChild(this.$body)
+      if (this.modal_manager)
+        this.$el.FabModalManager = this.modal_manager;
+      this.$el.FabModal = this;
+      this.$el.appendChild(this.$body);
     }
     startLoader() {
-      if (this.content === this.$loader.outerHTML) return
-      this.content = this.$loader.outerHTML
+      if (this.content === this.$loader.outerHTML)
+        return;
+      this.content = this.$loader.outerHTML;
     }
     stopLoader() {
-      this.$loader.remove()
+      this.$loader.remove();
     }
     restoreOldContent() {
-      if (this.oldContent !== "") this.$body.innerHTML = this.oldContent
+      if (this.oldContent !== "")
+        this.$body.innerHTML = this.oldContent;
     }
     show() {
-      this.$el.style.display = "block"
-      this.$bodyElement.style.overflow = "hidden"
-      this.$el.style.display = "block"
-      this.$el.style.opacity = ""
-      this.$el.classList.add("show")
-      if (typeof this.$overlay !== "undefined") this.$overlay.classList.add("show")
-      if (typeof this.$modalTab !== "undefined") this.$modalTab.classList.add("show")
+      this.$el.style.display = "block";
+      this.$bodyElement.style.overflow = "hidden";
+      this.$el.style.display = "block";
+      this.$el.style.opacity = "";
+      this.$el.classList.add("show");
+      if (typeof this.$overlay !== "undefined")
+        this.$overlay.classList.add("show");
+      if (typeof this.$modalTab !== "undefined")
+        this.$modalTab.classList.add("show");
       if (typeof this.options.onShow === "function") {
-        this.options.onShow(this)
+        this.options.onShow(this);
       }
     }
     hide() {
-      this.$el.style.display = "none"
+      this.$el.style.display = "none";
       if (typeof this.options.onHide === "function") {
-        this.options.onHide(this)
+        this.options.onHide(this);
       }
     }
     toggleFullScreen() {
       if (this.isFullScreen) {
-        this._initDrag()
-        this.isFullScreen = false
-        this.$bodyElement.style.overflow = "auto"
-        this.$el.classList.remove("fullScreen")
+        this._initDrag();
+        this.isFullScreen = false;
+        this.$bodyElement.style.overflow = "auto";
+        this.$el.classList.remove("fullScreen");
         const rmTransition = setTimeout(() => {
-          this.$el.classList.remove("transition-all")
-          clearTimeout(rmTransition)
-        }, 300)
-        this.$expand.title = "Restore"
-        this.$el.dispatchEvent(new CustomEvent("restore"))
+          this.$el.classList.remove("transition-all");
+          clearTimeout(rmTransition);
+        }, 300);
+        this.$expand.title = "Restore";
+        this.$el.dispatchEvent(new CustomEvent("restore"));
         if (typeof this.options.onRestore === "function") {
-          this.options.onRestore(this)
+          this.options.onRestore(this);
         }
       } else {
-        this.$el.removeEventListener("mousedown", this._fnDown)
-        this.isFullScreen = true
-        this.$bodyElement.style.overflow = "hidden"
-        this.$el.classList.add("transition-all")
-        this.$el.classList.add("fullScreen")
-        this.$el.dispatchEvent(new CustomEvent("fullScreen"))
+        this.$el.removeEventListener("mousedown", this._fnDown);
+        this.isFullScreen = true;
+        this.$bodyElement.style.overflow = "hidden";
+        this.$el.classList.add("transition-all");
+        this.$el.classList.add("fullScreen");
+        this.$el.dispatchEvent(new CustomEvent("fullScreen"));
         if (typeof this.options.onFullScreen === "function") {
-          this.options.onFullScreen(this)
+          this.options.onFullScreen(this);
         }
       }
-      return this.isFullScreen
+      return this.isFullScreen;
     }
     close() {
-      this.$el.dispatchEvent(new CustomEvent("close"))
-      this.$el.addEventListener("animationend", this.destroy)
-      this.$el.classList.remove("show")
-      this.$el.classList.add("fade-out")
+      this.$el.dispatchEvent(new CustomEvent("close"));
+      this.$el.addEventListener("animationend", this.destroy);
+      this.$el.classList.remove("show");
+      this.$el.classList.add("fade-out");
       if (typeof this.$overlay !== "undefined") {
-        this.$overlay.classList.remove("show")
-        this.$overlay.classList.add("fade-out")
+        this.$overlay.classList.remove("show");
+        this.$overlay.classList.add("fade-out");
       }
       if (typeof this.$modalTab !== "undefined") {
-        this.$modalTab.classList.remove("show")
-        this.$modalTab.classList.add("fade-out")
+        this.$modalTab.classList.remove("show");
+        this.$modalTab.classList.add("fade-out");
       }
     }
     destroy() {
-      this.$el.dispatchEvent(new CustomEvent("destroyed"))
-      if (typeof this.$overlay !== "undefined") this.$overlay.remove()
-      if (typeof this.$modalTab !== "undefined") this.$modalTab.remove()
-      this.$el.remove()
+      this.$el.dispatchEvent(new CustomEvent("destroyed"));
+      if (typeof this.$overlay !== "undefined")
+        this.$overlay.remove();
+      if (typeof this.$modalTab !== "undefined")
+        this.$modalTab.remove();
+      this.$el.remove();
     }
-  }
-  window.FabModal = FabModal
+  };
+  window.FabModal = FabModal;
 
   // lib/FabModalManager.ts
   var FabModalManager = class {
-    modals
-    options
-    $modalContainer
-    $bodyElement
+    modals;
+    options;
+    $modalContainer;
+    $bodyElement;
     constructor(options) {
       if (!options || typeof options !== "object") {
-        this.options = modalManagerDefaultOptions
+        this.options = modalManagerDefaultOptions;
       } else {
-        this.options = { ...modalManagerDefaultOptions, ...options }
+        this.options = { ...modalManagerDefaultOptions, ...options };
       }
-      this.modals = []
-      this.$bodyElement = document.body
-      this.$modalContainer = document.createElement("div")
-      this.$modalContainer.className = "fab-modal-container"
-      this.$bodyElement.appendChild(this.$modalContainer)
-      this.createModal.bind(this)
-      this._initHandlers.bind(this)
+      this.modals = [];
+      this.$bodyElement = document.body;
+      this.$modalContainer = document.createElement("div");
+      this.$modalContainer.className = "fab-modal-container";
+      this.$bodyElement.appendChild(this.$modalContainer);
+      this.createModal.bind(this);
+      this._initHandlers.bind(this);
     }
     _initHandlers(fabModal) {
-      fabModal.$el.addEventListener("mousedown", this.setFocused.bind(this))
+      fabModal.$el.addEventListener("mousedown", this.setFocused.bind(this));
       fabModal.$el.addEventListener(
         "close",
-        e => {
-          e.stopImmediatePropagation()
-          e.stopPropagation()
-          e.preventDefault()
-          this.destroyModal(fabModal)
+        (e) => {
+          e.stopImmediatePropagation();
+          e.stopPropagation();
+          e.preventDefault();
+          this.destroyModal(fabModal);
         },
         { once: true }
-      )
-      fabModal.$modalTab.addEventListener("mousedown", this.setFocused.bind(this))
-      fabModal.$modalTab.querySelector(".fab-tab-close")?.addEventListener("click", e => {
-        e.stopImmediatePropagation()
-        e.stopPropagation()
-        e.preventDefault()
-        this.destroyModal(fabModal)
-      })
+      );
+      fabModal.$modalTab.addEventListener("mousedown", this.setFocused.bind(this));
+      fabModal.$modalTab.querySelector(".fab-tab-close")?.addEventListener("click", (e) => {
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+        e.preventDefault();
+        this.destroyModal(fabModal);
+      });
     }
     createModal(options = {}) {
-      options.modal_manager = this
-      const newModal = new FabModal(options)
-      this.addModal(newModal)
-      newModal.show()
-      return newModal
+      options.modal_manager = this;
+      const newModal = new FabModal(options);
+      this.addModal(newModal);
+      newModal.show();
+      return newModal;
     }
     addModal(modal) {
-      this.modals.push(modal)
+      this.modals.push(modal);
       if (this.options.container) {
-        modal.modalTab = document.createElement("div")
-        modal.$modalTab.classList.add("fab-modal-tab")
-        modal.$modalTab.innerHTML = `${modal.options.title || ""} <button class="fab-tab-close">x</button>`
+        modal.modalTab = document.createElement("div");
+        modal.$modalTab.classList.add("fab-modal-tab");
+        modal.$modalTab.innerHTML = `${modal.options.title || ""} <button class="fab-tab-close">x</button>`;
         if (this.$modalContainer.style.display === "none") {
-          this.$modalContainer.style.display = ""
+          this.$modalContainer.style.display = "";
         }
-        this.$modalContainer.appendChild(modal.$modalTab)
+        this.$modalContainer.appendChild(modal.$modalTab);
       }
-      this._initHandlers(modal)
-      return modal
+      this._initHandlers(modal);
+      return modal;
     }
     setFocused(ev) {
-      const fabModalFocused = ev.currentTarget
-      const focusedModal = this.modals.find(modal => modal.options.id === fabModalFocused.id)
-      if (typeof focusedModal !== "undefined" && focusedModal.active === true && focusedModal.$el.classList.contains("active") === true) return
-      this.modals.forEach(modal => {
+      const fabModalFocused = ev.currentTarget;
+      const focusedModal = this.modals.find((modal) => modal.options.id === fabModalFocused.id);
+      if (typeof focusedModal !== "undefined" && focusedModal.active === true && focusedModal.$el.classList.contains("active") === true)
+        return;
+      this.modals.forEach((modal) => {
         if (modal === focusedModal) {
-          focusedModal.$el.classList.add("active")
+          focusedModal.$el.classList.add("active");
         } else {
-          modal.$el.classList.remove("active")
+          modal.$el.classList.remove("active");
         }
-      })
+      });
     }
     destroyModal(fabModal) {
       this.modals.forEach((modal, index) => {
         if (fabModal === modal) {
-          modal.$el.removeEventListener("close", () => {}, { capture: false })
-          fabModal.close()
-          this.modals.splice(index, 1)
-          return
+          modal.$el.removeEventListener("close", () => {
+          }, { capture: false });
+          fabModal.close();
+          this.modals.splice(index, 1);
+          return;
         }
-      })
+      });
       if (this.modals.length === 0) {
-        this.$modalContainer.style.display = "none"
+        this.$modalContainer.style.display = "none";
       }
     }
-  }
-  window.FabModalManager = FabModalManager
-})()
+  };
+  window.FabModalManager = FabModalManager;
+})();

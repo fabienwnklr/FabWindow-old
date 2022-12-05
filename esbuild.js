@@ -6,7 +6,7 @@ import { generateDocumentation } from "tsdoc-markdown"
 const [node, _, method] = process.argv
 const { npm_package_version } = process.env
 const headerJS = `/**
- * FabWindow (v${npm_package_version})
+ * FabModal (v${npm_package_version})
  * https://netlify.fabwindow.dev
  *
  * Copyright (c) 2021-${new Date().getFullYear()} Fabien Winkler & contributors
@@ -26,8 +26,8 @@ const headerJS = `/**
 
 const buildAPIDocs = () => {
   generateDocumentation({ inputFiles: ["./lib/default.ts"], outputFile: "./website/docs/api/default.md" })
-  generateDocumentation({ inputFiles: ["./lib/FabModal.ts"], outputFile: "./website/docs/api/fabmodal.md" })
-  generateDocumentation({ inputFiles: ["./lib/FabModalManager.ts"], outputFile: "./website/docs/api/fabmodal-manager.md" })
+  generateDocumentation({ inputFiles: ["./lib/FabModal.ts"], outputFile: "./website/docs/api/FabModal.md" })
+  generateDocumentation({ inputFiles: ["./lib/FabModalManager.ts"], outputFile: "./website/docs/api/FabModal-manager.md" })
 }
 
 const buildDist = () => {

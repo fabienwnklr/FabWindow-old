@@ -17,14 +17,14 @@ function HomepageHeader() {
       <div className="container px-6 mx-auto">
         <div className="flex flex-col items-center py-6 lg:h-[36rem] lg:flex-row">
           <div className="lg:w-1/2">
-            <h1 className="text-3xl font-semibold text-gray-100 lg:text-4xl">FabWindow</h1>
+            <h1 className="text-3xl font-semibold text-gray-100 lg:text-4xl">FabModal</h1>
 
             <p className="mt-4 text-gray-100 text-lg">
-              FabWindow is a <code className="text--primary">Javascript</code> library to setup quicly and easily a window (as modal)
+              FabModal is a <code className="text--primary">Javascript</code> library to setup quicly and easily a window (as modal)
             </p>
             <p className="mt-4 text-gray-100 text-lg font-bold">OR</p>
             <p className="mt-4 text-gray-100 text-lg">
-              Multiple windows using <code className="text--primary">FabWindowManager</code>
+              Multiple windows using <code className="text--primary">FabModalManager</code>
             </p>
           </div>
 

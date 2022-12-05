@@ -1,5 +1,4 @@
 import { FabModalManager } from "../FabModalManager"
-
 export interface ModalOptions {
   id?: string
   title?: string
