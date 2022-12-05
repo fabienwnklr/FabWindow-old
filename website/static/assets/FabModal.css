@@ -544,10 +544,13 @@
   opacity: 1;
 }
 .fab-modal .fab-header .fab-icons .reduce:before {
-  content: "\\2012";
+  content: "\2012";
 }
 .fab-modal .fab-header .fab-icons .expand:before {
-  content: "\\26F6";
+  content: "\26f6";
+}
+.fab-modal .fab-header .fab-icons .close:before {
+  content: "\2715";
 }
 .fab-modal .fab-content {
   scroll-behavior: smooth;

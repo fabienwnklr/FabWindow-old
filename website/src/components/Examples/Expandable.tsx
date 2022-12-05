@@ -4,9 +4,9 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import { FabModal } from "../../../../lib/FabModal"
 
-export default function Draggable() {
+export default function Expandable() {
   const showModal = () => {
-    new FabModal({ title: 'Drag me' ,draggable: true, content: 'Yes please, drag me...' })
+    new FabModal({ title: 'Expand me' , expandable: true, content: 'Yes please, expand me...' })
   }
 
   return (
@@ -16,24 +16,24 @@ export default function Draggable() {
           marginBottom: "1rem",
         }}
       >
-        <h4>Create a simple modal and move it on page, where you want.</h4>
+        <h4>Create a simple modal and expand it, and return to previous state.</h4>
         {/* <p>By default Window opened with a loader</p> */}
         <button
-          id="draggable"
+          id="expandable"
           className="px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline"
           onClick={showModal}
         >
-          Click to show most draggable Modal
+          Click to show most expandable Modal
         </button>
       </div>
 
       <CodeBlock className="language-html" title="Html">
-        {`<button id="draggable">Click to show most simple Window</button>`}
+        {`<button id="expandable">Click to show most simple Window</button>`}
       </CodeBlock>
 
       <CodeBlock className="language-javascript" title="Javascript">
-        {`const button = document.getElementById('draggable');
-button.addEventListener('click', () => new FabModal({ title: 'Drag me' ,draggable: true, content: 'Yes please, drag me...' }))`}
+        {`const button = document.getElementById('expandable');
+button.addEventListener('click', () => new FabModal({ title: 'Expand me' , expandable: true, content: 'Yes please, expand me...' }))`}
       </CodeBlock>
     </>
   )

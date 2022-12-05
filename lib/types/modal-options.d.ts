@@ -1,5 +1,8 @@
 import { FabModalManager } from "../FabModalManager"
 export interface ModalOptions {
+    /**
+   * @prop {String} id id of modal
+   */
   id?: string
   title?: string
   content?: string

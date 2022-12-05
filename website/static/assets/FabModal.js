@@ -280,7 +280,6 @@
       this.$close = document.createElement("button");
       this.$close.className = "close";
       this.$close.title = "Close";
-      this.$close.textContent = "\xD7";
       this.$icons.appendChild(this.$close);
       this.$body = document.createElement("div");
       this.$body.className = "fab-content fade-in";

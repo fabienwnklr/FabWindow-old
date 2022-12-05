@@ -392,7 +392,6 @@ export class FabModal {
     this.$close = document.createElement("button")
     this.$close.className = "close"
     this.$close.title = "Close"
-    this.$close.textContent = "×"
     this.$icons.appendChild(this.$close)
 
     this.$body = document.createElement("div")
