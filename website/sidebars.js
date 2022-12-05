@@ -30,7 +30,7 @@ const sidebars = {
         keywords: ["demos"],
         image: "/img/docusaurus.png",
       },
-      items: ["demos/basic"],
+      items: ["demos/basic", "demos/draggable"],
     },
   ],
   apiSidebar: [

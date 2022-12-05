@@ -1,5 +1,5 @@
 /**
- * FabWindow (v1.0.0)
+ * FabModal (v1.0.0)
  * https://netlify.fabwindow.dev
  *
  * Copyright (c) 2021-2022 Fabien Winkler & contributors
@@ -226,12 +226,16 @@
     _fnMove(ev) {
       const left = ev.clientX - this._disX;
       const top = ev.clientY - this._disY;
-      const limitRight = window.outerWidth - this.$el.clientWidth / 2;
+      const limitRight = window.innerWidth - this.$el.clientWidth / 2;
       const limitLeft = this.$el.clientWidth / 2;
+      const limitTop = this.$el.clientHeight / 2;
+      const limitBottom = window.innerHeight - this.$el.clientHeight / 2;
       if (left > limitLeft && left < limitRight) {
         this.$el.style.left = `${left}px`;
       }
-      this.$el.style.top = `${top}px`;
+      if (top > limitTop && top < limitBottom) {
+        this.$el.style.top = `${top}px`;
+      }
     }
     _fnUp() {
       document.onmousemove = null;
