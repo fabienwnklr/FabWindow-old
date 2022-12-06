@@ -35,3 +35,12 @@ export function validOptions(reference: object, current: object) {
     }
   }
 }
+
+/**
+ * Capitalize first letter of string
+ * @param string String to capitalize first letter
+ * @returns {string} String with first letter capitalized
+ */
+export function capitalizeFirstLetter(string: string): string {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
