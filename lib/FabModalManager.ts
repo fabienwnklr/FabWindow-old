@@ -1,8 +1,8 @@
 import { FabModal } from "./FabModal"
 import { modalManagerDefaultOptions } from "./default"
 // Types
-import type { ModalManagerOptions } from "./types/modal-manager-options"
-import type { ModalOptions } from "./types/modal-options"
+import type { ModalManagerOptions } from "./types"
+import type { ModalOptions } from "./types"
 
 // Style
 import "./style/fabmodal-manager.css"

@@ -5,18 +5,16 @@
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "Node",
     "strict": true,
+    "declaration": true,
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "isolatedModules": true
+    
   },
-  "include": ["./lib"],
-  "typedocOptions": {
-    "entryPoints": ["lib/constant.ts", "lib/FabModal.ts", "lib/FabModalManager.ts"],
-    "out": "website/docs/api/"
-  }
+  "include": ["./lib/**/*"]
 }

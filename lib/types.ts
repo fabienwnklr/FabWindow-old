@@ -1,8 +1,13 @@
-import { FabModalManager } from "../FabModalManager"
+import { FabModalManager } from "./FabModalManager"
+export interface ModalManagerOptions {
+    limitModal: number
+    container: boolean
+}
+
 export interface ModalOptions {
-    /**
-   * @prop {String} id id of modal
-   */
+  /**
+  * @prop {String} id id of modal
+  */
   id?: string
   title?: string
   content?: string
@@ -29,6 +34,5 @@ export interface ModalOptions {
   onShow?: Function | null
   onHide?: Function | null
   beforeClose?: Function | null
-  onClosing?: Function | null
-  onClosed?: Function | null
+  onClose?: Function | null
 }

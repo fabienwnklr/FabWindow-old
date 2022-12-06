@@ -6,17 +6,19 @@
   "type": "module",
   "scripts": {
     "start": "concurrently \"npm run build\" \"npm run doc\"",
-    "build": "node esbuild",
-    "build:dist": "npm run build:iife && npm run build:esm && npm run build:cjs",
+    "build": "node esbuild && ts-declaration",
+    "build:dist": "npm run build:iife && npm run build:esm && npm run build:cjs && ts-declaration",
     "build:iife": "esbuild lib/FabModalManager.ts lib/FabModal.ts --bundle --minify --outdir=build/iife --format=iife",
     "build:esm": "esbuild lib/FabModalManager.ts lib/FabModal.ts --bundle --minify --outdir=build/esm --format=esm",
     "build:cjs": "esbuild lib/FabModalManager.ts lib/FabModal.ts --bundle  --outdir=build/cjs --format=cjs",
     "prepare": "npm i && cd doc/ npm i",
     "doc": "cd website/ && npm run start",
     "doc:build": "cd website/ && npm run build",
+    "clear": "rm -rf build",
     "test": "jest --config=jest.config.mjs",
     "doc:api": "typedoc --plugin typedoc-plugin-markdown --out website/docs/api lib/constant.ts lib/FabModal.ts lib/FabModalManager.ts",
-    "format": "prettier --write *.json *.js *.md __tests__/**/*.test.js lib/**/*.ts website/**/*.tsx website/**/*.js website/**/**/**/*.md website/**/**/*.mdx"
+    "format": "prettier --write *.json *.js *.md __tests__/**/*.test.js lib/**/*.ts website/**/*.tsx website/**/*.js website/**/**/**/*.md website/**/**/*.mdx",
+    "ts-declaration": "tsc --emitDeclarationOnly --outDir build/types"
   },
   "author": "Fabien Winkler",
   "license": "",

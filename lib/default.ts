@@ -1,5 +1,5 @@
-import type { ModalOptions } from "./types/modal-options"
-import type { ModalManagerOptions } from "./types/modal-manager-options"
+import type { ModalOptions } from "./types"
+import type { ModalManagerOptions } from "./types"
 
 export const modalDefaultOptions: ModalOptions = {
   id: "fab-modal",
@@ -29,8 +29,7 @@ export const modalDefaultOptions: ModalOptions = {
   onShow: null,
   onHide: null,
   beforeClose: null,
-  onClosing: null,
-  onClosed: null,
+  onClose: null,
 }
 
 export const modalManagerDefaultOptions: ModalManagerOptions = {
