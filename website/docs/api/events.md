@@ -8,6 +8,7 @@
 | restore    | FabModal | Event triggered when modal is restored    |
 | show       | FabModal | Event triggered when modal is shown       |
 | hide       | FabModal | Event triggered when modal is hidden      |
+| close      | FabModal | Event triggered when modal is closed      |
 
 ## Events Examples
 
@@ -32,6 +33,12 @@ myModal.$el.on("show", () => {
 ```js
 myModal.$el.on("hide", () => {
   console.log("Hidden")
+})
+```
+
+```js
+myModal.$el.on("close", () => {
+  console.log("Closed")
 })
 ```
 

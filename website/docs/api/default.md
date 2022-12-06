@@ -16,3 +16,5 @@
 | Constant | Type |
 | ---------- | ---------- |
 | `modalManagerDefaultOptions` | `ModalManagerOptions` |
+
+
