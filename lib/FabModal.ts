@@ -97,8 +97,7 @@ export class FabModal {
    *   onShow: null,
    *   onHide: null,
    *   beforeClose: null,
-   *   onClosing: null,
-   *   onClosed: null,
+   *   onClose: null,
    * }
    * ```
    */

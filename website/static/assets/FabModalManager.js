@@ -83,8 +83,7 @@
     onShow: null,
     onHide: null,
     beforeClose: null,
-    onClosing: null,
-    onClosed: null
+    onClose: null
   };
   var modalManagerDefaultOptions = {
     limitModal: 5,
@@ -321,12 +320,14 @@
         this.$overlay.classList.add("show");
       if (typeof this.$modalTab !== "undefined")
         this.$modalTab.classList.add("show");
+      this.$el.dispatchEvent(new CustomEvent("show"));
       if (typeof this.options.onShow === "function") {
         this.options.onShow(this);
       }
     }
     hide() {
       this.$el.style.display = "none";
+      this.$el.dispatchEvent(new CustomEvent("hide"));
       if (typeof this.options.onHide === "function") {
         this.options.onHide(this);
       }
@@ -360,7 +361,10 @@
       return this.isFullScreen;
     }
     close() {
-      this.$el.dispatchEvent(new CustomEvent("close"));
+      this.$el.dispatchEvent(new CustomEvent("beforeClose"));
+      if (typeof this.options.beforeClose === "function") {
+        this.options.beforeClose(this);
+      }
       this.$el.addEventListener("animationend", this.destroy);
       this.$el.classList.remove("show");
       this.$el.classList.add("fade-out");
@@ -371,6 +375,12 @@
       if (typeof this.$modalTab !== "undefined") {
         this.$modalTab.classList.remove("show");
         this.$modalTab.classList.add("fade-out");
+        this.$el.addEventListener("animationend", () => {
+          this.$el.dispatchEvent(new CustomEvent("close"));
+          if (typeof this.options.onClose === "function") {
+            this.options.onClose(this);
+          }
+        });
       }
     }
     destroy() {

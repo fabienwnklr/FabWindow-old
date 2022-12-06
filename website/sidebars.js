@@ -47,7 +47,7 @@ const sidebars = {
         keywords: ["api"],
         image: "/img/docusaurus.png",
       },
-      items: ["api/default", "api/fabmodal", "api/fabmodal-manager"],
+      items: ["api/default", "api/events", "api/fabmodal", "api/fabmodalmanager"],
     },
   ],
   // But you can create a sidebar manually

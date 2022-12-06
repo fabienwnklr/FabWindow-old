@@ -1,3 +1,5 @@
+# Default
+
 ## :wrench: Constants
 
 - [modalDefaultOptions](#gear-modaldefaultoptions)
@@ -14,5 +16,3 @@
 | Constant | Type |
 | ---------- | ---------- |
 | `modalManagerDefaultOptions` | `ModalManagerOptions` |
-
-
