@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 import { build } from "esbuild"
-import { generateDocumentation } from "tsdoc-markdown"
+import { generateDocumentation, buildDocumentation, documentationToMarkdown } from "tsdoc-markdown"
+import path, { dirname } from "node:path"
+import { writeFile } from "node:fs/promises"
+import { fileURLToPath } from 'node:url';
 
 const [node, _, method] = process.argv
 const { npm_package_version } = process.env
@@ -24,13 +27,34 @@ const headerJS = `/**
  */
 `
 
-const buildAPIDocs = () => {
-  generateDocumentation({ inputFiles: ["./lib/default.ts"], outputFile: "./website/docs/api/default.md" })
-  generateDocumentation({ inputFiles: ["./lib/FabModal.ts"], outputFile: "./website/docs/api/FabModal.md" })
-  generateDocumentation({ inputFiles: ["./lib/FabModalManager.ts"], outputFile: "./website/docs/api/FabModal-manager.md" })
+const buildAPIDocs = async () => {
+  const inputFiles = ["./lib/default.ts", "./lib/FabModal.ts", "./lib/FabModalManager.ts"]
+  const output = "website/docs/api/"
+
+  let i = 0;
+  const genereDocRecursive = function (i) {
+    const mdDoc = documentationToMarkdown({ entries: buildDocumentation({ inputFiles: [inputFiles[i]] }) })
+    const extension = path.extname(inputFiles[i])
+    const fileName = path.basename(inputFiles[i], extension)
+    const header = `# ${fileName.charAt(0).toUpperCase() + fileName.slice(1)}\n\n`
+    const docToRight = header + mdDoc
+    const outputFile = `${output + fileName.toLowerCase()}.md`
+
+    writeFile(outputFile, docToRight).then(function () {
+      console.log(`${fileName.toLowerCase()}.md generated.`)
+      i++
+      if (inputFiles[i]) {
+        genereDocRecursive(i)
+      } else {
+        console.log('Api docs generation completed.')
+      }
+    })
+  }
+
+  genereDocRecursive(i);
 }
 
-const buildDist = () => {
+const buildDist = async () => {
   const formats = ["iife", "esm", "cjs"]
 
   formats.forEach(format => {
@@ -43,11 +67,16 @@ const buildDist = () => {
       bundle: true,
       minify: true,
       outdir: `build/${format}`,
-    }).catch(() => process.exit(1))
+    }).then(result => {
+      console.log('build dist for format ' + format + ' succeeded.')
+    }).catch((err) => {
+      console.error(err)
+      process.exit(1)
+    })
   })
 }
 
-const buildDocs = () => {
+const buildDocs = async () => {
   build({
     banner: { js: headerJS },
     sourcemap: false,
@@ -59,17 +88,17 @@ const buildDocs = () => {
     watch: {
       onRebuild(error, result) {
         if (error) console.error("watch build failed:", error)
-        else console.log("watch build succeeded:", result)
+        else console.log("watch build succeeded")
       },
     },
   })
     .then(result => {
       console.log(result)
       console.log("watching...")
+      buildAPIDocs()
     })
     .catch(() => process.exit(1))
 }
 
 buildDist()
 buildDocs()
-buildAPIDocs()
