@@ -17,8 +17,6 @@ See : {@link modalDefaultOptions}
 ### Methods
 
 - [createModal](#gear-createmodal)
-- [startLoader](#gear-startloader)
-- [stopLoader](#gear-stoploader)
 - [restoreOldContent](#gear-restoreoldcontent)
 - [show](#gear-show)
 - [hide](#gear-hide)
@@ -31,18 +29,6 @@ See : {@link modalDefaultOptions}
 | Method | Type |
 | ---------- | ---------- |
 | `createModal` | `() => void` |
-
-#### :gear: startLoader
-
-| Method | Type |
-| ---------- | ---------- |
-| `startLoader` | `() => void` |
-
-#### :gear: stopLoader
-
-| Method | Type |
-| ---------- | ---------- |
-| `stopLoader` | `() => void` |
 
 #### :gear: restoreOldContent
 

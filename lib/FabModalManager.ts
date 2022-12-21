@@ -147,7 +147,7 @@ export class FabModalManager {
   destroyModal(fabModal: FabModal) {
     this.modals.forEach((modal: FabModal, index: number) => {
       if (fabModal === modal) {
-        modal.$el.removeEventListener("close", () => {}, { capture: false })
+        // modal.$el.removeEventListener("close", () => {}, { capture: false })
         fabModal.close()
         this.modals.splice(index, 1)
         return

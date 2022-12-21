@@ -1,7 +1,7 @@
 import React from "react"
 import CodeBlock from "@theme/CodeBlock"
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
+// import Tabs from "@theme/Tabs"
+// import TabItem from "@theme/TabItem"
 import { FabModal } from "../../../../lib/FabModal"
 
 export default function Draggable() {
@@ -17,7 +17,6 @@ export default function Draggable() {
         }}
       >
         <h4>Create a simple modal and move it on page, where you want.</h4>
-        {/* <p>By default Window opened with a loader</p> */}
         <button
           id="draggable"
           className="px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline"

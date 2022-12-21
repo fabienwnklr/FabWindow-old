@@ -10,7 +10,7 @@ export interface ModalOptions {
   */
   id?: string
   title?: string
-  content?: string
+  content?: string | Node
   modal_manager?: FabModalManager
   effects?: {
     in?: string
@@ -28,11 +28,11 @@ export interface ModalOptions {
   reducible?: boolean
   resizable?: boolean
   draggable?: boolean
-  onFullScreen?: Function | null
-  onRestore?: Function | null
-  onResize?: Function | null
-  onShow?: Function | null
-  onHide?: Function | null
-  beforeClose?: Function | null
-  onClose?: Function | null
+  onFullScreen?: Function
+  onRestore?: Function
+  onResize?: Function
+  onShow?: Function
+  onHide?: Function
+  beforeClose?: Function
+  onClose?: Function
 }

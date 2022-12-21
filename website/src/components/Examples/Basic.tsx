@@ -1,7 +1,7 @@
 import React from "react"
 import CodeBlock from "@theme/CodeBlock"
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
+// import Tabs from "@theme/Tabs"
+// import TabItem from "@theme/TabItem"
 import { FabModal } from "../../../../lib/FabModal"
 
 export default function Basic() {
@@ -17,10 +17,10 @@ export default function Basic() {
         }}
       >
         <h4>The most vanilla of examples.</h4>
-        <p>By default Window opened with a loader</p>
+        <p>By default Window opened with an empty content</p>
         <button
           id="basic"
-          className="px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline"
+          className="button px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline dark:bg-gray-400 dark:text-black dark:hover:bg-gray-500"
           onClick={showModal}
         >
           Click to show most simple Window

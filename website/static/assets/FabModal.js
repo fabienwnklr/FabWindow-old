@@ -101,7 +101,6 @@
     $expand;
     $close;
     $body;
-    $loader;
     $modalTab;
     _disX;
     _disY;
@@ -150,8 +149,7 @@
       if (!content || typeof content !== "string") {
         throw new FabModalError("content must be a string");
       }
-      const isLoader = this.$body.outerHTML !== this.$loader.outerHTML ? false : true;
-      this.oldContent = !isLoader ? this.$body.innerHTML : "";
+      this.oldContent = this.$body.outerHTML;
       this.$body.innerHTML = content;
     }
     get index() {
@@ -242,7 +240,7 @@
     }
     createModal() {
       const fullScreen = this.isFullScreen ? " fullScreen" : "";
-      if (this.options.overlay === true && this.options.modal_manager == void 0) {
+      if (this.options.overlay === true && typeof this.options.modal_manager === "undefined") {
         this.$overlay = document.createElement("div");
         this.$overlay.classList.add("fab-overlay");
         this.$bodyElement.appendChild(this.$overlay);
@@ -281,26 +279,16 @@
       this.$close.title = "Close";
       this.$icons.appendChild(this.$close);
       this.$body = document.createElement("div");
-      this.$body.className = "fab-content fade-in";
-      this.$loader = document.createElement("div");
-      this.$loader.classList.add("loader");
-      if (this.options.content === "" || typeof this.options.content !== "string") {
-        this.$body.appendChild(this.$loader);
-      } else {
+      this.$body.className = "fab-content";
+      if (typeof this.options.content === "string") {
         this.$body.innerHTML = this.options.content;
+      } else if (this.options.content instanceof Node) {
+        this.$body.append(this.options.content);
       }
       if (this.modal_manager)
         this.$el.FabModalManager = this.modal_manager;
       this.$el.FabModal = this;
       this.$el.appendChild(this.$body);
-    }
-    startLoader() {
-      if (this.content === this.$loader.outerHTML)
-        return;
-      this.content = this.$loader.outerHTML;
-    }
-    stopLoader() {
-      this.$loader.remove();
     }
     restoreOldContent() {
       if (this.oldContent !== "")
@@ -334,10 +322,6 @@
         this.isFullScreen = false;
         this.$bodyElement.style.overflow = "auto";
         this.$el.classList.remove("fullScreen");
-        const rmTransition = setTimeout(() => {
-          this.$el.classList.remove("transition-all");
-          clearTimeout(rmTransition);
-        }, 300);
         this.$expand.title = "Restore";
         this.$el.dispatchEvent(new CustomEvent("restore"));
         if (typeof this.options.onRestore === "function") {
@@ -347,7 +331,6 @@
         this.$el.removeEventListener("mousedown", this._fnDown);
         this.isFullScreen = true;
         this.$bodyElement.style.overflow = "hidden";
-        this.$el.classList.add("transition-all");
         this.$el.classList.add("fullScreen");
         this.$el.dispatchEvent(new CustomEvent("fullScreen"));
         if (typeof this.options.onFullScreen === "function") {
@@ -361,22 +344,17 @@
       if (typeof this.options.beforeClose === "function") {
         this.options.beforeClose(this);
       }
-      this.$el.addEventListener("animationend", this.destroy);
       this.$el.classList.remove("show");
-      this.$el.classList.add("fade-out");
       if (typeof this.$overlay !== "undefined") {
         this.$overlay.classList.remove("show");
-        this.$overlay.classList.add("fade-out");
       }
       if (typeof this.$modalTab !== "undefined") {
         this.$modalTab.classList.remove("show");
-        this.$modalTab.classList.add("fade-out");
-        this.$el.addEventListener("animationend", () => {
-          this.$el.dispatchEvent(new CustomEvent("close"));
-          if (typeof this.options.onClose === "function") {
-            this.options.onClose(this);
-          }
-        });
+      }
+      this.destroy();
+      this.$el.dispatchEvent(new CustomEvent("close"));
+      if (typeof this.options.onClose === "function") {
+        this.options.onClose(this);
       }
     }
     destroy() {

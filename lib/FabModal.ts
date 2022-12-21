@@ -53,8 +53,6 @@ export class FabModal {
   public $close: HTMLButtonElement
   /** @property body content modal html element */
   public $body: HTMLElement
-  /** @property loader modal html element */
-  public $loader: HTMLElement
   /** @property Modal tab element (only if using with FabModalManager) */
   public $modalTab: HTMLElement
   /**@ignore */
@@ -75,10 +73,6 @@ export class FabModal {
    *   title: "",
    *   content: "",
    *   modal_manager: undefined,
-   *   effects: {
-   *     in: "fade-in",
-   *     out: "fade-out",
-   *   },
    *   overlay: true,
    *   zIndex: 999,
    *   width: "auto",
@@ -176,8 +170,7 @@ export class FabModal {
       throw new FabModalError("content must be a string")
     }
 
-    const isLoader = this.$body.outerHTML !== this.$loader.outerHTML ? false : true
-    this.oldContent = !isLoader ? this.$body.innerHTML : ""
+    this.oldContent = this.$body.outerHTML
     this.$body.innerHTML = content
   }
 
@@ -347,7 +340,7 @@ export class FabModal {
   createModal() {
     const fullScreen = this.isFullScreen ? " fullScreen" : ""
 
-    if (this.options.overlay === true && this.options.modal_manager == undefined) {
+    if (this.options.overlay === true && typeof this.options.modal_manager === "undefined") {
       this.$overlay = document.createElement("div")
       this.$overlay.classList.add("fab-overlay")
       this.$bodyElement.appendChild(this.$overlay)
@@ -394,37 +387,18 @@ export class FabModal {
     this.$icons.appendChild(this.$close)
 
     this.$body = document.createElement("div")
-    this.$body.className = "fab-content fade-in"
+    this.$body.className = "fab-content"
 
-    this.$loader = document.createElement("div")
-    this.$loader.classList.add("loader")
-
-    if (this.options.content === "" || typeof this.options.content !== "string") {
-      this.$body.appendChild(this.$loader)
-    } else {
+    if (typeof this.options.content === "string") {
       this.$body.innerHTML = this.options.content
+    } else if (this.options.content instanceof Node) {
+      this.$body.append(this.options.content)
     }
+    
 
     if (this.modal_manager) this.$el.FabModalManager = this.modal_manager
     this.$el.FabModal = this
     this.$el.appendChild(this.$body)
-  }
-
-  /**
-   * @function
-   * Starting loader into modal
-   */
-  startLoader() {
-    if (this.content === this.$loader.outerHTML) return
-    this.content = this.$loader.outerHTML
-  }
-
-  /**
-   * @function
-   * Stop loader into modal
-   */
-  stopLoader() {
-    this.$loader.remove()
   }
 
   /**
@@ -480,11 +454,6 @@ export class FabModal {
       this.isFullScreen = false
       this.$bodyElement.style.overflow = "auto"
       this.$el.classList.remove("fullScreen")
-
-      const rmTransition = setTimeout(() => {
-        this.$el.classList.remove("transition-all")
-        clearTimeout(rmTransition)
-      }, 300)
       this.$expand.title = "Restore"
 
       this.$el.dispatchEvent(new CustomEvent("restore"))
@@ -495,7 +464,6 @@ export class FabModal {
       this.$el.removeEventListener("mousedown", this._fnDown)
       this.isFullScreen = true
       this.$bodyElement.style.overflow = "hidden"
-      this.$el.classList.add("transition-all")
       this.$el.classList.add("fullScreen")
       // this.$expand.title = "Réstaurer";
 
@@ -509,32 +477,29 @@ export class FabModal {
 
   /**
    * @function
-   * Closing current modal
+   * Close current modal
    */
   close() {
-
     this.$el.dispatchEvent(new CustomEvent("beforeClose"))
 
     if (typeof this.options.beforeClose === 'function') {
       this.options.beforeClose(this)
     }
-    
-    this.$el.addEventListener("animationend", this.destroy)
+
     this.$el.classList.remove("show")
-    this.$el.classList.add("fade-out")
+
     if (typeof this.$overlay !== "undefined") {
       this.$overlay.classList.remove("show")
-      this.$overlay.classList.add("fade-out")
     }
+
     if (typeof this.$modalTab !== "undefined") {
       this.$modalTab.classList.remove("show")
-      this.$modalTab.classList.add("fade-out")
-      this.$el.addEventListener('animationend', () => {
-        this.$el.dispatchEvent(new CustomEvent("close"))
-        if (typeof this.options.onClose === 'function') {
-          this.options.onClose(this)
-        }
-      })
+    }
+
+    this.destroy();
+    this.$el.dispatchEvent(new CustomEvent("close"))
+    if (typeof this.options.onClose === 'function') {
+      this.options.onClose(this)
     }
   }
 

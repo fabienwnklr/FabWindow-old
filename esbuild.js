@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
 import { build } from "esbuild"
-import { generateDocumentation, buildDocumentation, documentationToMarkdown } from "tsdoc-markdown"
-import path, { dirname } from "node:path"
+import { buildDocumentation, documentationToMarkdown } from "tsdoc-markdown"
+import path from "node:path"
 import { writeFile } from "node:fs/promises"
-import { fileURLToPath } from 'node:url';
+import { exit, argv, env, stdout, stderr } from "node:process"
+import { exec } from "node:child_process"
+import { red, green, cyan, cyanBright } from "console-log-colors"
 
-const [node, _, method] = process.argv
-const { npm_package_version } = process.env
+const [node, _, method] = argv
+const { npm_package_version } = env
 const headerJS = `/**
  * FabModal (v${npm_package_version})
  * https://netlify.fabwindow.dev
@@ -31,7 +33,7 @@ const buildAPIDocs = async () => {
   const inputFiles = ["./lib/default.ts", "./lib/FabModal.ts", "./lib/FabModalManager.ts"]
   const output = "website/docs/api/"
 
-  let i = 0;
+  let i = 0
   const genereDocRecursive = function (i) {
     const mdDoc = documentationToMarkdown({ entries: buildDocumentation({ inputFiles: [inputFiles[i]] }) })
     const extension = path.extname(inputFiles[i])
@@ -41,20 +43,41 @@ const buildAPIDocs = async () => {
     const outputFile = `${output + fileName.toLowerCase()}.md`
 
     writeFile(outputFile, docToRight).then(function () {
-      console.log(`${fileName.toLowerCase()}.md generated.`)
+      console.log(cyan(`${fileName.toLowerCase()}.md generated.`))
       i++
       if (inputFiles[i]) {
         genereDocRecursive(i)
       } else {
-        console.log('Api docs generation completed.')
+        console.log(green("Api docs generation completed."))
+        console.log(cyan("Running doc website..."))
+
+        // Running website
+        const cmd = exec("npm run doc", (error, stdout, stderr) => {
+          if (error) {
+            console.log(red(`error: ${error.message}`))
+            return
+          }
+          if (stderr) {
+            console.log(`stderr: ${stderr}`)
+            return
+          }
+          console.log(`stdout: ${stdout}`)
+        })
+
+        cmd.stdout.pipe(stdout)
+        cmd.stderr.pipe(stderr)
+        cmd.on("error", error => {
+          console.log(red(`error: ${error.message}`))
+          exit(1)
+        })
       }
     })
   }
 
-  genereDocRecursive(i);
+  genereDocRecursive(i)
 }
 
-const buildDist = async () => {
+const buildDist = () => {
   const formats = ["iife", "esm", "cjs"]
 
   formats.forEach(format => {
@@ -67,16 +90,18 @@ const buildDist = async () => {
       bundle: true,
       minify: true,
       outdir: `build/${format}`,
-    }).then(result => {
-      console.log('build dist for format ' + format + ' succeeded.')
-    }).catch((err) => {
-      console.error(err)
-      process.exit(1)
     })
+      .then(result => {
+        console.log(green("build dist for format " + format + " succeeded."))
+      })
+      .catch(err => {
+        console.error(red(err))
+        exit(1)
+      })
   })
 }
 
-const buildDocs = async () => {
+const buildDocs = () => {
   build({
     banner: { js: headerJS },
     sourcemap: false,
@@ -87,17 +112,16 @@ const buildDocs = async () => {
     outdir: "website/static/assets/",
     watch: {
       onRebuild(error, result) {
-        if (error) console.error("watch build failed:", error)
-        else console.log("watch build succeeded")
+        if (error) console.error(red("watch build failed:" + error))
+        else console.log(green("Build docs files successfully"))
       },
     },
   })
     .then(result => {
-      console.log(result)
-      console.log("watching...")
+      console.log(cyan("watching..."))
       buildAPIDocs()
     })
-    .catch(() => process.exit(1))
+    .catch(() => exit(1))
 }
 
 buildDist()

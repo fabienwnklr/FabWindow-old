@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import CodeBlock from "@theme/CodeBlock"
 
 export default function Basics() {
-  useEffect(() => {})
+  // useEffect(() => {})
 
   return (
     <>

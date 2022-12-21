@@ -1,11 +1,11 @@
 import React from "react"
-import clsx from "clsx"
+// import clsx from "clsx"
 import Link from "@docusaurus/Link"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import Layout from "@theme/Layout"
 import HomepageFeatures from "@site/src/components/HomepageFeatures"
 
-import styles from "./index.module.css"
+// import styles from "./index.module.css"
 
 function HomepageHeader() {
   const availableBG = ["Web-Header-Background-1", "Black-Animation-Background", "Bubble-Background"]
