@@ -49,27 +49,29 @@ const buildAPIDocs = async () => {
         genereDocRecursive(i)
       } else {
         console.log(green("Api docs generation completed."))
-        console.log(cyan("Running doc website..."))
-
+        
         // Running website
-        const cmd = exec("npm run doc", (error, stdout, stderr) => {
-          if (error) {
-            console.log(red(`error: ${error.message}`))
-            return
-          }
-          if (stderr) {
-            console.log(`stderr: ${stderr}`)
-            return
-          }
-          console.log(`stdout: ${stdout}`)
-        })
+        if (method === "serve") {
+          console.log(cyan("Running doc website..."))
+          const cmd = exec("npm run doc", (error, stdout, stderr) => {
+            if (error) {
+              console.log(red(`error: ${error.message}`))
+              return
+            }
+            if (stderr) {
+              console.log(`stderr: ${stderr}`)
+              return
+            }
+            console.log(`stdout: ${stdout}`)
+          })
 
-        cmd.stdout.pipe(stdout)
-        cmd.stderr.pipe(stderr)
-        cmd.on("error", error => {
-          console.log(red(`error: ${error.message}`))
-          exit(1)
-        })
+          cmd.stdout.pipe(stdout)
+          cmd.stderr.pipe(stderr)
+          cmd.on("error", error => {
+            console.log(red(`error: ${error.message}`))
+            exit(1)
+          })
+        }
       }
     })
   }
