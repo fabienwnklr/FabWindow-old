@@ -1,4 +1,5 @@
 import { WrongPropertyError } from "../core/FabModalError"
+
 /**
  * @function
  * @ignore
@@ -42,5 +43,16 @@ export function validOptions(reference: object, current: object) {
  * @returns {string} String with first letter capitalized
  */
 export function capitalizeFirstLetter(string: string): string {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+/**
+ * Insert white space into string at index position
+ *
+ * @param string String to insert white space
+ * @param index Index on string to insert white space
+ * @returns {String} Return string with white space
+ */
+export function insertWhiteSpace(string: string, index: number): string {
+  return string.slice(0, index) + " " + string + string.slice(index)
 }

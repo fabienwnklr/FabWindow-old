@@ -2,3 +2,4 @@ build
 node_modules
 .github
 website/.docusaurus
+website/static/assets

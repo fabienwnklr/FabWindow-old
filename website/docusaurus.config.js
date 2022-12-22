@@ -65,7 +65,7 @@ const config = {
     },
   ],
 
-  scripts: ["/assets/FabModalManager.js", '/assets/FabModal.js'],
+  scripts: ["/assets/FabModalManager.js", "/assets/FabModal.js"],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

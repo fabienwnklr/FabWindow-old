@@ -6,10 +6,7 @@ export const modalDefaultOptions: ModalOptions = {
   title: "",
   content: "",
   modal_manager: undefined,
-  effects: {
-    in: "fade-in",
-    out: "fade-out",
-  },
+  modalClass: "",
   overlay: true,
   zIndex: 999,
   width: "auto",
@@ -23,13 +20,13 @@ export const modalDefaultOptions: ModalOptions = {
   reducible: false,
   resizable: false,
 
-  onFullScreen: null,
-  onRestore: null,
-  onResize: null,
-  onShow: null,
-  onHide: null,
-  beforeClose: null,
-  onClose: null,
+  onFullScreen: undefined,
+  onRestore: undefined,
+  onResize: undefined,
+  onShow: undefined,
+  onHide: undefined,
+  beforeClose: undefined,
+  onClose: undefined,
 }
 
 export const modalManagerDefaultOptions: ModalManagerOptions = {

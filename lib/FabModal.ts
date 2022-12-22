@@ -6,7 +6,7 @@ import type { ModalOptions } from "./types"
 import type { FabModalManager } from "./FabModalManager"
 // Utils
 import { FabModalError } from "./core/FabModalError"
-import { validOptions } from "./utils/index"
+import { validOptions, insertWhiteSpace } from "./utils/index"
 // Style
 import "./style/fabmodal.css"
 
@@ -48,11 +48,12 @@ export class FabModal {
   /** @property recude button modal html element */
   public $reduce: HTMLButtonElement
   /** @property expand button html element */
-  public $expand: HTMLButtonElement
+  public $expand?: HTMLButtonElement
   /** @property close button html element */
   public $close: HTMLButtonElement
   /** @property body content modal html element */
   public $body: HTMLElement
+  private $footer?: HTMLDivElement
   /** @property Modal tab element (only if using with FabModalManager) */
   public $modalTab: HTMLElement
   /**@ignore */
@@ -110,7 +111,6 @@ export class FabModal {
     this.$bodyElement = document.body
 
     // Binding
-    this._removeClassEffect = this._removeClassEffect.bind(this)
     this.toggleFullScreen = this.toggleFullScreen.bind(this)
     this.close = this.close.bind(this)
     this.hide = this.hide.bind(this)
@@ -124,7 +124,7 @@ export class FabModal {
     this._fnUp = this._fnUp.bind(this)
 
     // Creating modal
-    this.createModal()
+    this._createModal()
     // Then insert modal into DOM
     this.$bodyElement?.appendChild(this.$el)
     // this._buildStyle();
@@ -241,19 +241,6 @@ export class FabModal {
   // ## ----------------------------START PRIVATE FUNCTION---------------------------- ## \\
 
   /**
-   * Removing class effect
-   * @function
-   * @ignore
-   */
-  private _removeClassEffect() {
-    if (typeof this.options.effects !== "undefined" && typeof this.options.effects.in !== "undefined" && typeof this.options.effects.out !== "undefined") {
-      this.$el.classList.remove(this.options.effects.in)
-      this.$el.classList.remove(this.options.effects.out)
-    }
-    this.$el.removeEventListener("animationend", this._removeClassEffect)
-  }
-
-  /**
    * Init handler events
    * @function
    * @ignore
@@ -269,11 +256,8 @@ export class FabModal {
     }
 
     if (this.options.expandable) {
-      this.$expand.addEventListener("click", this.toggleFullScreen)
+      this.$expand?.addEventListener("click", this.toggleFullScreen)
     }
-
-    this.$el.removeEventListener("animationend", this._removeClassEffect)
-    this.$el.addEventListener("animationend", this._removeClassEffect)
 
     this.$close.removeEventListener("click", this.close)
     this.$close.addEventListener("click", this.close)
@@ -337,7 +321,7 @@ export class FabModal {
    * Create all node elements of modal
    * @note Useless to call this function without calling instance new FabModal()
    */
-  createModal() {
+  _createModal() {
     const fullScreen = this.isFullScreen ? " fullScreen" : ""
 
     if (this.options.overlay === true && typeof this.options.modal_manager === "undefined") {
@@ -347,7 +331,7 @@ export class FabModal {
     }
 
     this.$el = document.createElement("div")
-    this.$el.className = `fab-modal ${this.options.effects?.in} ${fullScreen}`
+    this.$el.className = `fab-modal${fullScreen}${insertWhiteSpace(this.options.modalClass, 0)}`
     if (typeof this.options.id !== "undefined" && this.options.id !== "") {
       this.$el.id = this.options.id = this.options.id === "fab-modal" ? `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}` : this.options.id
     }
@@ -394,11 +378,22 @@ export class FabModal {
     } else if (this.options.content instanceof Node) {
       this.$body.append(this.options.content)
     }
-    
+
+    if (typeof this.options.footer !== "undefined") {
+      this.$footer = document.createElement("div")
+      this.$footer.className = "fab-footer"
+      if (typeof this.options.footer === "string") {
+        this.$footer.innerHTML = this.options.footer
+      } else if (this.options.footer instanceof Node) {
+        this.$footer.append(this.options.footer)
+      }
+    }
 
     if (this.modal_manager) this.$el.FabModalManager = this.modal_manager
     this.$el.FabModal = this
     this.$el.appendChild(this.$body)
+
+    if (this.$footer) this.$el.appendChild(this.$footer)
   }
 
   /**
@@ -424,7 +419,7 @@ export class FabModal {
     if (typeof this.$overlay !== "undefined") this.$overlay.classList.add("show")
     if (typeof this.$modalTab !== "undefined") this.$modalTab.classList.add("show")
 
-    this.$el.dispatchEvent(new CustomEvent('show'));
+    this.$el.dispatchEvent(new CustomEvent("show"))
     if (typeof this.options.onShow === "function") {
       this.options.onShow(this)
     }
@@ -437,7 +432,7 @@ export class FabModal {
   hide() {
     this.$el.style.display = "none"
 
-    this.$el.dispatchEvent(new CustomEvent('hide'));
+    this.$el.dispatchEvent(new CustomEvent("hide"))
 
     if (typeof this.options.onHide === "function") {
       this.options.onHide(this)
@@ -454,7 +449,7 @@ export class FabModal {
       this.isFullScreen = false
       this.$bodyElement.style.overflow = "auto"
       this.$el.classList.remove("fullScreen")
-      this.$expand.title = "Restore"
+      this.$expand!.title = "Restore"
 
       this.$el.dispatchEvent(new CustomEvent("restore"))
       if (typeof this.options.onRestore === "function") {
@@ -482,7 +477,7 @@ export class FabModal {
   close() {
     this.$el.dispatchEvent(new CustomEvent("beforeClose"))
 
-    if (typeof this.options.beforeClose === 'function') {
+    if (typeof this.options.beforeClose === "function") {
       this.options.beforeClose(this)
     }
 
@@ -496,9 +491,9 @@ export class FabModal {
       this.$modalTab.classList.remove("show")
     }
 
-    this.destroy();
+    this.destroy()
     this.$el.dispatchEvent(new CustomEvent("close"))
-    if (typeof this.options.onClose === 'function') {
+    if (typeof this.options.onClose === "function") {
       this.options.onClose(this)
     }
   }

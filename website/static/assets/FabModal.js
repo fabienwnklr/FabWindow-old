@@ -54,6 +54,9 @@
       }
     }
   }
+  function insertWhiteSpace(string, index) {
+    return string.slice(0, index) + " " + string + string.slice(index);
+  }
 
   // lib/default.ts
   var modalDefaultOptions = {
@@ -61,10 +64,7 @@
     title: "",
     content: "",
     modal_manager: void 0,
-    effects: {
-      in: "fade-in",
-      out: "fade-out"
-    },
+    modalClass: "",
     overlay: true,
     zIndex: 999,
     width: "auto",
@@ -77,13 +77,13 @@
     expandable: false,
     reducible: false,
     resizable: false,
-    onFullScreen: null,
-    onRestore: null,
-    onResize: null,
-    onShow: null,
-    onHide: null,
-    beforeClose: null,
-    onClose: null
+    onFullScreen: void 0,
+    onRestore: void 0,
+    onResize: void 0,
+    onShow: void 0,
+    onHide: void 0,
+    beforeClose: void 0,
+    onClose: void 0
   };
 
   // lib/FabModal.ts
@@ -101,6 +101,7 @@
     $expand;
     $close;
     $body;
+    $footer;
     $modalTab;
     _disX;
     _disY;
@@ -116,7 +117,6 @@
       this.isFullScreen = false;
       this.oldContent = "";
       this.$bodyElement = document.body;
-      this._removeClassEffect = this._removeClassEffect.bind(this);
       this.toggleFullScreen = this.toggleFullScreen.bind(this);
       this.close = this.close.bind(this);
       this.hide = this.hide.bind(this);
@@ -126,7 +126,7 @@
       this._fnDown = this._fnDown.bind(this);
       this._fnMove = this._fnMove.bind(this);
       this._fnUp = this._fnUp.bind(this);
-      this.createModal();
+      this._createModal();
       this.$bodyElement?.appendChild(this.$el);
       this._initHandlers();
       if (!this.options.modal_manager) {
@@ -185,13 +185,6 @@
     get modalTab() {
       return this.$modalTab;
     }
-    _removeClassEffect() {
-      if (typeof this.options.effects !== "undefined" && typeof this.options.effects.in !== "undefined" && typeof this.options.effects.out !== "undefined") {
-        this.$el.classList.remove(this.options.effects.in);
-        this.$el.classList.remove(this.options.effects.out);
-      }
-      this.$el.removeEventListener("animationend", this._removeClassEffect);
-    }
     _initHandlers() {
       if (this.options.draggable && !isMobile()) {
         this.$el.classList.add("draggable");
@@ -200,10 +193,8 @@
       if (this.options.reducible && typeof this.options.modal_manager !== "undefined") {
       }
       if (this.options.expandable) {
-        this.$expand.addEventListener("click", this.toggleFullScreen);
+        this.$expand?.addEventListener("click", this.toggleFullScreen);
       }
-      this.$el.removeEventListener("animationend", this._removeClassEffect);
-      this.$el.addEventListener("animationend", this._removeClassEffect);
       this.$close.removeEventListener("click", this.close);
       this.$close.addEventListener("click", this.close);
     }
@@ -238,7 +229,7 @@
       document.onmousemove = null;
       document.onmouseup = null;
     }
-    createModal() {
+    _createModal() {
       const fullScreen = this.isFullScreen ? " fullScreen" : "";
       if (this.options.overlay === true && typeof this.options.modal_manager === "undefined") {
         this.$overlay = document.createElement("div");
@@ -246,7 +237,7 @@
         this.$bodyElement.appendChild(this.$overlay);
       }
       this.$el = document.createElement("div");
-      this.$el.className = `fab-modal ${this.options.effects?.in} ${fullScreen}`;
+      this.$el.className = `fab-modal${fullScreen}${insertWhiteSpace(this.options.modalClass, 0)}`;
       if (typeof this.options.id !== "undefined" && this.options.id !== "") {
         this.$el.id = this.options.id = this.options.id === "fab-modal" ? `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}` : this.options.id;
       }
@@ -285,10 +276,21 @@
       } else if (this.options.content instanceof Node) {
         this.$body.append(this.options.content);
       }
+      if (typeof this.options.footer !== "undefined") {
+        this.$footer = document.createElement("div");
+        this.$footer.className = "fab-footer";
+        if (typeof this.options.footer === "string") {
+          this.$footer.innerHTML = this.options.footer;
+        } else if (this.options.footer instanceof Node) {
+          this.$footer.append(this.options.footer);
+        }
+      }
       if (this.modal_manager)
         this.$el.FabModalManager = this.modal_manager;
       this.$el.FabModal = this;
       this.$el.appendChild(this.$body);
+      if (this.$footer)
+        this.$el.appendChild(this.$footer);
     }
     restoreOldContent() {
       if (this.oldContent !== "")

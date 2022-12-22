@@ -6,7 +6,7 @@ import { FabModal } from "../../../../lib/FabModal"
 
 export default function Expandable() {
   const showModal = () => {
-    new FabModal({ title: 'Expand me' , expandable: true, content: 'Yes please, expand me...' })
+    new FabModal({ title: "Expand me", expandable: true, content: "Yes please, expand me..." })
   }
 
   return (

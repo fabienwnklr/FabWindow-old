@@ -10,7 +10,9 @@ export default function Basic({ title }: B, props: React.DetailedHTMLProps<React
     <>
       <button
         id={props.id}
-        className={`px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline${props.className ? ' ' + props.className : ''}`}
+        className={`px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline${
+          props.className ? " " + props.className : ""
+        }`}
         onClick={props.onClick}
       >
         {title}

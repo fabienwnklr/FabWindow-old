@@ -3,10 +3,11 @@ import CodeBlock from "@theme/CodeBlock"
 // import Tabs from "@theme/Tabs"
 // import TabItem from "@theme/TabItem"
 import { FabModal } from "../../../../lib/FabModal"
+import type { ModalOptions } from "../../../../build/types/types"
 
 export default function Draggable() {
   const showModal = () => {
-    new FabModal({ title: 'Drag me' ,draggable: true, content: 'Yes please, drag me...' })
+    new FabModal({ title: "Drag me", draggable: true, content: "Yes please, drag me...", overlay: false })
   }
 
   return (

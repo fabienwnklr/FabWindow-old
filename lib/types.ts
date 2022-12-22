@@ -1,21 +1,19 @@
 import { FabModalManager } from "./FabModalManager"
 export interface ModalManagerOptions {
-    limitModal: number
-    container: boolean
+  limitModal: number
+  container: boolean
 }
 
 export interface ModalOptions {
   /**
-  * @prop {String} id id of modal
-  */
+   * @prop {String} id id of modal
+   */
   id?: string
   title?: string
   content?: string | Node
+  footer?: string | Node
   modal_manager?: FabModalManager
-  effects?: {
-    in?: string
-    out?: string
-  }
+  modalClass: string
   overlay?: boolean
   zIndex?: number
   width?: string

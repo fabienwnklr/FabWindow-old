@@ -49,7 +49,7 @@ const buildAPIDocs = async () => {
         genereDocRecursive(i)
       } else {
         console.log(green("Api docs generation completed."))
-        
+
         // Running website
         if (method === "serve") {
           console.log(cyan("Running doc website..."))

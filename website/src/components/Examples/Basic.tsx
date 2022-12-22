@@ -6,7 +6,7 @@ import { FabModal } from "../../../../lib/FabModal"
 
 export default function Basic() {
   const showModal = () => {
-    new FabModal()
+    new FabModal({ title: "Basic title", content: "Basic content" })
   }
 
   return (
