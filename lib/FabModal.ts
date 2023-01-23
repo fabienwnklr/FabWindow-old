@@ -252,7 +252,7 @@ export class FabModal {
     }
 
     if (this.options.reducible && typeof this.options.modal_manager !== "undefined") {
-      // this.$reduce.addEventListener("click", this.reduce);
+      this.$reduce.addEventListener("click", this.reduce);
     }
 
     if (this.options.expandable) {
@@ -394,6 +394,8 @@ export class FabModal {
     this.$el.appendChild(this.$body)
 
     if (this.$footer) this.$el.appendChild(this.$footer)
+
+    this.$el.FabModal = this;
   }
 
   /**
@@ -468,6 +470,12 @@ export class FabModal {
       }
     }
     return this.isFullScreen
+  }
+
+  reduce() {
+    if (typeof this.options.onReduce === "function") {
+      this.options.onReduce(this);
+    }
   }
 
   /**

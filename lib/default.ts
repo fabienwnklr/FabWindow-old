@@ -20,6 +20,7 @@ export const modalDefaultOptions: ModalOptions = {
   reducible: false,
   resizable: false,
 
+  onReduce: undefined,
   onFullScreen: undefined,
   onRestore: undefined,
   onResize: undefined,

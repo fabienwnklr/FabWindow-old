@@ -37,6 +37,8 @@ export interface ModalOptions {
   reducible?: boolean
   resizable?: boolean
   draggable?: boolean
+
+  onReduce?(modal: FabModal): void
   onFullScreen?(modal: FabModal): void
   onRestore?(modal: FabModal): void
   onResize?(modal: FabModal): void
