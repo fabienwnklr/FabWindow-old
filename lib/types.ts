@@ -1,11 +1,12 @@
 import { FabModalManager } from "./FabModalManager"
+import { FabModal } from "./FabModal"
 export interface ModalManagerOptions {
   limitModal: number
   container: boolean
 }
 
 export interface classObj {
-  replace?: boolean,
+  replace?: boolean
   className?: string
 }
 
@@ -19,10 +20,10 @@ export interface ModalOptions {
   footer?: string | Node
   modal_manager?: FabModalManager
   classes?: {
-    header?: classObj,
-    icons?:classObj,
-    body?:classObj,
-    footer?:classObj
+    header?: classObj
+    icons?: classObj
+    body?: classObj
+    footer?: classObj
   }
   overlay?: boolean
   zIndex?: number
@@ -36,11 +37,11 @@ export interface ModalOptions {
   reducible?: boolean
   resizable?: boolean
   draggable?: boolean
-  onFullScreen?: Function
-  onRestore?: Function
-  onResize?: Function
-  onShow?: Function
-  onHide?: Function
-  beforeClose?: Function
-  onClose?: Function
+  onFullScreen?(modal: FabModal): void
+  onRestore?(modal: FabModal): void
+  onResize?(modal: FabModal): void
+  onShow?(modal: FabModal): void
+  onHide?(modal: FabModal): void
+  beforeClose?(modal: FabModal): void
+  onClose?(modal: FabModal): void
 }

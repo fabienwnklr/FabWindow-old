@@ -5,6 +5,7 @@ import { WrongPropertyError } from "../core/FabModalError"
  * @ignore
  * @returns {boolean}
  */
+/*eslint no-useless-escape: "off"*/
 export function isMobile(): boolean {
   let check = false
   ;(function (a) {
@@ -30,7 +31,7 @@ export function validOptions(reference: object, current: object) {
   const referenceKeys = Object.keys(reference)
   const currentKeys = Object.keys(current)
 
-  for (let key in currentKeys) {
+  for (const key in currentKeys) {
     if (!(key in referenceKeys)) {
       throw new WrongPropertyError(key)
     }
@@ -55,4 +56,17 @@ export function capitalizeFirstLetter(string: string): string {
  */
 export function insertWhiteSpace(string: string, index: number): string {
   return string.slice(0, index) + " " + string + string.slice(index)
+}
+
+/**
+ * Convert string into HTML
+ * @param {String} htmlString
+ * @returns {ChildNode | null}
+ */
+export function createElementFromHTML(htmlString: string): ChildNode | null {
+  const div = document.createElement("div")
+  div.innerHTML = htmlString.trim()
+
+  // Change this to div.childNodes to support multiple top-level nodes.
+  return div.firstChild
 }

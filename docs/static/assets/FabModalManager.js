@@ -48,7 +48,7 @@
   function validOptions(reference, current) {
     const referenceKeys = Object.keys(reference);
     const currentKeys = Object.keys(current);
-    for (let key in currentKeys) {
+    for (const key in currentKeys) {
       if (!(key in referenceKeys)) {
         throw new WrongPropertyError(key);
       }
@@ -321,11 +321,13 @@
     }
     toggleFullScreen() {
       if (this.isFullScreen) {
-        this._initDrag();
+        if (this.options.draggable)
+          this._initDrag();
         this.isFullScreen = false;
         this.$bodyElement.style.overflow = "auto";
         this.$el.classList.remove("fullScreen");
-        this.$expand.title = "Restore";
+        if (this.$expand)
+          this.$expand.title = "Restore";
         this.$el.dispatchEvent(new CustomEvent("restore"));
         if (typeof this.options.onRestore === "function") {
           this.options.onRestore(this);

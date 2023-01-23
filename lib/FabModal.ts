@@ -410,7 +410,7 @@ export class FabModal {
    */
   show() {
     this.$el.style.display = "block"
-    this.$bodyElement!.style.overflow = "hidden"
+    this.$bodyElement.style.overflow = "hidden"
     this.$el.style.display = "block"
     this.$el.style.opacity = ""
 
@@ -445,11 +445,11 @@ export class FabModal {
    */
   toggleFullScreen(): boolean {
     if (this.isFullScreen) {
-      this._initDrag()
+      if (this.options.draggable) this._initDrag()
       this.isFullScreen = false
       this.$bodyElement.style.overflow = "auto"
       this.$el.classList.remove("fullScreen")
-      this.$expand!.title = "Restore"
+      if (this.$expand) this.$expand.title = "Restore"
 
       this.$el.dispatchEvent(new CustomEvent("restore"))
       if (typeof this.options.onRestore === "function") {

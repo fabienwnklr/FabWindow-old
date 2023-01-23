@@ -32,7 +32,13 @@ export default function Expandable() {
 
       <CodeBlock className="language-javascript" title="Javascript">
         {`const button = document.getElementById('expandable');
-button.addEventListener('click', () => new FabModal({ title: 'Expand me' , expandable: true, content: 'Yes please, expand me...' }))`}
+button.addEventListener('click', () => new FabModal(
+  {
+    title: 'Expand me',
+    expandable: true,
+    content: 'Yes please, expand me...'
+  }
+  ))`}
       </CodeBlock>
     </>
   )

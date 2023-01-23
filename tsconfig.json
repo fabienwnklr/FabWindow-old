@@ -14,7 +14,7 @@
     "noImplicitReturns": true,
     "strictPropertyInitialization": false,
     "isolatedModules": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": ["./lib/**/*"]
 }
