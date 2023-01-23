@@ -348,6 +348,9 @@
       return this.isFullScreen;
     }
     reduce() {
+      if (!this.options.modal_manager) {
+      }
+      this.hide();
       if (typeof this.options.onReduce === "function") {
         this.options.onReduce(this);
       }
@@ -423,6 +426,7 @@
     }
     createModal(options = {}) {
       options.modal_manager = this;
+      options.reducible = true;
       const newModal = new FabModal(options);
       this.addModal(newModal);
       newModal.show();

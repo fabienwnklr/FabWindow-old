@@ -92,6 +92,7 @@ export class FabModalManager {
    */
   createModal(options: ModalOptions = {}): FabModal {
     options.modal_manager = this
+    options.reducible = true
 
     const newModal = new FabModal(options)
 

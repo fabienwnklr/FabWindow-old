@@ -344,6 +344,9 @@
       return this.isFullScreen;
     }
     reduce() {
+      if (!this.options.modal_manager) {
+      }
+      this.hide();
       if (typeof this.options.onReduce === "function") {
         this.options.onReduce(this);
       }

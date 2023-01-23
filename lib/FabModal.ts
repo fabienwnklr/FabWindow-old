@@ -473,6 +473,13 @@ export class FabModal {
   }
 
   reduce() {
+    // Manage case is out of modal manager, allow reduce simple modal with tab
+    if (!this.options.modal_manager) {
+      // Build container for tab (migre it into shared file maybe shared.ts)
+    }
+
+    this.hide();
+
     if (typeof this.options.onReduce === "function") {
       this.options.onReduce(this);
     }
