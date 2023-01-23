@@ -19,7 +19,7 @@ export default function Expandable() {
         <h4>Create a simple modal and expand it, and return to previous state.</h4>
         <button
           id="expandable"
-          className="px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline"
+          className="button px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline dark:bg-gray-400 dark:text-black dark:hover:bg-gray-500"
           onClick={showModal}
         >
           Click to show most expandable Modal
@@ -32,13 +32,11 @@ export default function Expandable() {
 
       <CodeBlock className="language-javascript" title="Javascript">
         {`const button = document.getElementById('expandable');
-button.addEventListener('click', () => new FabModal(
-  {
-    title: 'Expand me',
-    expandable: true,
-    content: 'Yes please, expand me...'
-  }
-  ))`}
+button.addEventListener('click', () => new FabModal({
+  title: 'Expand me',
+  expandable: true,
+  content: 'Yes please, expand me...'
+}))`}
       </CodeBlock>
     </>
   )

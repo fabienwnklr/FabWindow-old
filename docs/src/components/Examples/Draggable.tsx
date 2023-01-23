@@ -20,7 +20,7 @@ export default function Draggable() {
         <h4>Create a simple modal and move it on page, where you want.</h4>
         <button
           id="draggable"
-          className="px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline"
+          className="button px-3 py-1 font-semibold text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-700 hover:no-underline dark:bg-gray-400 dark:text-black dark:hover:bg-gray-500"
           onClick={showModal}
         >
           Click to show most draggable Modal
@@ -33,7 +33,11 @@ export default function Draggable() {
 
       <CodeBlock className="language-javascript" title="Javascript">
         {`const button = document.getElementById('draggable');
-button.addEventListener('click', () => new FabModal({ title: 'Drag me' ,draggable: true, content: 'Yes please, drag me...' }))`}
+button.addEventListener('click', () => new FabModal({
+  title: 'Drag me',
+  draggable: true,
+  content: 'Yes please, drag me...'
+}))`}
       </CodeBlock>
     </>
   )

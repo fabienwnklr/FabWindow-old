@@ -74,6 +74,7 @@
     expandable: false,
     reducible: false,
     resizable: false,
+    onReduce: void 0,
     onFullScreen: void 0,
     onRestore: void 0,
     onResize: void 0,
@@ -192,6 +193,7 @@
         this._initDrag();
       }
       if (this.options.reducible && typeof this.options.modal_manager !== "undefined") {
+        this.$reduce.addEventListener("click", this.reduce);
       }
       if (this.options.expandable) {
         this.$expand?.addEventListener("click", this.toggleFullScreen);
@@ -292,6 +294,7 @@
       this.$el.appendChild(this.$body);
       if (this.$footer)
         this.$el.appendChild(this.$footer);
+      this.$el.FabModal = this;
     }
     restoreOldContent() {
       if (this.oldContent !== "")
@@ -343,6 +346,11 @@
         }
       }
       return this.isFullScreen;
+    }
+    reduce() {
+      if (typeof this.options.onReduce === "function") {
+        this.options.onReduce(this);
+      }
     }
     close() {
       this.$el.dispatchEvent(new CustomEvent("beforeClose"));
