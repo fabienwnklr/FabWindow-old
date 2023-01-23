@@ -4,6 +4,11 @@ export interface ModalManagerOptions {
   container: boolean
 }
 
+export interface classObj {
+  replace?: boolean,
+  className?: string
+}
+
 export interface ModalOptions {
   /**
    * @prop {String} id id of modal
@@ -13,7 +18,12 @@ export interface ModalOptions {
   content?: string | Node
   footer?: string | Node
   modal_manager?: FabModalManager
-  modalClass: string
+  classes?: {
+    header?: classObj,
+    icons?:classObj,
+    body?:classObj,
+    footer?:classObj
+  }
   overlay?: boolean
   zIndex?: number
   width?: string

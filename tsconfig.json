@@ -13,7 +13,8 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "strictPropertyInitialization": false,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "suppressImplicitAnyIndexErrors": true,
   },
   "include": ["./lib/**/*"]
 }

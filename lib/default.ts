@@ -6,7 +6,7 @@ export const modalDefaultOptions: ModalOptions = {
   title: "",
   content: "",
   modal_manager: undefined,
-  modalClass: "",
+  classes: undefined,
   overlay: true,
   zIndex: 999,
   width: "auto",

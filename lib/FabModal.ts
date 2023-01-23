@@ -6,7 +6,7 @@ import type { ModalOptions } from "./types"
 import type { FabModalManager } from "./FabModalManager"
 // Utils
 import { FabModalError } from "./core/FabModalError"
-import { validOptions, insertWhiteSpace } from "./utils/index"
+import { validOptions } from "./utils/index"
 // Style
 import "./style/fabmodal.css"
 
@@ -331,7 +331,7 @@ export class FabModal {
     }
 
     this.$el = document.createElement("div")
-    this.$el.className = `fab-modal${fullScreen}${insertWhiteSpace(this.options.modalClass, 0)}`
+    this.$el.className = `fab-modal${fullScreen}`
     if (typeof this.options.id !== "undefined" && this.options.id !== "") {
       this.$el.id = this.options.id = this.options.id === "fab-modal" ? `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}` : this.options.id
     }
