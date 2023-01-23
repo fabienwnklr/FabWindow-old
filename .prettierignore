@@ -1,5 +1,5 @@
 build
 node_modules
 .github
-website/.docusaurus
-website/static/assets
+docs/.docusaurus
+docs/static/assets

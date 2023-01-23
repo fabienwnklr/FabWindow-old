@@ -31,7 +31,7 @@ const headerJS = `/**
 
 const buildAPIDocs = async () => {
   const inputFiles = ["./lib/default.ts", "./lib/FabModal.ts", "./lib/FabModalManager.ts"]
-  const output = "website/docs/api/"
+  const output = "docs/docs/api/"
 
   let i = 0
   const genereDocRecursive = function (i) {
@@ -50,9 +50,9 @@ const buildAPIDocs = async () => {
       } else {
         console.log(green("Api docs generation completed."))
 
-        // Running website
+        // Running docs
         if (method === "serve") {
-          console.log(cyan("Running doc website..."))
+          console.log(cyan("Running docs..."))
           const cmd = exec("npm run doc", (error, stdout, stderr) => {
             if (error) {
               console.log(red(`error: ${error.message}`))
@@ -111,7 +111,7 @@ const buildDocs = () => {
     entryPoints: ["lib/FabModalManager.ts", "lib/FabModal.ts"],
     bundle: true,
     minify: false,
-    outdir: "website/static/assets/",
+    outdir: "docs/static/assets/",
     watch: {
       onRebuild(error, result) {
         if (error) console.error(red("watch build failed:" + error))
