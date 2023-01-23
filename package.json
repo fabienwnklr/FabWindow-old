@@ -16,7 +16,7 @@
     "doc": "cd docs/ && npm run start",
     "doc:build": "cd docs/ && npm run build",
     "clear": "rm -rf build",
-    "test": "karma start karma.conf.js --log-level debug --single-run",
+    "test": "npx playwright test",
     "doc:api": "typedoc --plugin typedoc-plugin-markdown --out docs/docs/api lib/constant.ts lib/FabModal.ts lib/FabModalManager.ts",
     "format": "prettier --write *.json *.js *.md tests/**/*.test.js lib/**/*.ts docs/**/*.tsx docs/**/*.js docs/**/**/**/*.md docs/**/**/*.mdx",
     "ts-declaration": "tsc --emitDeclarationOnly --outDir build/types",
