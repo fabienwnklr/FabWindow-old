@@ -2,7 +2,7 @@
  * FabModal (v1.0.0)
  * https://netlify.fabwindow.dev
  *
- * Copyright (c) 2021-2022 Fabien Winkler & contributors
+ * Copyright (c) 2021-2023 Fabien Winkler & contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at:
@@ -284,16 +284,6 @@
           this.$footer.innerHTML = this.options.footer;
         } else if (this.options.footer instanceof Node) {
           this.$footer.append(this.options.footer);
-        }
-      }
-      if (this.options.classes) {
-        for (const key in this.options.classes) {
-          if (typeof this.options.classes[key] !== "undefined") {
-            if (this.options.classes[key].className) {
-              const $el = this[`$${key}`];
-              this.options.classes[key].replace ? $el.className = this.options.classes[key].className : $el.classList.add(this.options.classes[key].className);
-            }
-          }
         }
       }
       if (this.modal_manager)
