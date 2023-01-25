@@ -132,6 +132,7 @@ export class FabModal extends MicroPlugin {
     this.$bodyElement?.appendChild(this.$el)
     // this._buildStyle();
     this._initHandlers()
+    this._setupCallbacks()
 
     this.initializePlugins(this.options.plugins)
 
@@ -316,6 +317,31 @@ export class FabModal extends MicroPlugin {
     document.onmouseup = null
   }
 
+  /**
+   * Maps fired events to callbacks provided
+   * in the settings used when creating the control.
+   */
+  private _setupCallbacks() {
+    let key, fn
+    const callbacks: { [key: string]: string } = {
+      reduce: "onReduce",
+      fullscreen: "onFullScreen",
+      restore: "onRestore",
+      resize: "onResize",
+      show: "onShow",
+      hide: "onHide",
+      before_close: "beforeClose",
+      close: "onClose",
+    }
+
+    for (key in callbacks) {
+      fn = this.options[callbacks[key] as keyof ModalOptions]
+      if (fn && fn instanceof Function) {
+        this.on(key, fn)
+      }
+    }
+  }
+
   // ## ----------------------------END OF PRIVATE FUNCTION---------------------------- ## \\
 
   // ______________________________________________________________________________________ \\
@@ -427,9 +453,7 @@ export class FabModal extends MicroPlugin {
     if (typeof this.$modalTab !== "undefined") this.$modalTab.classList.add("show")
 
     this.$el.dispatchEvent(new CustomEvent("show"))
-    if (typeof this.options.onShow === "function") {
-      this.options.onShow(this)
-    }
+    this.trigger('show')
   }
 
   /**
@@ -438,12 +462,7 @@ export class FabModal extends MicroPlugin {
    */
   hide() {
     this.$el.style.display = "none"
-
-    this.$el.dispatchEvent(new CustomEvent("hide"))
-
-    if (typeof this.options.onHide === "function") {
-      this.options.onHide(this)
-    }
+    this.trigger('hide')
   }
 
   /**
@@ -458,21 +477,13 @@ export class FabModal extends MicroPlugin {
       this.$el.classList.remove("fullScreen")
       if (this.$expand) this.$expand.title = "Restore"
 
-      this.$el.dispatchEvent(new CustomEvent("restore"))
-      if (typeof this.options.onRestore === "function") {
-        this.options.onRestore(this)
-      }
+      this.trigger("restore")
     } else {
       this.$el.removeEventListener("mousedown", this._fnDown)
       this.isFullScreen = true
       this.$bodyElement.style.overflow = "hidden"
       this.$el.classList.add("fullScreen")
-      // this.$expand.title = "Réstaurer";
-
-      this.$el.dispatchEvent(new CustomEvent("fullScreen"))
-      if (typeof this.options.onFullScreen === "function") {
-        this.options.onFullScreen(this)
-      }
+      this.trigger("fullscreen")
     }
     return this.isFullScreen
   }
@@ -485,9 +496,7 @@ export class FabModal extends MicroPlugin {
 
     this.hide()
 
-    if (typeof this.options.onReduce === "function") {
-      this.options.onReduce(this)
-    }
+    this.trigger("reduce")
   }
 
   /**
@@ -495,12 +504,7 @@ export class FabModal extends MicroPlugin {
    * Close current modal
    */
   close() {
-    this.$el.dispatchEvent(new CustomEvent("beforeClose"))
-
-    if (typeof this.options.beforeClose === "function") {
-      this.options.beforeClose(this)
-    }
-
+    this.trigger('before_close')
     this.$el.classList.remove("show")
 
     if (typeof this.$overlay !== "undefined") {
@@ -512,10 +516,7 @@ export class FabModal extends MicroPlugin {
     }
 
     this.destroy()
-    this.$el.dispatchEvent(new CustomEvent("close"))
-    if (typeof this.options.onClose === "function") {
-      this.options.onClose(this)
-    }
+    this.trigger('close')
   }
 
   /**

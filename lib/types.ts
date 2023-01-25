@@ -11,9 +11,6 @@ export type classObj = {
 }
 
 export type ModalOptions = {
-  /**
-   * @prop {String} id id of modal
-   */
   id?: string
   title?: string
   content?: string | Node
@@ -40,12 +37,12 @@ export type ModalOptions = {
 
   plugins: Array<object> | object
 
-  onReduce?(modal: FabModal): void
-  onFullScreen?(modal: FabModal): void
-  onRestore?(modal: FabModal): void
-  onResize?(modal: FabModal): void
-  onShow?(modal: FabModal): void
-  onHide?(modal: FabModal): void
-  beforeClose?(modal: FabModal): void
-  onClose?(modal: FabModal): void
+  onReduce?: (modal: FabModal) => void
+  onFullScreen?: (modal: FabModal) => void
+  onRestore?: (modal: FabModal) => void
+  onResize?: (modal: FabModal) => void
+  onShow?: (modal: FabModal) => void
+  onHide?: (modal: FabModal) => void
+  beforeClose?: (modal: FabModal) => void
+  onClose?: (modal: FabModal) => void
 }

@@ -1,3 +1,4 @@
+import { MicroEvent } from './MicroEvent';
 /**
  * microplugin.js
  * Copyright (c) 2013 Brian Reavis & contributors
@@ -26,7 +27,7 @@
  * @param {array|object} items
  * @param {object} items
  */
-export class MicroPlugin {
+export class MicroPlugin extends MicroEvent {
   plugins = {
     names: [] as string[],
     settings: {},
