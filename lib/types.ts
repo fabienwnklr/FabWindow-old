@@ -1,16 +1,16 @@
 import { FabModalManager } from "./FabModalManager"
 import { FabModal } from "./FabModal"
-export interface ModalManagerOptions {
+export type ModalManagerOptions =  {
   limitModal: number
   container: boolean
 }
 
-export interface classObj {
+export type classObj =  {
   replace?: boolean
   className?: string
 }
 
-export interface ModalOptions {
+export type ModalOptions =  {
   /**
    * @prop {String} id id of modal
    */
@@ -37,6 +37,8 @@ export interface ModalOptions {
   reducible?: boolean
   resizable?: boolean
   draggable?: boolean
+
+  plugins: Array<object> | object
 
   onReduce?(modal: FabModal): void
   onFullScreen?(modal: FabModal): void
