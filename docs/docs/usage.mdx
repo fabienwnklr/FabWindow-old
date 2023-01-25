@@ -11,3 +11,15 @@ You can initialize the window simply as u see
 window.myModal = new FabModal()
 // Then access directly like this for example myModal.destroy()
 ```
+
+## Fetch FabModal instance
+
+if you instantiate new FabModal without store it into variables, you can fetch it easily.
+
+```js
+new FabModal({ id: 'myModal'})
+
+const FabModalInstance = document.getElementById('#myModal').FabModal;
+
+FabModalInstance.destroy();
+```
