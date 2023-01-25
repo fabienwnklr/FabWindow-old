@@ -1,4 +1,4 @@
-import { WrongPropertyError } from "../core/FabModalError"
+import { WrongPropertyError } from "../contrib/FabModalError"
 
 /**
  * @function
@@ -69,4 +69,12 @@ export function createElementFromHTML(htmlString: string): ChildNode | null {
 
   // Change this to div.childNodes to support multiple top-level nodes.
   return div.firstChild
+}
+
+export function nanoid(t = 21) {
+  return crypto.getRandomValues(new Uint8Array(t))
+    .reduce(((t, e) =>
+      t += (e &= 63) < 36 ? e.toString(36) :
+        e < 62 ? (e - 26).toString(36).toUpperCase()
+          : e > 62 ? "-" : "_"), "");
 }

@@ -1,11 +1,12 @@
 // Basic import
 import { isMobile } from "./utils"
 import { modalDefaultOptions } from "./default"
+import MicroPlugin from './contrib/MicroPlugins'
 // Types
 import type { ModalOptions } from "./types"
 import type { FabModalManager } from "./FabModalManager"
 // Utils
-import { FabModalError } from "./core/FabModalError"
+import { FabModalError } from "./contrib/FabModalError"
 import { validOptions } from "./utils/index"
 // Style
 import "./style/fabmodal.css"
