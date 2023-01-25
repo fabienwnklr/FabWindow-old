@@ -453,7 +453,7 @@ export class FabModal extends MicroPlugin {
     if (typeof this.$modalTab !== "undefined") this.$modalTab.classList.add("show")
 
     this.$el.dispatchEvent(new CustomEvent("show"))
-    this.trigger('show')
+    this.trigger('show', this)
   }
 
   /**
@@ -462,7 +462,7 @@ export class FabModal extends MicroPlugin {
    */
   hide() {
     this.$el.style.display = "none"
-    this.trigger('hide')
+    this.trigger('hide', this)
   }
 
   /**
@@ -477,13 +477,13 @@ export class FabModal extends MicroPlugin {
       this.$el.classList.remove("fullScreen")
       if (this.$expand) this.$expand.title = "Restore"
 
-      this.trigger("restore")
+      this.trigger("restore", this)
     } else {
       this.$el.removeEventListener("mousedown", this._fnDown)
       this.isFullScreen = true
       this.$bodyElement.style.overflow = "hidden"
       this.$el.classList.add("fullScreen")
-      this.trigger("fullscreen")
+      this.trigger("fullscreen", this)
     }
     return this.isFullScreen
   }
@@ -496,7 +496,7 @@ export class FabModal extends MicroPlugin {
 
     this.hide()
 
-    this.trigger("reduce")
+    this.trigger("reduce", this)
   }
 
   /**
@@ -504,7 +504,7 @@ export class FabModal extends MicroPlugin {
    * Close current modal
    */
   close() {
-    this.trigger('before_close')
+    this.trigger('before_close', this)
     this.$el.classList.remove("show")
 
     if (typeof this.$overlay !== "undefined") {
@@ -516,7 +516,7 @@ export class FabModal extends MicroPlugin {
     }
 
     this.destroy()
-    this.trigger('close')
+    this.trigger('close', this)
   }
 
   /**
