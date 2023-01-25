@@ -21,6 +21,7 @@ export const modalDefaultOptions: ModalOptions = {
   resizable: false,
   plugins: {},
 
+  // if add callback function please add it on _setupCallbacks function
   onReduce: undefined,
   onFullScreen: undefined,
   onRestore: undefined,

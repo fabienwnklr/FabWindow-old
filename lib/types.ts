@@ -37,12 +37,14 @@ export type ModalOptions = {
 
   plugins: Array<object> | object
 
-  onReduce?: (modal: FabModal) => void
-  onFullScreen?: (modal: FabModal) => void
-  onRestore?: (modal: FabModal) => void
-  onResize?: (modal: FabModal) => void
-  onShow?: (modal: FabModal) => void
-  onHide?: (modal: FabModal) => void
-  beforeClose?: (modal: FabModal) => void
-  onClose?: (modal: FabModal) => void
+  // if need to add callback function please add it on _setupCallbacks function
+
+  onReduce?(modal: FabModal): void
+  onFullScreen?(modal: FabModal): void
+  onRestore?(modal: FabModal): void
+  onResize?(modal: FabModal): void
+  onShow?(modal: FabModal): void
+  onHide?(modal: FabModal): void
+  beforeClose?(modal: FabModal): void
+  onClose?(modal: FabModal): void
 }
