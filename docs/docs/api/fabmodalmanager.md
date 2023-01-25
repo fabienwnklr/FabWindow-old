@@ -2,6 +2,8 @@
 
 ## :factory: FabModalManager
 
+
+
 ### Constructors
 
 `public`: Instance of FabModalManager
@@ -9,7 +11,8 @@ See : {@link FabModalManager.defaultOptions }
 
 Parameters:
 
-- `options`
+* `options`
+
 
 ### Methods
 
@@ -20,24 +23,25 @@ Parameters:
 
 #### :gear: createModal
 
-| Method        | Type                                   |
-| ------------- | -------------------------------------- |
+| Method | Type |
+| ---------- | ---------- |
 | `createModal` | `(options?: ModalOptions) => FabModal` |
 
 #### :gear: addModal
 
-| Method     | Type                            |
-| ---------- | ------------------------------- |
+| Method | Type |
+| ---------- | ---------- |
 | `addModal` | `(modal: FabModal) => FabModal` |
 
 #### :gear: setFocused
 
-| Method       | Type                       |
-| ------------ | -------------------------- |
+| Method | Type |
+| ---------- | ---------- |
 | `setFocused` | `(ev: MouseEvent) => void` |
 
 #### :gear: destroyModal
 
-| Method         | Type                           |
-| -------------- | ------------------------------ |
+| Method | Type |
+| ---------- | ---------- |
 | `destroyModal` | `(fabModal: FabModal) => void` |
+

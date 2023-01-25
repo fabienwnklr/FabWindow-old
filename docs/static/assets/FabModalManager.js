@@ -18,7 +18,7 @@
 
 "use strict";
 (() => {
-  // lib/core/FabModalError.ts
+  // lib/contrib/FabModalError.ts
   var FabModalError = class extends Error {
     constructor(message) {
       super(message);
