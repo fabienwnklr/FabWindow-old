@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Fabwindow is a simple window as modal or multiple with window manager",
   "main": "lib/",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "node esbuild serve",
     "deploy": "npm-run-all format ts-declaration test build build:* doc:api doc:build",
