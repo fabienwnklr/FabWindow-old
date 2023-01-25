@@ -1,7 +1,7 @@
 // Basic import
 import { isMobile } from "./utils"
 import { modalDefaultOptions } from "./default"
-import MicroPlugin from './contrib/MicroPlugins'
+import {MicroPlugin} from './contrib/MicroPlugin'
 // Types
 import type { ModalOptions } from "./types"
 import type { FabModalManager } from "./FabModalManager"
@@ -27,7 +27,7 @@ declare global {
  *
  * Instance of FabModal
  */
-export class FabModal {
+export class FabModal extends MicroPlugin {
   public options: ModalOptions
   /** @property Boolean called if modal is fullScreen or not */
   public isFullScreen: boolean
@@ -98,6 +98,8 @@ export class FabModal {
    * ```
    */
   constructor(options?: ModalOptions) {
+    super()
+
     if (!options || typeof options !== "object") {
       this.options = modalDefaultOptions
     } else {
@@ -130,6 +132,8 @@ export class FabModal {
     this.$bodyElement?.appendChild(this.$el)
     // this._buildStyle();
     this._initHandlers()
+
+    this.initializePlugins(this.options.plugins);
 
     if (!this.options.modal_manager) {
       this.show()

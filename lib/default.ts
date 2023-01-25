@@ -19,6 +19,7 @@ export const modalDefaultOptions: ModalOptions = {
   expandable: false,
   reducible: false,
   resizable: false,
+  plugins: {},
 
   onReduce: undefined,
   onFullScreen: undefined,
