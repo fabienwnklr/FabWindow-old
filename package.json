@@ -18,7 +18,7 @@
     "clear": "rm -rf build",
     "test": "npx playwright test",
     "doc:api": "typedoc --plugin typedoc-plugin-markdown --out docs/docs/api lib/constant.ts lib/FabModal.ts lib/FabModalManager.ts",
-    "format": "prettier --write *.json *.js *.md tests/**/*.test.js lib/**/*.ts docs/**/*.tsx docs/**/*.js docs/**/**/**/*.md docs/**/**/*.mdx",
+    "format": "prettier --write *.json *.js *.md tests/**/*.ts lib/**/*.ts docs/**/*.tsx docs/**/*.js docs/**/**/**/*.md docs/**/**/*.mdx",
     "ts-declaration": "tsc --emitDeclarationOnly --outDir build/types",
     "lint": "npx eslint ./lib/**/*.ts ./tests/**/*.ts"
   },

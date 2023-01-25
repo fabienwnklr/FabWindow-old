@@ -27,103 +27,96 @@
  * @param {object} items
  */
 export class MicroPlugin {
+  plugins = {
+    names: [] as string[],
+    settings: {},
+    requested: {},
+    loaded: {},
+  }
 
-	plugins = {
-		names: [] as string[],
-		settings: {},
-		requested: {},
-		loaded: {}
-	}
+  /**
+   * Initializes the listed plugins (with options).
+   * Acceptable formats:
+   *
+   * - List (without options): - `['a', 'b', 'c']`
+   * - List (with options): - `[{'name': 'a', options: {}}, {'name': 'b', options: {}}]`
+   * - Hash (with options): - `{'a': { ... }, 'b': { ... }, 'c': { ... }}`
+   *
+   * @param {Array<object> | object} plugins
+   */
+  initializePlugins(plugins: Array<object> | object) {
+    let i, n, key
+    const queue = []
 
+    if (Array.isArray(plugins)) {
+      for (i = 0, n = plugins.length; i < n; i++) {
+        if (typeof plugins[i] === "string") {
+          queue.push(plugins[i])
+        } else {
+          this.plugins.settings[plugins[i].name] = plugins[i].options
+          queue.push(plugins[i].name)
+        }
+      }
+    } else if (plugins) {
+      for (key in plugins) {
+        if (Object.prototype.hasOwnProperty.call(plugins, key)) {
+          this.plugins.settings[key] = plugins[key]
+          queue.push(key)
+        }
+      }
+    }
 
-	/**
-	 * Initializes the listed plugins (with options).
-	 * Acceptable formats:
-	 *
-	 * - List (without options): - `['a', 'b', 'c']`
-	 * - List (with options): - `[{'name': 'a', options: {}}, {'name': 'b', options: {}}]`
-	 * - Hash (with options): - `{'a': { ... }, 'b': { ... }, 'c': { ... }}`
-	 *
-	 * @param {Array<object> | object} plugins
-	 * @memberof MicroPlugin
-	 */
-	initializePlugins(plugins: Array<object> | object) {
-		let i, n, key;
-		const queue = [];
+    while (queue.length) {
+      self.require(queue.shift())
+    }
+  }
 
-		if (Array.isArray(plugins)) {
-			for (i = 0, n = plugins.length; i < n; i++) {
-				if (typeof plugins[i] === 'string') {
-					queue.push(plugins[i]);
-				} else {
-					this.plugins.settings[plugins[i].name] = plugins[i].options;
-					queue.push(plugins[i].name);
-				}
-			}
-		} else if (plugins) {
-			for (key in plugins) {
-				if (Object.prototype.hasOwnProperty.call(plugins, key)) {
-					this.plugins.settings[key] = plugins[key];
-					queue.push(key);
-				}
-			}
-		}
+  /** Loads a plugin.
+   * @param {string} name - The name of the plugin to load.
+   *
+   */
+  loadPlugin(name: string) {
+    const plugins = this.plugins
+    const plugin = this.plugins[name]
 
-		while (queue.length) {
-			self.require(queue.shift());
-		}
-	}
+    if (!Object.prototype.hasOwnProperty.call(this.plugins, name)) {
+      throw new Error('Unable to find "' + name + '" plugin')
+    }
 
+    plugins.requested[name] = true
+    plugins.loaded[name] = plugin.fn.apply(this, [this.plugins.settings[name] || {}])
+    plugins.names.push(name)
+  }
 
-	/** Loads a plugin.
-	 * @param {string} name - The name of the plugin to load.
-	 *
-	 * @memberof MicroPlugin
-	 */
-	loadPlugin(name: string) {
-		const plugins = this.plugins;
-		const plugin = this.plugins[name];
+  /**
+   * Initializes a plugin.
+   *
+   * @param {string} name
+   */
+  require(name: string) {
+    const plugins = this.plugins
 
-		if (!Object.prototype.hasOwnProperty.call(this.plugins, name)) {
-			throw new Error('Unable to find "' + name + '" plugin');
-		}
+    if (!Object.prototype.hasOwnProperty.call(this.plugins.loaded, name)) {
+      if (plugins.requested[name]) {
+        throw new Error('Plugin has circular dependency ("' + name + '")')
+      }
+      this.loadPlugin(name)
+    }
 
-		plugins.requested[name] = true;
-		plugins.loaded[name] = plugin.fn.apply(this, [this.plugins.settings[name] || {}]);
-		plugins.names.push(name);
-	}
+    return plugins.loaded[name]
+  }
 
-	/**
-	 * Initializes a plugin.
-	 *
-	 * @param {string} name
-	 * @memberof MicroPlugin
-	 */
-	require(name: string) {
-		const plugins = this.plugins;
-
-		if (!Object.prototype.hasOwnProperty.call(this.plugins.loaded, name)) {
-			if (plugins.requested[name]) {
-				throw new Error('Plugin has circular dependency ("' + name + '")');
-			}
-			this.loadPlugin(name);
-		}
-
-		return plugins.loaded[name];
-	}
-
-	/**
-	 * Registers a plugin.
-	 *
-	 * @param {string} name
-	 * @param {function} fn
-	 *
-	 * @memberof MicroPlugin
-	 */
-	define(name: string, fn: () => void) {
-		this.plugins[name] = {
-			'name': name,
-			'fn': fn
-		};
-	}
+  /**
+   * Registers a plugin.
+   *
+   * @param {string} name
+   * @param {function} fn
+   *
+   */
+  define(name: string, fn: () => void) {
+    this.plugins[name] = {
+      name: name,
+      fn: fn,
+    }
+  }
 }

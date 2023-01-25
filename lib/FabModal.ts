@@ -1,7 +1,7 @@
 // Basic import
 import { isMobile } from "./utils"
 import { modalDefaultOptions } from "./default"
-import {MicroPlugin} from './contrib/MicroPlugin'
+import { MicroPlugin } from "./contrib/MicroPlugin"
 // Types
 import type { ModalOptions } from "./types"
 import type { FabModalManager } from "./FabModalManager"
@@ -133,7 +133,7 @@ export class FabModal extends MicroPlugin {
     // this._buildStyle();
     this._initHandlers()
 
-    this.initializePlugins(this.options.plugins);
+    this.initializePlugins(this.options.plugins)
 
     if (!this.options.modal_manager) {
       this.show()
@@ -257,7 +257,7 @@ export class FabModal extends MicroPlugin {
     }
 
     if (this.options.reducible && typeof this.options.modal_manager !== "undefined") {
-      this.$reduce.addEventListener("click", this.reduce);
+      this.$reduce.addEventListener("click", this.reduce)
     }
 
     if (this.options.expandable) {
@@ -400,7 +400,7 @@ export class FabModal extends MicroPlugin {
 
     if (this.$footer) this.$el.appendChild(this.$footer)
 
-    this.$el.FabModal = this;
+    this.$el.FabModal = this
   }
 
   /**
@@ -483,10 +483,10 @@ export class FabModal extends MicroPlugin {
       // Build container for tab (migre it into shared file maybe shared.ts)
     }
 
-    this.hide();
+    this.hide()
 
     if (typeof this.options.onReduce === "function") {
-      this.options.onReduce(this);
+      this.options.onReduce(this)
     }
   }
 

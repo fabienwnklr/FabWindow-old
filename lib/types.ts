@@ -1,16 +1,16 @@
 import { FabModalManager } from "./FabModalManager"
 import { FabModal } from "./FabModal"
-export type ModalManagerOptions =  {
+export type ModalManagerOptions = {
   limitModal: number
   container: boolean
 }
 
-export type classObj =  {
+export type classObj = {
   replace?: boolean
   className?: string
 }
 
-export type ModalOptions =  {
+export type ModalOptions = {
   /**
    * @prop {String} id id of modal
    */
