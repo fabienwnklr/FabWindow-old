@@ -453,7 +453,7 @@ export class FabModal extends MicroPlugin {
     if (typeof this.$modalTab !== "undefined") this.$modalTab.classList.add("show")
 
     this.$el.dispatchEvent(new CustomEvent("show"))
-    this.trigger('show', this)
+    this.trigger("show", this)
   }
 
   /**
@@ -462,7 +462,7 @@ export class FabModal extends MicroPlugin {
    */
   hide() {
     this.$el.style.display = "none"
-    this.trigger('hide', this)
+    this.trigger("hide", this)
   }
 
   /**
@@ -504,7 +504,7 @@ export class FabModal extends MicroPlugin {
    * Close current modal
    */
   close() {
-    this.trigger('before_close', this)
+    this.trigger("before_close", this)
     this.$el.classList.remove("show")
 
     if (typeof this.$overlay !== "undefined") {
@@ -516,7 +516,7 @@ export class FabModal extends MicroPlugin {
     }
 
     this.destroy()
-    this.trigger('close', this)
+    this.trigger("close", this)
   }
 
   /**

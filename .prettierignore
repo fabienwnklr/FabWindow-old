@@ -3,3 +3,4 @@ node_modules
 .github
 docs/.docusaurus
 docs/static/assets
+docs/docs/api

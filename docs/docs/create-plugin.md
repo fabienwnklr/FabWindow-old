@@ -74,16 +74,18 @@ For a more detailed description of plugin option formats and how the plugin syst
 ```js
 new FabModal({
   plugins: ["plugin_a", "plugin_b"],
-});
+})
 ```
 
 ## With options
 
 ```js
 new FabModal({
-    plugins: {
-        'plugin_a': { pluginAttr: '' },
-        'plugin_b': { /* ... */ }
-    }
+  plugins: {
+    plugin_a: { pluginAttr: "" },
+    plugin_b: {
+      /* ... */
+    },
+  },
 })
 ```

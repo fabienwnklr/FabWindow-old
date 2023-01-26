@@ -1,5 +1,7 @@
 # Event and callbacks
 
+In the usage documentation, a few callbacks are listed that allow you to listen to specific events. Callbacks aren't always ideal, though, specifically when you wish to have multiple handlers.
+
 ## Docs
 
 | Event      | Params   | Description                               |
@@ -13,31 +15,31 @@
 ## Events Examples
 
 ```js
-myModal.$el.on("fullScreen", () => {
+myModal.on("fullScreen", () => {
   console.log("FullScreened")
 })
 ```
 
 ```js
-myModal.$el.on("restore", () => {
+myModal.on("restore", () => {
   console.log("Restored")
 })
 ```
 
 ```js
-myModal.$el.on("show", () => {
+myModal.on("show", () => {
   console.log("Shown")
 })
 ```
 
 ```js
-myModal.$el.on("hide", () => {
+myModal.on("hide", () => {
   console.log("Hidden")
 })
 ```
 
 ```js
-myModal.$el.on("close", () => {
+myModal.on("close", () => {
   console.log("Closed")
 })
 ```

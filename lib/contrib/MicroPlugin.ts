@@ -1,4 +1,4 @@
-import { MicroEvent } from './MicroEvent';
+import { MicroEvent } from "./MicroEvent"
 /**
  * microplugin.js
  * Copyright (c) 2013 Brian Reavis & contributors

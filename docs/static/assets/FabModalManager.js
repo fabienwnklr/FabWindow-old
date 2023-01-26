@@ -74,6 +74,7 @@
     expandable: false,
     reducible: false,
     resizable: false,
+    plugins: {},
     onReduce: void 0,
     onFullScreen: void 0,
     onRestore: void 0,
@@ -88,8 +89,117 @@
     container: true
   };
 
+  // lib/contrib/MicroEvent.ts
+  function forEvents(events, callback) {
+    events.split(/\s+/).forEach((event) => {
+      callback(event);
+    });
+  }
+  var MicroEvent = class {
+    _events;
+    constructor() {
+      this._events = {};
+    }
+    on(events, fct) {
+      forEvents(events, (event) => {
+        const event_array = this._events[event] || [];
+        event_array.push(fct);
+        this._events[event] = event_array;
+      });
+    }
+    off(events, fct) {
+      var n = arguments.length;
+      if (n === 0) {
+        this._events = {};
+        return;
+      }
+      forEvents(events, (event) => {
+        if (n === 1) {
+          delete this._events[event];
+          return;
+        }
+        const event_array = this._events[event];
+        if (event_array === void 0)
+          return;
+        event_array.splice(event_array.indexOf(fct), 1);
+        this._events[event] = event_array;
+      });
+    }
+    trigger(events, ...args) {
+      var self2 = this;
+      forEvents(events, (event) => {
+        const event_array = self2._events[event];
+        if (event_array === void 0)
+          return;
+        event_array.forEach((fct) => {
+          fct.apply(self2, args);
+        });
+      });
+    }
+  };
+
+  // lib/contrib/MicroPlugin.ts
+  var MicroPlugin = class extends MicroEvent {
+    plugins = {
+      names: [],
+      settings: {},
+      requested: {},
+      loaded: {}
+    };
+    initializePlugins(plugins) {
+      let i, n, key;
+      const queue = [];
+      if (Array.isArray(plugins)) {
+        for (i = 0, n = plugins.length; i < n; i++) {
+          if (typeof plugins[i] === "string") {
+            queue.push(plugins[i]);
+          } else {
+            this.plugins.settings[plugins[i].name] = plugins[i].options;
+            queue.push(plugins[i].name);
+          }
+        }
+      } else if (plugins) {
+        for (key in plugins) {
+          if (Object.prototype.hasOwnProperty.call(plugins, key)) {
+            this.plugins.settings[key] = plugins[key];
+            queue.push(key);
+          }
+        }
+      }
+      while (queue.length) {
+        self.require(queue.shift());
+      }
+    }
+    loadPlugin(name) {
+      const plugins = this.plugins;
+      const plugin = this.plugins[name];
+      if (!Object.prototype.hasOwnProperty.call(this.plugins, name)) {
+        throw new Error('Unable to find "' + name + '" plugin');
+      }
+      plugins.requested[name] = true;
+      plugins.loaded[name] = plugin.fn.apply(this, [this.plugins.settings[name] || {}]);
+      plugins.names.push(name);
+    }
+    require(name) {
+      const plugins = this.plugins;
+      if (!Object.prototype.hasOwnProperty.call(this.plugins.loaded, name)) {
+        if (plugins.requested[name]) {
+          throw new Error('Plugin has circular dependency ("' + name + '")');
+        }
+        this.loadPlugin(name);
+      }
+      return plugins.loaded[name];
+    }
+    define(name, fn) {
+      this.plugins[name] = {
+        name,
+        fn
+      };
+    }
+  };
+
   // lib/FabModal.ts
-  var FabModal = class {
+  var FabModal = class extends MicroPlugin {
     options;
     isFullScreen;
     oldContent;
@@ -108,6 +218,7 @@
     _disX;
     _disY;
     constructor(options) {
+      super();
       if (!options || typeof options !== "object") {
         this.options = modalDefaultOptions;
       } else {
@@ -131,6 +242,8 @@
       this._createModal();
       this.$bodyElement?.appendChild(this.$el);
       this._initHandlers();
+      this._setupCallbacks();
+      this.initializePlugins(this.options.plugins);
       if (!this.options.modal_manager) {
         this.show();
       }
@@ -232,6 +345,25 @@
       document.onmousemove = null;
       document.onmouseup = null;
     }
+    _setupCallbacks() {
+      let key, fn;
+      const callbacks = {
+        reduce: "onReduce",
+        fullscreen: "onFullScreen",
+        restore: "onRestore",
+        resize: "onResize",
+        show: "onShow",
+        hide: "onHide",
+        before_close: "beforeClose",
+        close: "onClose"
+      };
+      for (key in callbacks) {
+        fn = this.options[callbacks[key]];
+        if (fn && fn instanceof Function) {
+          this.on(key, fn);
+        }
+      }
+    }
     _createModal() {
       const fullScreen = this.isFullScreen ? " fullScreen" : "";
       if (this.options.overlay === true && typeof this.options.modal_manager === "undefined") {
@@ -311,16 +443,11 @@
       if (typeof this.$modalTab !== "undefined")
         this.$modalTab.classList.add("show");
       this.$el.dispatchEvent(new CustomEvent("show"));
-      if (typeof this.options.onShow === "function") {
-        this.options.onShow(this);
-      }
+      this.trigger("show", this);
     }
     hide() {
       this.$el.style.display = "none";
-      this.$el.dispatchEvent(new CustomEvent("hide"));
-      if (typeof this.options.onHide === "function") {
-        this.options.onHide(this);
-      }
+      this.trigger("hide", this);
     }
     toggleFullScreen() {
       if (this.isFullScreen) {
@@ -331,19 +458,13 @@
         this.$el.classList.remove("fullScreen");
         if (this.$expand)
           this.$expand.title = "Restore";
-        this.$el.dispatchEvent(new CustomEvent("restore"));
-        if (typeof this.options.onRestore === "function") {
-          this.options.onRestore(this);
-        }
+        this.trigger("restore", this);
       } else {
         this.$el.removeEventListener("mousedown", this._fnDown);
         this.isFullScreen = true;
         this.$bodyElement.style.overflow = "hidden";
         this.$el.classList.add("fullScreen");
-        this.$el.dispatchEvent(new CustomEvent("fullScreen"));
-        if (typeof this.options.onFullScreen === "function") {
-          this.options.onFullScreen(this);
-        }
+        this.trigger("fullscreen", this);
       }
       return this.isFullScreen;
     }
@@ -351,15 +472,10 @@
       if (!this.options.modal_manager) {
       }
       this.hide();
-      if (typeof this.options.onReduce === "function") {
-        this.options.onReduce(this);
-      }
+      this.trigger("reduce", this);
     }
     close() {
-      this.$el.dispatchEvent(new CustomEvent("beforeClose"));
-      if (typeof this.options.beforeClose === "function") {
-        this.options.beforeClose(this);
-      }
+      this.trigger("before_close", this);
       this.$el.classList.remove("show");
       if (typeof this.$overlay !== "undefined") {
         this.$overlay.classList.remove("show");
@@ -368,10 +484,7 @@
         this.$modalTab.classList.remove("show");
       }
       this.destroy();
-      this.$el.dispatchEvent(new CustomEvent("close"));
-      if (typeof this.options.onClose === "function") {
-        this.options.onClose(this);
-      }
+      this.trigger("close", this);
     }
     destroy() {
       this.$el.dispatchEvent(new CustomEvent("destroyed"));
