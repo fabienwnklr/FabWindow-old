@@ -18,7 +18,7 @@
 
 "use strict";
 (() => {
-  // lib/contrib/FabWindowError.ts
+  // src/contrib/FabWindowError.ts
   var FabWindowError = class extends Error {
     constructor(message) {
       super(message);
@@ -32,7 +32,7 @@
     }
   };
 
-  // lib/utils/index.ts
+  // src/utils/index.ts
   function isMobile() {
     let check = false;
     (function(a) {
@@ -55,7 +55,7 @@
     }
   }
 
-  // lib/default.ts
+  // src/default.ts
   var modalDefaultOptions = {
     id: "fab-modal",
     title: "",
@@ -85,7 +85,7 @@
     onClose: void 0
   };
 
-  // lib/contrib/MicroEvent.ts
+  // src/contrib/MicroEvent.ts
   function forEvents(events, callback) {
     events.split(/\s+/).forEach((event) => {
       callback(event);
@@ -134,7 +134,7 @@
     }
   };
 
-  // lib/contrib/MicroPlugin.ts
+  // src/contrib/MicroPlugin.ts
   var MicroPlugin = class extends MicroEvent {
     plugins = {
       names: [],
@@ -143,6 +143,9 @@
       loaded: {}
     };
     initializePlugins(plugins) {
+      if (typeof plugins === "undefined") {
+        return;
+      }
       let i, n, key;
       const queue = [];
       if (Array.isArray(plugins)) {
@@ -194,7 +197,7 @@
     }
   };
 
-  // lib/FabWindow.ts
+  // src/FabWindow.ts
   var FabWindow = class extends MicroPlugin {
     options;
     isFullScreen;
@@ -369,6 +372,7 @@
       }
       this.$el = document.createElement("div");
       this.$el.className = `fab-modal${fullScreen}`;
+      this.$el.dataset.fw = "true";
       if (typeof this.options.id !== "undefined" && this.options.id !== "") {
         this.$el.id = this.options.id = this.options.id === "fab-modal" ? `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}` : this.options.id;
       }

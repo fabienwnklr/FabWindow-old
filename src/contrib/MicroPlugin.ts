@@ -45,7 +45,11 @@ export class MicroPlugin extends MicroEvent {
    *
    * @param {Array<object> | object} plugins
    */
-  initializePlugins(plugins: Array<object> | object) {
+  initializePlugins(plugins: Array<object> | object | undefined) {
+    if (typeof plugins === 'undefined') {
+      return;
+    }
+    
     let i, n, key
     const queue = []
 

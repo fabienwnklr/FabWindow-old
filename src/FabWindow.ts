@@ -363,6 +363,7 @@ export class FabWindow extends MicroPlugin {
 
     this.$el = document.createElement("div")
     this.$el.className = `fab-modal${fullScreen}`
+    this.$el.dataset.fw = "true"
     if (typeof this.options.id !== "undefined" && this.options.id !== "") {
       this.$el.id = this.options.id = this.options.id === "fab-modal" ? `fab-modal-${Math.round(new Date().getTime() + Math.random() * 100)}` : this.options.id
     }

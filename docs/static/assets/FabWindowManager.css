@@ -1,4 +1,4 @@
-/* lib/style/fabwindow.css */
+/* src/style/fabwindow.css */
 :root {
 }
 * {
@@ -190,7 +190,7 @@
   overflow: auto;
 }
 
-/* lib/style/fabwindow-manager.css */
+/* src/style/fabwindow-manager.css */
 .fab-modal-container {
   font-family: monospace;
   position: fixed;

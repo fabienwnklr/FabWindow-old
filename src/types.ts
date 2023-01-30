@@ -35,7 +35,7 @@ export type ModalOptions = {
   resizable?: boolean
   draggable?: boolean
 
-  plugins: Array<object> | object
+  plugins?: Array<object> | object
 
   // if need to add callback function please add it on _setupCallbacks function
 

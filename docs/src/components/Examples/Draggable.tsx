@@ -2,7 +2,7 @@ import React from "react"
 import CodeBlock from "@theme/CodeBlock"
 // import Tabs from "@theme/Tabs"
 // import TabItem from "@theme/TabItem"
-import { FabWindow } from "../../../../lib/FabWindow"
+import { FabWindow } from "../../../../src/FabWindow"
 import type { ModalOptions } from "../../../../build/types/types"
 
 export default function Draggable() {

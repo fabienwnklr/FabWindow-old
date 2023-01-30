@@ -16,5 +16,5 @@
     "isolatedModules": true,
     "suppressImplicitAnyIndexErrors": true
   },
-  "include": ["./lib/**/*"]
+  "include": ["./src/**/*"]
 }

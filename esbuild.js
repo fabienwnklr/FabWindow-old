@@ -30,7 +30,7 @@ const headerJS = `/**
 `
 
 const buildAPIDocs = async () => {
-  const inputFiles = ["./lib/default.ts", "./lib/FabWindow.ts", "./lib/FabWindowManager.ts"]
+  const inputFiles = ["./src/default.ts", "./src/FabWindow.ts", "./src/FabWindowManager.ts"]
   const output = "docs/docs/api/"
 
   let i = 0
@@ -88,7 +88,7 @@ const buildDist = () => {
       format,
       sourcemap: false,
       logLevel: "info",
-      entryPoints: ["lib/FabWindowManager.ts", "lib/FabWindow.ts"],
+      entryPoints: ["src/FabWindowManager.ts", "src/FabWindow.ts"],
       bundle: true,
       minify: true,
       outdir: `build/${format}`,
@@ -108,7 +108,7 @@ const buildDocs = () => {
     banner: { js: headerJS },
     sourcemap: false,
     logLevel: "info",
-    entryPoints: ["lib/FabWindowManager.ts", "lib/FabWindow.ts"],
+    entryPoints: ["src/FabWindowManager.ts", "src/FabWindow.ts"],
     bundle: true,
     minify: false,
     outdir: "docs/static/assets/",
