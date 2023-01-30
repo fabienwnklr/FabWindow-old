@@ -1,13 +1,12 @@
 // Basic import
-import { isMobile } from "./utils"
+import { isMobile } from "./helpers"
 import { modalDefaultOptions } from "./default"
 import { MicroPlugin } from "./contrib/MicroPlugin"
 // Types
 import type { ModalOptions } from "./types"
-import type { FabWindowManager } from "./FabWindowManager"
 // Utils
 import { FabWindowError } from "./contrib/FabWindowError"
-import { validOptions } from "./utils/index"
+import { validOptions } from "./helpers/index"
 // Style
 import "./style/fabwindow.css"
 
@@ -18,7 +17,6 @@ declare global {
 
   interface HTMLDivElement {
     FabWindow: FabWindow
-    FabWindowManager: FabWindowManager
   }
 }
 
@@ -55,7 +53,7 @@ export class FabWindow extends MicroPlugin {
   /** @property body content modal html element */
   public $body: HTMLElement
   private $footer?: HTMLDivElement
-  /** @property Modal tab element (only if using with FabWindowManager) */
+  /** @property Modal tab element (only if using with reducible) */
   public $modalTab: HTMLElement
   /**@ignore */
   // private _$style: HTMLStyleElement;
@@ -133,12 +131,8 @@ export class FabWindow extends MicroPlugin {
     // this._buildStyle();
     this._initHandlers()
     this._setupCallbacks()
-
     this.initializePlugins(this.options.plugins)
-
-    if (!this.options.modal_manager) {
-      this.show()
-    }
+    this.show()
   }
 
   // ## ----------------------------START GETTERS / SETTERS ---------------------------- ## \\
@@ -195,20 +189,6 @@ export class FabWindow extends MicroPlugin {
   }
 
   /**
-   * @getter get modal manager object
-   */
-  get modal_manager(): FabWindowManager | undefined {
-    return this.options?.modal_manager
-  }
-
-  /**
-   * @setter Set modal manager object
-   */
-  set modal_manager(obj: FabWindowManager | undefined) {
-    this.options.modal_manager = obj
-  }
-
-  /**
    * @setter Set active class to modal
    */
   set active(active: boolean) {
@@ -257,7 +237,7 @@ export class FabWindow extends MicroPlugin {
       this._initDrag()
     }
 
-    if (this.options.reducible && typeof this.options.modal_manager !== "undefined") {
+    if (this.options.reducible) {
       this.$reduce.addEventListener("click", this.reduce)
     }
 
@@ -355,7 +335,7 @@ export class FabWindow extends MicroPlugin {
   _createModal() {
     const fullScreen = this.isFullScreen ? " fullScreen" : ""
 
-    if (this.options.overlay === true && typeof this.options.modal_manager === "undefined") {
+    if (this.options.overlay === true) {
       this.$overlay = document.createElement("div")
       this.$overlay.classList.add("fab-overlay")
       this.$bodyElement.appendChild(this.$overlay)
@@ -421,7 +401,6 @@ export class FabWindow extends MicroPlugin {
       }
     }
 
-    if (this.modal_manager) this.$el.FabWindowManager = this.modal_manager
     this.$el.FabWindow = this
     this.$el.appendChild(this.$body)
 
@@ -490,11 +469,6 @@ export class FabWindow extends MicroPlugin {
   }
 
   reduce() {
-    // Manage case is out of modal manager, allow reduce simple modal with tab
-    if (!this.options.modal_manager) {
-      // Build container for tab (migre it into shared file maybe shared.ts)
-    }
-
     this.hide()
 
     this.trigger("reduce", this)

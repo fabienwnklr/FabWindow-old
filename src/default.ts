@@ -1,11 +1,9 @@
 import type { ModalOptions } from "./types"
-import type { ModalManagerOptions } from "./types"
 
 export const modalDefaultOptions: ModalOptions = {
   id: "fab-modal",
   title: "",
   content: "",
-  modal_manager: undefined,
   classes: undefined,
   overlay: true,
   zIndex: 999,
@@ -30,9 +28,4 @@ export const modalDefaultOptions: ModalOptions = {
   onHide: undefined,
   beforeClose: undefined,
   onClose: undefined,
-}
-
-export const modalManagerDefaultOptions: ModalManagerOptions = {
-  limitModal: 5,
-  container: true,
 }

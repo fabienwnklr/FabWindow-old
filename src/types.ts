@@ -1,9 +1,4 @@
-import { FabWindowManager } from "./FabWindowManager"
-import { FabWindow } from "./FabWindow"
-export type ModalManagerOptions = {
-  limitModal: number
-  container: boolean
-}
+import type { FabWindow } from "./FabWindow"
 
 export type classObj = {
   replace?: boolean
@@ -15,7 +10,6 @@ export type ModalOptions = {
   title?: string
   content?: string | Node
   footer?: string | Node
-  modal_manager?: FabWindowManager
   classes?: {
     header?: classObj
     icons?: classObj

@@ -47,7 +47,7 @@ const sidebars = {
         keywords: ["api"],
         image: "/img/docusaurus.png",
       },
-      items: ["api/default", "api/events", "api/fabwindow", "api/fabwindowmanager"],
+      items: ["api/default", "api/events", "api/fabwindow"],
     },
   ],
   // But you can create a sidebar manually
