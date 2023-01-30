@@ -1,6 +1,6 @@
 # Plugin API
 
-Via the microplugin interface, features can be added to FabModal without modifying the main library. This is great because it protects against code bloat, allows for lean builds, and allows for addons to be sanely isolated. The plugin system isn't meant to be sexy; it's lean, makes very few assumptions, and gives the developer complete control.
+Via the microplugin interface, features can be added to FabWindow without modifying the main library. This is great because it protects against code bloat, allows for lean builds, and allows for addons to be sanely isolated. The plugin system isn't meant to be sexy; it's lean, makes very few assumptions, and gives the developer complete control.
 
 ## Example Plugins
 
@@ -15,16 +15,16 @@ A few notes
 ## Boilerplate
 
 ```js
-FabModal.define("plugin_name", function (options) {
+FabWindow.define("plugin_name", function (options) {
   // options: plugin-specific options
-  // this: FabModal instance
+  // this: FabWindow instance
 })
 ```
 
 ## Adding dependencies
 
 ```js
-FabModal.define("plugin_name", function (options) {
+FabWindow.define("plugin_name", function (options) {
   this.require("another_plugin")
 })
 ```
@@ -49,7 +49,7 @@ this.someMethod = (function () {
 Because all elements for the control are created within the `setup()` method (which is invoked after the plugin initialized) events should be added by overriding the setup method, like so:
 
 ````js
-FabModal.define('plugin_name', function(options) {
+FabWindow.define('plugin_name', function(options) {
     const self = this;
 
     // override the setup method to add an extra `click`  handler
@@ -72,7 +72,7 @@ For a more detailed description of plugin option formats and how the plugin syst
 ### Without Options
 
 ```js
-new FabModal({
+new FabWindow({
   plugins: ["plugin_a", "plugin_b"],
 })
 ```
@@ -80,7 +80,7 @@ new FabModal({
 ## With options
 
 ```js
-new FabModal({
+new FabWindow({
   plugins: {
     plugin_a: { pluginAttr: "" },
     plugin_b: {

@@ -2,11 +2,11 @@ import React from "react"
 import CodeBlock from "@theme/CodeBlock"
 // import Tabs from "@theme/Tabs"
 // import TabItem from "@theme/TabItem"
-import { FabModal } from "../../../../lib/FabModal"
+import { FabWindow } from "../../../../lib/FabWindow"
 
 export default function Basic() {
   const showModal = () => {
-    new FabModal({ title: "Basic title", content: "Basic content" })
+    new FabWindow({ title: "Basic title", content: "Basic content" })
   }
 
   return (
@@ -28,7 +28,7 @@ export default function Basic() {
       </div>
 
       <CodeBlock className="language-html" title="Html">
-        {`<button id="basic" onclick="new FabModal()">Click to show most simple Window</button>`}
+        {`<button id="basic" onclick="new FabWindow()">Click to show most simple Window</button>`}
       </CodeBlock>
 
       <CodeBlock className="language-javascript" title="Javascript">

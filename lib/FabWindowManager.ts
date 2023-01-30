@@ -1,20 +1,20 @@
-import { FabModal } from "./FabModal"
+import { FabWindow } from "./FabWindow"
 import { modalManagerDefaultOptions } from "./default"
 // Types
 import type { ModalManagerOptions } from "./types"
 import type { ModalOptions } from "./types"
 
 // Style
-import "./style/fabmodal-manager.css"
+import "./style/fabwindow-manager.css"
 
 declare global {
   interface Window {
-    FabModalManager: typeof FabModalManager
+    FabWindowManager: typeof FabWindowManager
   }
 }
 
-export class FabModalManager {
-  public modals: FabModal[]
+export class FabWindowManager {
+  public modals: FabWindow[]
   public options: ModalManagerOptions
 
   // HTML Elements
@@ -22,8 +22,8 @@ export class FabModalManager {
   public $bodyElement: HTMLElement
 
   /**
-   * Instance of FabModalManager
-   * See : {@link FabModalManager.defaultOptions}
+   * Instance of FabWindowManager
+   * See : {@link FabWindowManager.defaultOptions}
    */
   constructor(options?: ModalManagerOptions) {
     if (!options || typeof options !== "object") {
@@ -56,7 +56,7 @@ export class FabModalManager {
   /**
    * @ignore
    */
-  private _initHandlers(fabModal: FabModal) {
+  private _initHandlers(fabModal: FabWindow) {
     fabModal.$el.addEventListener("mousedown", this.setFocused.bind(this))
 
     fabModal.$el.addEventListener(
@@ -88,13 +88,13 @@ export class FabModalManager {
 
   /**
    * @function
-   * creating new instance of FabModal
+   * creating new instance of FabWindow
    */
-  createModal(options: ModalOptions = {}): FabModal {
+  createModal(options: ModalOptions = {}): FabWindow {
     options.modal_manager = this
     options.reducible = true
 
-    const newModal = new FabModal(options)
+    const newModal = new FabWindow(options)
 
     this.addModal(newModal)
 
@@ -103,7 +103,7 @@ export class FabModalManager {
     return newModal
   }
 
-  addModal(modal: FabModal) {
+  addModal(modal: FabWindow) {
     this.modals.push(modal)
 
     if (this.options.container) {
@@ -132,7 +132,7 @@ export class FabModalManager {
 
     if (typeof focusedModal !== "undefined" && focusedModal.active === true && focusedModal.$el.classList.contains("active") === true) return
 
-    this.modals.forEach((modal: FabModal) => {
+    this.modals.forEach((modal: FabWindow) => {
       if (modal === focusedModal) {
         focusedModal.$el.classList.add("active")
       } else {
@@ -145,8 +145,8 @@ export class FabModalManager {
    * @function
    * Destroy the modal
    */
-  destroyModal(fabModal: FabModal) {
-    this.modals.forEach((modal: FabModal, index: number) => {
+  destroyModal(fabModal: FabWindow) {
+    this.modals.forEach((modal: FabWindow, index: number) => {
       if (fabModal === modal) {
         // modal.$el.removeEventListener("close", () => {}, { capture: false })
         fabModal.close()
@@ -161,4 +161,4 @@ export class FabModalManager {
   }
 }
 
-window.FabModalManager = FabModalManager
+window.FabWindowManager = FabWindowManager

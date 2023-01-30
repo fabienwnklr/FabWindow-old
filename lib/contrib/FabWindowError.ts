@@ -1,11 +1,11 @@
-export class FabModalError extends Error {
+export class FabWindowError extends Error {
   constructor(message?: string) {
     super(message)
-    this.name = "FabModal Error"
+    this.name = "FabWindow Error"
   }
 }
 
-export class PropertyRequiredError extends FabModalError {
+export class PropertyRequiredError extends FabWindowError {
   // #property: string;
 
   constructor(property: string) {
@@ -15,7 +15,7 @@ export class PropertyRequiredError extends FabModalError {
   }
 }
 
-export class WrongPropertyError extends FabModalError {
+export class WrongPropertyError extends FabWindowError {
   // #property: string;
 
   constructor(property: string) {

@@ -7,12 +7,14 @@
 
 ### :gear: modalDefaultOptions
 
-| Constant              | Type           |
-| --------------------- | -------------- |
+| Constant | Type |
+| ---------- | ---------- |
 | `modalDefaultOptions` | `ModalOptions` |
 
 ### :gear: modalManagerDefaultOptions
 
-| Constant                     | Type                  |
-| ---------------------------- | --------------------- |
+| Constant | Type |
+| ---------- | ---------- |
 | `modalManagerDefaultOptions` | `ModalManagerOptions` |
+
+

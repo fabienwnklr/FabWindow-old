@@ -1,5 +1,5 @@
-import { FabModalManager } from "./FabModalManager"
-import { FabModal } from "./FabModal"
+import { FabWindowManager } from "./FabWindowManager"
+import { FabWindow } from "./FabWindow"
 export type ModalManagerOptions = {
   limitModal: number
   container: boolean
@@ -15,7 +15,7 @@ export type ModalOptions = {
   title?: string
   content?: string | Node
   footer?: string | Node
-  modal_manager?: FabModalManager
+  modal_manager?: FabWindowManager
   classes?: {
     header?: classObj
     icons?: classObj
@@ -39,12 +39,12 @@ export type ModalOptions = {
 
   // if need to add callback function please add it on _setupCallbacks function
 
-  onReduce?(modal: FabModal): void
-  onFullScreen?(modal: FabModal): void
-  onRestore?(modal: FabModal): void
-  onResize?(modal: FabModal): void
-  onShow?(modal: FabModal): void
-  onHide?(modal: FabModal): void
-  beforeClose?(modal: FabModal): void
-  onClose?(modal: FabModal): void
+  onReduce?(modal: FabWindow): void
+  onFullScreen?(modal: FabWindow): void
+  onRestore?(modal: FabWindow): void
+  onResize?(modal: FabWindow): void
+  onShow?(modal: FabWindow): void
+  onHide?(modal: FabWindow): void
+  beforeClose?(modal: FabWindow): void
+  onClose?(modal: FabWindow): void
 }

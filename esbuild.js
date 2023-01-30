@@ -11,7 +11,7 @@ import { red, green, cyan, cyanBright } from "console-log-colors"
 const [node, _, method] = argv
 const { npm_package_version } = env
 const headerJS = `/**
- * FabModal (v${npm_package_version})
+ * FabWindow (v${npm_package_version})
  * https://netlify.fabwindow.dev
  *
  * Copyright (c) 2021-${new Date().getFullYear()} Fabien Winkler & contributors
@@ -30,7 +30,7 @@ const headerJS = `/**
 `
 
 const buildAPIDocs = async () => {
-  const inputFiles = ["./lib/default.ts", "./lib/FabModal.ts", "./lib/FabModalManager.ts"]
+  const inputFiles = ["./lib/default.ts", "./lib/FabWindow.ts", "./lib/FabWindowManager.ts"]
   const output = "docs/docs/api/"
 
   let i = 0
@@ -88,7 +88,7 @@ const buildDist = () => {
       format,
       sourcemap: false,
       logLevel: "info",
-      entryPoints: ["lib/FabModalManager.ts", "lib/FabModal.ts"],
+      entryPoints: ["lib/FabWindowManager.ts", "lib/FabWindow.ts"],
       bundle: true,
       minify: true,
       outdir: `build/${format}`,
@@ -108,7 +108,7 @@ const buildDocs = () => {
     banner: { js: headerJS },
     sourcemap: false,
     logLevel: "info",
-    entryPoints: ["lib/FabModalManager.ts", "lib/FabModal.ts"],
+    entryPoints: ["lib/FabWindowManager.ts", "lib/FabWindow.ts"],
     bundle: true,
     minify: false,
     outdir: "docs/static/assets/",

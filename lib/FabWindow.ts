@@ -4,30 +4,30 @@ import { modalDefaultOptions } from "./default"
 import { MicroPlugin } from "./contrib/MicroPlugin"
 // Types
 import type { ModalOptions } from "./types"
-import type { FabModalManager } from "./FabModalManager"
+import type { FabWindowManager } from "./FabWindowManager"
 // Utils
-import { FabModalError } from "./contrib/FabModalError"
+import { FabWindowError } from "./contrib/FabWindowError"
 import { validOptions } from "./utils/index"
 // Style
-import "./style/fabmodal.css"
+import "./style/fabwindow.css"
 
 declare global {
   interface Window {
-    FabModal: typeof FabModal
+    FabWindow: typeof FabWindow
   }
 
   interface HTMLDivElement {
-    FabModal: FabModal
-    FabModalManager: FabModalManager
+    FabWindow: FabWindow
+    FabWindowManager: FabWindowManager
   }
 }
 
 /**
  * @constructor
  *
- * Instance of FabModal
+ * Instance of FabWindow
  */
-export class FabModal extends MicroPlugin {
+export class FabWindow extends MicroPlugin {
   public options: ModalOptions
   /** @property Boolean called if modal is fullScreen or not */
   public isFullScreen: boolean
@@ -55,7 +55,7 @@ export class FabModal extends MicroPlugin {
   /** @property body content modal html element */
   public $body: HTMLElement
   private $footer?: HTMLDivElement
-  /** @property Modal tab element (only if using with FabModalManager) */
+  /** @property Modal tab element (only if using with FabWindowManager) */
   public $modalTab: HTMLElement
   /**@ignore */
   // private _$style: HTMLStyleElement;
@@ -65,7 +65,7 @@ export class FabModal extends MicroPlugin {
   private _disY: number
 
   /**
-   * Instance of FabModal
+   * Instance of FabWindow
    * @param {ModalOptions} options Object contains options for modal
    * See : {@link modalDefaultOptions}
    * @defaultValue
@@ -155,7 +155,7 @@ export class FabModal extends MicroPlugin {
    */
   set title(title: string | null) {
     if (!title || typeof title !== "string") {
-      throw new FabModalError("title must be a string")
+      throw new FabWindowError("title must be a string")
     }
 
     this.$title.textContent = title
@@ -173,7 +173,7 @@ export class FabModal extends MicroPlugin {
    */
   set content(content: string | null) {
     if (!content || typeof content !== "string") {
-      throw new FabModalError("content must be a string")
+      throw new FabWindowError("content must be a string")
     }
 
     this.oldContent = this.$body.outerHTML
@@ -197,14 +197,14 @@ export class FabModal extends MicroPlugin {
   /**
    * @getter get modal manager object
    */
-  get modal_manager(): FabModalManager | undefined {
+  get modal_manager(): FabWindowManager | undefined {
     return this.options?.modal_manager
   }
 
   /**
    * @setter Set modal manager object
    */
-  set modal_manager(obj: FabModalManager | undefined) {
+  set modal_manager(obj: FabWindowManager | undefined) {
     this.options.modal_manager = obj
   }
 
@@ -231,7 +231,7 @@ export class FabModal extends MicroPlugin {
 
   set modalTab(modalTab: HTMLElement) {
     if (!modalTab || modalTab instanceof HTMLElement === false) {
-      throw new FabModalError(`modalTab must be an HTMLElement, current type if ${typeof modalTab}`)
+      throw new FabWindowError(`modalTab must be an HTMLElement, current type if ${typeof modalTab}`)
     }
     this.$modalTab = modalTab
   }
@@ -350,7 +350,7 @@ export class FabModal extends MicroPlugin {
   /**
    * @function
    * Create all node elements of modal
-   * @note Useless to call this function without calling instance new FabModal()
+   * @note Useless to call this function without calling instance new FabWindow()
    */
   _createModal() {
     const fullScreen = this.isFullScreen ? " fullScreen" : ""
@@ -420,13 +420,13 @@ export class FabModal extends MicroPlugin {
       }
     }
 
-    if (this.modal_manager) this.$el.FabModalManager = this.modal_manager
-    this.$el.FabModal = this
+    if (this.modal_manager) this.$el.FabWindowManager = this.modal_manager
+    this.$el.FabWindow = this
     this.$el.appendChild(this.$body)
 
     if (this.$footer) this.$el.appendChild(this.$footer)
 
-    this.$el.FabModal = this
+    this.$el.FabWindow = this
   }
 
   /**
@@ -531,4 +531,4 @@ export class FabModal extends MicroPlugin {
   }
 }
 
-window.FabModal = FabModal
+window.FabWindow = FabWindow

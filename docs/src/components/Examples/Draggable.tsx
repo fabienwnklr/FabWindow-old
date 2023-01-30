@@ -2,12 +2,12 @@ import React from "react"
 import CodeBlock from "@theme/CodeBlock"
 // import Tabs from "@theme/Tabs"
 // import TabItem from "@theme/TabItem"
-import { FabModal } from "../../../../lib/FabModal"
+import { FabWindow } from "../../../../lib/FabWindow"
 import type { ModalOptions } from "../../../../build/types/types"
 
 export default function Draggable() {
   const showModal = () => {
-    new FabModal({ title: "Drag me", draggable: true, content: "Yes please, drag me...", overlay: false })
+    new FabWindow({ title: "Drag me", draggable: true, content: "Yes please, drag me...", overlay: false })
   }
 
   return (
@@ -33,7 +33,7 @@ export default function Draggable() {
 
       <CodeBlock className="language-javascript" title="Javascript">
         {`const button = document.getElementById('draggable');
-button.addEventListener('click', () => new FabModal({
+button.addEventListener('click', () => new FabWindow({
   title: 'Drag me',
   draggable: true,
   content: 'Yes please, drag me...'

@@ -21,7 +21,7 @@ const sidebars = {
       type: "category",
       collapsed: false,
       collapsible: true,
-      label: "FabModal demos",
+      label: "FabWindow demos",
       link: {
         type: "generated-index",
         title: "Examples",
@@ -38,7 +38,7 @@ const sidebars = {
       type: "category",
       collapsed: false,
       collapsible: true,
-      label: "FabModal API Documentation",
+      label: "FabWindow API Documentation",
       link: {
         type: "generated-index",
         title: "Api documentation",
@@ -47,7 +47,7 @@ const sidebars = {
         keywords: ["api"],
         image: "/img/docusaurus.png",
       },
-      items: ["api/default", "api/events", "api/fabmodal", "api/fabmodalmanager"],
+      items: ["api/default", "api/events", "api/fabwindow", "api/fabwindowmanager"],
     },
   ],
   // But you can create a sidebar manually

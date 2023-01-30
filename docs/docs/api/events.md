@@ -6,11 +6,11 @@ In the usage documentation, a few callbacks are listed that allow you to listen 
 
 | Event      | Params   | Description                               |
 | ---------- | -------- | ----------------------------------------- |
-| fullScreen | FabModal | Event triggered when modal is fullscrened |
-| restore    | FabModal | Event triggered when modal is restored    |
-| show       | FabModal | Event triggered when modal is shown       |
-| hide       | FabModal | Event triggered when modal is hidden      |
-| close      | FabModal | Event triggered when modal is closed      |
+| fullScreen | FabWindow | Event triggered when modal is fullscrened |
+| restore    | FabWindow | Event triggered when modal is restored    |
+| show       | FabWindow | Event triggered when modal is shown       |
+| hide       | FabWindow | Event triggered when modal is hidden      |
+| close      | FabWindow | Event triggered when modal is closed      |
 
 ## Events Examples
 
@@ -48,17 +48,17 @@ myModal.on("close", () => {
 
 | Callback     | Params   | Description                                  |
 | ------------ | -------- | -------------------------------------------- |
-| onfullScreen | FabModal | Callback triggered when modal is fullscrened |
-| onRestore    | FabModal | Callback triggered when modal is restored    |
-| onShow       | FabModal | Callback triggered when modal is shown       |
-| onHide       | FabModal | Callback triggered when modal is hidden      |
-| beforeClose  | FabModal | Callback triggered when modal is hidden      |
-| onClose      | FabModal | Callback triggered when modal is hidden      |
+| onfullScreen | FabWindow | Callback triggered when modal is fullscrened |
+| onRestore    | FabWindow | Callback triggered when modal is restored    |
+| onShow       | FabWindow | Callback triggered when modal is shown       |
+| onHide       | FabWindow | Callback triggered when modal is hidden      |
+| beforeClose  | FabWindow | Callback triggered when modal is hidden      |
+| onClose      | FabWindow | Callback triggered when modal is hidden      |
 
 ## Callbacks Examples
 
 ```js
-const myModal = new FabModal({
+const myModal = new FabWindow({
   onFullScreen: () => {
     console.log("fullScreen")
   },
@@ -66,7 +66,7 @@ const myModal = new FabModal({
 ```
 
 ```js
-const myModal = new FabModal({
+const myModal = new FabWindow({
   onRestore: () => {
     console.log("reostored")
   },
@@ -74,7 +74,7 @@ const myModal = new FabModal({
 ```
 
 ```js
-const myModal = new FabModal({
+const myModal = new FabWindow({
   onShow: () => {
     console.log("shown")
   },
@@ -82,13 +82,13 @@ const myModal = new FabModal({
 ```
 
 ```js
-const myModal = new FabModal({ beforeClose: () => {
+const myModal = new FabWindow({ beforeClose: () => {
     console.log('before clos
     }e')})
 ```
 
 ```js
-const myModal = new FabModal({
+const myModal = new FabWindow({
   onClose: () => {
     console.log("closed")
   },

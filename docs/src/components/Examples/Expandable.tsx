@@ -2,11 +2,11 @@ import React from "react"
 import CodeBlock from "@theme/CodeBlock"
 // import Tabs from "@theme/Tabs"
 // import TabItem from "@theme/TabItem"
-import { FabModal } from "../../../../lib/FabModal"
+import { FabWindow } from "../../../../lib/FabWindow"
 
 export default function Expandable() {
   const showModal = () => {
-    new FabModal({ title: "Expand me", expandable: true, content: "Yes please, expand me..." })
+    new FabWindow({ title: "Expand me", expandable: true, content: "Yes please, expand me..." })
   }
 
   return (
@@ -32,7 +32,7 @@ export default function Expandable() {
 
       <CodeBlock className="language-javascript" title="Javascript">
         {`const button = document.getElementById('expandable');
-button.addEventListener('click', () => new FabModal({
+button.addEventListener('click', () => new FabWindow({
   title: 'Expand me',
   expandable: true,
   content: 'Yes please, expand me...'

@@ -1,4 +1,4 @@
-import { WrongPropertyError } from "../contrib/FabModalError"
+import { WrongPropertyError } from "../contrib/FabWindowError"
 
 /**
  * @function

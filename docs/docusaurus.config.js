@@ -6,7 +6,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula")
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "FabModal documentation",
+  title: "FabWindow documentation",
   tagline: "Dinosaurs are cool",
   url: "https://your-docusaurus-test-site.com",
   baseUrl: "/",
@@ -65,13 +65,13 @@ const config = {
     },
   ],
 
-  scripts: ["/assets/FabModalManager.js", "/assets/FabModal.js"],
+  scripts: ["/assets/FabWindowManager.js", "/assets/FabWindow.js"],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "FabModal",
+        title: "FabWindow",
         logo: {
           alt: "My Site Logo",
           src: "img/logo.svg",
@@ -144,7 +144,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} FabModal, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} FabWindow, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

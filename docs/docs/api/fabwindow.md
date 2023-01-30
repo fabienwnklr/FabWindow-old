@@ -2,18 +2,21 @@
 
 ## :factory: FabWindow
 
+
+
 ### Constructors
 
 `public`: Instance of FabWindow
 
 Parameters:
 
-- `options`: Object contains options for modal
-  See : {@link modalDefaultOptions}
+* `options`: Object contains options for modal
+See : {@link modalDefaultOptions}
+
 
 ### Methods
 
-- [\_createModal](#gear-_createmodal)
+- [_createModal](#gear-_createmodal)
 - [restoreOldContent](#gear-restoreoldcontent)
 - [show](#gear-show)
 - [hide](#gear-hide)
@@ -22,50 +25,51 @@ Parameters:
 - [close](#gear-close)
 - [destroy](#gear-destroy)
 
-#### :gear: \_createModal
+#### :gear: _createModal
 
-| Method         | Type         |
-| -------------- | ------------ |
+| Method | Type |
+| ---------- | ---------- |
 | `_createModal` | `() => void` |
 
 #### :gear: restoreOldContent
 
-| Method              | Type         |
-| ------------------- | ------------ |
+| Method | Type |
+| ---------- | ---------- |
 | `restoreOldContent` | `() => void` |
 
 #### :gear: show
 
-| Method | Type         |
-| ------ | ------------ |
+| Method | Type |
+| ---------- | ---------- |
 | `show` | `() => void` |
 
 #### :gear: hide
 
-| Method | Type         |
-| ------ | ------------ |
+| Method | Type |
+| ---------- | ---------- |
 | `hide` | `() => void` |
 
 #### :gear: toggleFullScreen
 
-| Method             | Type            |
-| ------------------ | --------------- |
+| Method | Type |
+| ---------- | ---------- |
 | `toggleFullScreen` | `() => boolean` |
 
 #### :gear: reduce
 
-| Method   | Type         |
-| -------- | ------------ |
+| Method | Type |
+| ---------- | ---------- |
 | `reduce` | `() => void` |
 
 #### :gear: close
 
-| Method  | Type         |
-| ------- | ------------ |
+| Method | Type |
+| ---------- | ---------- |
 | `close` | `() => void` |
 
 #### :gear: destroy
 
-| Method    | Type         |
-| --------- | ------------ |
+| Method | Type |
+| ---------- | ---------- |
 | `destroy` | `() => void` |
+
