@@ -1,3 +1,4 @@
+import { FabWindow } from '../FabWindow';
 /**
  * MicroEvent - to make any js object an event emitter
  *
@@ -56,10 +57,11 @@ export class MicroEvent {
     })
   }
 
-  trigger(events: string, ...args: any) {
+  trigger(events: string, ...args: FabWindow[]) {
     var self = this
-
     forEvents(events, event => {
+      args[0].$el.dispatchEvent(new CustomEvent(event))
+      // self.$el.dispatchEvent(new CustomEvent("show"))
       const event_array = self._events[event]
       if (event_array === undefined) return
       event_array.forEach(fct => {

@@ -247,6 +247,10 @@ export class FabWindow extends MicroPlugin {
 
     this.$close.removeEventListener("click", this.close)
     this.$close.addEventListener("click", this.close)
+
+    if (this.options.closeOnEscapce) {
+      document.addEventListener("keydown", this.close)
+    }
   }
 
   /**
@@ -306,6 +310,7 @@ export class FabWindow extends MicroPlugin {
     const callbacks: { [key: string]: string } = {
       reduce: "onReduce",
       fullscreen: "onFullScreen",
+      restore_fullscreen: "restoreFullScreen",
       restore: "onRestore",
       resize: "onResize",
       show: "onShow",
@@ -423,9 +428,11 @@ export class FabWindow extends MicroPlugin {
    */
   show() {
     this.$el.style.display = "block"
-    this.$bodyElement.style.overflow = "hidden"
-    this.$el.style.display = "block"
     this.$el.style.opacity = ""
+
+    if (this.options.disableOverflow) {
+      this.$bodyElement.style.overflow = "hidden"
+    }
 
     this.$el.classList.add("show")
 
@@ -442,6 +449,12 @@ export class FabWindow extends MicroPlugin {
    */
   hide() {
     this.$el.style.display = "none"
+    this.$overlay.classList.remove("show")
+
+    if (this.$overlay) {
+      this.$overlay.style.display = "none";
+      this.$overlay.classList.remove("show")
+    }
     this.trigger("hide", this)
   }
 
@@ -457,15 +470,23 @@ export class FabWindow extends MicroPlugin {
       this.$el.classList.remove("fullScreen")
       if (this.$expand) this.$expand.title = "Restore"
 
-      this.trigger("restore", this)
+      this.trigger("restoreFullScreen", this)
     } else {
       this.$el.removeEventListener("mousedown", this._fnDown)
       this.isFullScreen = true
       this.$bodyElement.style.overflow = "hidden"
       this.$el.classList.add("fullScreen")
-      this.trigger("fullscreen", this)
+      this.trigger("fullScreen", this)
     }
     return this.isFullScreen
+  }
+
+  /**
+   * @function restore
+   * Restore state after reduce
+   */
+  restore() {
+    // 
   }
 
   reduce() {
@@ -477,8 +498,16 @@ export class FabWindow extends MicroPlugin {
   /**
    * @function
    * Close current modal
+   * @param {MouseEvent|KeyboardEvent?} event
    */
-  close() {
+  close(event: MouseEvent | KeyboardEvent) {
+    // Manage close on espace
+    if (event && event instanceof KeyboardEvent) {
+      if (event.key !== 'Escape') {
+        return;
+      }
+    }
+
     this.trigger("before_close", this)
     this.$el.classList.remove("show")
 

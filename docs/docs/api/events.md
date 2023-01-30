@@ -4,42 +4,52 @@ In the usage documentation, a few callbacks are listed that allow you to listen 
 
 ## Docs
 
-| Event      | Params   | Description                               |
-| ---------- | -------- | ----------------------------------------- |
-| fullScreen | FabWindow | Event triggered when modal is fullscrened |
-| restore    | FabWindow | Event triggered when modal is restored    |
-| show       | FabWindow | Event triggered when modal is shown       |
-| hide       | FabWindow | Event triggered when modal is hidden      |
-| close      | FabWindow | Event triggered when modal is closed      |
+| Event      | Method    |Params   | Description                               |
+| ---------- | --------  | -------- | ----------------------------------------- |
+| fullScreen | onFullScreen | FabWindow | Event triggered when modal is fullscrened |
+| restore    | onRestore | FabWindow | Event triggered when modal is restored    |
+| show       | onShow | FabWindow | Event triggered when modal is shown       |
+| hide       | onHide | FabWindow | Event triggered when modal is hidden      |
+| close      | onClose | FabWindow | Event triggered when modal is closed      |
 
 ## Events Examples
 
 ```js
-myModal.on("fullScreen", () => {
+// As property
+const myWindow = new FabWindow({
+  onFullScreen: () => {
+    console.log("FullScreened")
+  }
+})
+
+// or as basic event listener
+
+const myWindow = new FabWindow()
+myWindow.on("fullScreen", () => {
   console.log("FullScreened")
 })
 ```
 
 ```js
-myModal.on("restore", () => {
+myWindow.on("restore", () => {
   console.log("Restored")
 })
 ```
 
 ```js
-myModal.on("show", () => {
+myWindow.on("show", () => {
   console.log("Shown")
 })
 ```
 
 ```js
-myModal.on("hide", () => {
+myWindow.on("hide", () => {
   console.log("Hidden")
 })
 ```
 
 ```js
-myModal.on("close", () => {
+myWindow.on("close", () => {
   console.log("Closed")
 })
 ```
@@ -58,7 +68,7 @@ myModal.on("close", () => {
 ## Callbacks Examples
 
 ```js
-const myModal = new FabWindow({
+const myWindow = new FabWindow({
   onFullScreen: () => {
     console.log("fullScreen")
   },
@@ -66,7 +76,7 @@ const myModal = new FabWindow({
 ```
 
 ```js
-const myModal = new FabWindow({
+const myWindow = new FabWindow({
   onRestore: () => {
     console.log("reostored")
   },
@@ -74,7 +84,7 @@ const myModal = new FabWindow({
 ```
 
 ```js
-const myModal = new FabWindow({
+const myWindow = new FabWindow({
   onShow: () => {
     console.log("shown")
   },
@@ -82,13 +92,13 @@ const myModal = new FabWindow({
 ```
 
 ```js
-const myModal = new FabWindow({ beforeClose: () => {
+const myWindow = new FabWindow({ beforeClose: () => {
     console.log('before clos
     }e')})
 ```
 
 ```js
-const myModal = new FabWindow({
+const myWindow = new FabWindow({
   onClose: () => {
     console.log("closed")
   },

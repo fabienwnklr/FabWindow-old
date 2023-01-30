@@ -61,6 +61,8 @@
     title: "",
     content: "",
     classes: void 0,
+    disableOverflow: true,
+    closeOnEscapce: true,
     overlay: true,
     zIndex: 999,
     width: "auto",
@@ -76,6 +78,7 @@
     plugins: {},
     onReduce: void 0,
     onFullScreen: void 0,
+    restoreFullScreen: void 0,
     onRestore: void 0,
     onResize: void 0,
     onShow: void 0,
@@ -123,6 +126,7 @@
     trigger(events, ...args) {
       var self2 = this;
       forEvents(events, (event) => {
+        args[0].$el.dispatchEvent(new CustomEvent(event));
         const event_array = self2._events[event];
         if (event_array === void 0)
           return;
@@ -303,6 +307,9 @@
       }
       this.$close.removeEventListener("click", this.close);
       this.$close.addEventListener("click", this.close);
+      if (this.options.closeOnEscapce) {
+        document.addEventListener("keydown", this.close);
+      }
     }
     _initDrag() {
       this.$el.addEventListener("mousedown", this._fnDown);
@@ -340,6 +347,7 @@
       const callbacks = {
         reduce: "onReduce",
         fullscreen: "onFullScreen",
+        restore_fullscreen: "restoreFullScreen",
         restore: "onRestore",
         resize: "onResize",
         show: "onShow",
@@ -423,9 +431,10 @@
     }
     show() {
       this.$el.style.display = "block";
-      this.$bodyElement.style.overflow = "hidden";
-      this.$el.style.display = "block";
       this.$el.style.opacity = "";
+      if (this.options.disableOverflow) {
+        this.$bodyElement.style.overflow = "hidden";
+      }
       this.$el.classList.add("show");
       if (typeof this.$overlay !== "undefined")
         this.$overlay.classList.add("show");
@@ -436,6 +445,11 @@
     }
     hide() {
       this.$el.style.display = "none";
+      this.$overlay.classList.remove("show");
+      if (this.$overlay) {
+        this.$overlay.style.display = "none";
+        this.$overlay.classList.remove("show");
+      }
       this.trigger("hide", this);
     }
     toggleFullScreen() {
@@ -447,21 +461,28 @@
         this.$el.classList.remove("fullScreen");
         if (this.$expand)
           this.$expand.title = "Restore";
-        this.trigger("restore", this);
+        this.trigger("restoreFullScreen", this);
       } else {
         this.$el.removeEventListener("mousedown", this._fnDown);
         this.isFullScreen = true;
         this.$bodyElement.style.overflow = "hidden";
         this.$el.classList.add("fullScreen");
-        this.trigger("fullscreen", this);
+        this.trigger("fullScreen", this);
       }
       return this.isFullScreen;
+    }
+    restore() {
     }
     reduce() {
       this.hide();
       this.trigger("reduce", this);
     }
-    close() {
+    close(event) {
+      if (event && event instanceof KeyboardEvent) {
+        if (event.key !== "Escape") {
+          return;
+        }
+      }
       this.trigger("before_close", this);
       this.$el.classList.remove("show");
       if (typeof this.$overlay !== "undefined") {

@@ -5,6 +5,8 @@ export const modalDefaultOptions: ModalOptions = {
   title: "",
   content: "",
   classes: undefined,
+  disableOverflow: true,
+  closeOnEscapce: true,
   overlay: true,
   zIndex: 999,
   width: "auto",
@@ -22,6 +24,7 @@ export const modalDefaultOptions: ModalOptions = {
   // if add callback function please add it on _setupCallbacks function
   onReduce: undefined,
   onFullScreen: undefined,
+  restoreFullScreen: undefined,
   onRestore: undefined,
   onResize: undefined,
   onShow: undefined,

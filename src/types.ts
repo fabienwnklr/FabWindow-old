@@ -16,6 +16,8 @@ export type ModalOptions = {
     body?: classObj
     footer?: classObj
   }
+  closeOnEscapce?: boolean
+  disableOverflow?: boolean
   overlay?: boolean
   zIndex?: number
   width?: string
@@ -35,6 +37,7 @@ export type ModalOptions = {
 
   onReduce?(modal: FabWindow): void
   onFullScreen?(modal: FabWindow): void
+  restoreFullScreen?(modal: FabWindow): void
   onRestore?(modal: FabWindow): void
   onResize?(modal: FabWindow): void
   onShow?(modal: FabWindow): void
