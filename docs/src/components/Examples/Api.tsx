@@ -1,9 +1,7 @@
-import React, { useEffect } from "react"
+import React from "react"
 import CodeBlock from "@theme/CodeBlock"
 
-export default function Basics() {
-  // useEffect(() => {})
-
+export default function Api() {
   return (
     <>
       <div

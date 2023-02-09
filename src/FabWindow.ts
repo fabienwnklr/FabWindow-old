@@ -452,7 +452,7 @@ export class FabWindow extends MicroPlugin {
     this.$overlay.classList.remove("show")
 
     if (this.$overlay) {
-      this.$overlay.style.display = "none";
+      this.$overlay.style.display = "none"
       this.$overlay.classList.remove("show")
     }
     this.trigger("hide", this)
@@ -486,7 +486,7 @@ export class FabWindow extends MicroPlugin {
    * Restore state after reduce
    */
   restore() {
-    // 
+    //
   }
 
   reduce() {
@@ -503,8 +503,8 @@ export class FabWindow extends MicroPlugin {
   close(event: MouseEvent | KeyboardEvent) {
     // Manage close on espace
     if (event && event instanceof KeyboardEvent) {
-      if (event.key !== 'Escape') {
-        return;
+      if (event.key !== "Escape") {
+        return
       }
     }
 

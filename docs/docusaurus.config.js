@@ -104,8 +104,8 @@ const config = {
       footer: {
         style: "dark",
         logo: {
-          alt: 'FabWindow Logo',
-          src: 'img/logo_multi.svg',
+          alt: "FabWindow Logo",
+          src: "img/logo_multi.svg",
           width: 200,
           height: 120,
         },

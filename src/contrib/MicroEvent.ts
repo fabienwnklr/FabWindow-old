@@ -1,4 +1,4 @@
-import { FabWindow } from '../FabWindow';
+import { FabWindow } from "../FabWindow"
 /**
  * MicroEvent - to make any js object an event emitter
  *

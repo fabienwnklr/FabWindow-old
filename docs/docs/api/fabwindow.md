@@ -21,6 +21,7 @@ See : {@link modalDefaultOptions}
 - [show](#gear-show)
 - [hide](#gear-hide)
 - [toggleFullScreen](#gear-togglefullscreen)
+- [restore](#gear-restore)
 - [reduce](#gear-reduce)
 - [close](#gear-close)
 - [destroy](#gear-destroy)
@@ -55,6 +56,12 @@ See : {@link modalDefaultOptions}
 | ---------- | ---------- |
 | `toggleFullScreen` | `() => boolean` |
 
+#### :gear: restore
+
+| Method | Type |
+| ---------- | ---------- |
+| `restore` | `() => void` |
+
 #### :gear: reduce
 
 | Method | Type |
@@ -65,7 +72,7 @@ See : {@link modalDefaultOptions}
 
 | Method | Type |
 | ---------- | ---------- |
-| `close` | `() => void` |
+| `close` | `(event: MouseEvent or KeyboardEvent) => void` |
 
 #### :gear: destroy
 
