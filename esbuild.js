@@ -91,7 +91,7 @@ const buildDist = () => {
       entryPoints: ["src/FabWindow.ts"],
       bundle: true,
       minify: true,
-      outdir: `build/${format}`,
+      outdir: `dist/${format}`,
     })
       .then(result => {
         console.log(green("build dist for format " + format + " succeeded."))

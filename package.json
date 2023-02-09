@@ -1,7 +1,7 @@
 {
   "name": "@fabienwnklr/fabwindow",
   "version": "1.0.0",
-  "description": "Fabwindow is a simple window as modal or multiple with window manager",
+  "description": "Create simple or mutiple simply modal",
   "main": "src/",
   "type": "module",
   "scripts": {
@@ -24,6 +24,13 @@
   },
   "author": "Fabien Winkler",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fabienwnklr/FabWindow.git"
+  },
+  "files": [
+    "dist/*"
+  ],
   "devDependencies": {
     "@playwright/test": "^1.29.2",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
