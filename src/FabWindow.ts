@@ -534,5 +534,3 @@ export class FabWindow extends MicroPlugin {
     this.$el.remove()
   }
 }
-
-window.FabWindow = FabWindow

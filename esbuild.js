@@ -111,6 +111,7 @@ const buildDocs = () => {
     entryPoints: ["src/FabWindow.ts"],
     bundle: true,
     minify: false,
+    format: 'esm',
     outdir: "docs/static/assets/",
     watch: {
       onRebuild(error, result) {
