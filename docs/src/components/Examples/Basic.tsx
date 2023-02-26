@@ -2,7 +2,7 @@ import React from "react"
 import CodeBlock from "@theme/CodeBlock"
 // import Tabs from "@theme/Tabs"
 // import TabItem from "@theme/TabItem"
-import { FabWindow } from "../../../static/assets/FabWindow"
+import {FabWindow} from "../../../static/assets/FabWindow"
 
 export default function Basic() {
   const showModal = () => {

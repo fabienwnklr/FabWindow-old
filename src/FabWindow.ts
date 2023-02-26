@@ -1,11 +1,11 @@
 // Basic import
 import { isMobile } from "./helpers"
 import { modalDefaultOptions } from "./default"
-import { MicroPlugin } from "./contrib/MicroPlugin"
 // Types
 import type { ModalOptions } from "./types"
 // Utils
 import { FabWindowError } from "./contrib/FabWindowError"
+import { MicroEvent } from "./contrib/MicroEvent"
 import { validOptions } from "./helpers/index"
 // Style
 import "./style/fabwindow.css"
@@ -25,7 +25,7 @@ declare global {
  *
  * Instance of FabWindow
  */
-export class FabWindow extends MicroPlugin {
+export default class FabWindow extends MicroEvent {
   public options: ModalOptions
   /** @property Boolean called if modal is fullScreen or not */
   public isFullScreen: boolean
@@ -96,8 +96,8 @@ export class FabWindow extends MicroPlugin {
    * ```
    */
   constructor(options?: ModalOptions) {
-    super()
-
+    super();
+    
     if (!options || typeof options !== "object") {
       this.options = modalDefaultOptions
     } else {
@@ -131,7 +131,6 @@ export class FabWindow extends MicroPlugin {
     // this._buildStyle();
     this._initHandlers()
     this._setupCallbacks()
-    this.initializePlugins(this.options.plugins)
     this.show()
   }
 
